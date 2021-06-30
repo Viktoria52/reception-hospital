@@ -1,8 +1,7 @@
 
 const Reception = (props) => {
-    return(
-        <div>
-            reception
+    return(<div>
+
         </div>
     )
 

@@ -1,0 +1,10 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+}
+
+.link {
+    color: black;
+    text-decoration: none;
+}
