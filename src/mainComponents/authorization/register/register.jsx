@@ -47,6 +47,7 @@ const Register = (props) => {
                     {/*    <NavLink className={s.link} to='/login'>Авторизоваться</NavLink>*/}
                     {/*</div>*/}
                 </div>
+                <div></div>
             </form>
         </div>
     )
