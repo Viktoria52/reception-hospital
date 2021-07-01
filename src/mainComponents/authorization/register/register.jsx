@@ -5,10 +5,9 @@ import style from "./register.module.css";
 import {loginAuth} from "../../../state/auth";
 
 const Register = (props) => {
-    const [password1, changePassword1] = useState(null);
-    const [password2, changePassword2] = useState(null);
-    console.log(props)
-    console.log(password2, password1)
+    // const [password1, changePassword1] = useState(null);
+    // const [password2, changePassword2] = useState(null);
+    // console.log(password2, password1)
     const {register, handleSubmit} = useForm();
 
     const onSubmit = (formData) => {
@@ -26,7 +25,7 @@ const Register = (props) => {
                 <div className={style.password}>
                     <p>Password:</p>
                     <input
-                        onChange={(e)=>changePassword1(e.target.value)}
+
                            {...register("password")}
                         type={'password'}
                         placeholder={'password'}/>
@@ -34,7 +33,7 @@ const Register = (props) => {
                 <div className={style.password}>
                     <p>Repeat password</p>
                     <input
-                        onChange={(e) => changePassword2(e.target.value) }
+
                         {...register("repeatPassword")}
                         type={'repeatPassword'}
                         placeholder={'password'}/>
@@ -47,7 +46,7 @@ const Register = (props) => {
                     {/*    <NavLink className={s.link} to='/login'>Авторизоваться</NavLink>*/}
                     {/*</div>*/}
                 </div>
-                <div></div>
+
             </form>
         </div>
     )
