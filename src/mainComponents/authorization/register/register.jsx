@@ -25,7 +25,6 @@ const Register = (props) => {
                 <div className={style.password}>
                     <p>Password:</p>
                     <input
-
                            {...register("password")}
                         type={'password'}
                         placeholder={'password'}/>
