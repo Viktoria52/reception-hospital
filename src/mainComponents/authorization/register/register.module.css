@@ -1,0 +1,58 @@
+.mainLogin {
+    height: 453px;
+    width: 400px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    padding-top: 12px;
+    padding-left: 39px;
+}
+.registration{
+    font-family: inherit;
+    font-weight: 300;
+    size: 36px;
+}
+.login input {
+    padding: 5px;
+    border: 1px solid gray;
+    width: 321px;
+    height: 40px;
+    font-size: 21px;
+    box-sizing: border-box;
+}
+
+.password input {
+    /*margin-top: 47px;*/
+    padding: 5px;
+    width: 321px;
+    height: 40px;
+    border: 1px solid gray;
+    font-size: 21px;
+    box-sizing: border-box;
+}
+
+.button {
+    background-color: #ffffff;
+    height: 40px;
+    width: 195px;
+    /*outline: none;*/
+    border: 1px solid gray;
+    margin-top: 15px;
+    box-sizing: border-box;
+    /*margin-right: -10px;*/
+}
+
+input {
+    border-radius: 3px;
+}
+
+.link{
+    margin-top: 18px;
+    font-weight: 300;
+    font-size: 18px;
+}
+.containerAuth{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 321px;
+}

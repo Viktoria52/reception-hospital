@@ -17,8 +17,6 @@ const authReducer = (state = defaultState, action) => {
             return {
                 ...state
             }
-
-
         case
         ERROR_MESSAGE:
             return {
@@ -41,7 +39,7 @@ export const errorMessage = (error) => {
 export const loginAuth = (name, lastName, patronymic, password ) => (dispatch) => {
 
     authAPI.login(name, lastName, patronymic, password).then(data => {
-        if(data.resultCode === 200){
+        if(data.statusCode === 200){
             dispatch(setUser(name, lastName, patronymic, password));
         }
         // if (data.resultCode === 0) {
@@ -52,5 +50,12 @@ export const loginAuth = (name, lastName, patronymic, password ) => (dispatch) =
         //     dispatch(errorMessage(message))
         // }
     })}
+
+export const registerAuth = (name, lastName, patronymic, password ) => (dispatch) => {
+    authAPI.register(name, lastName, patronymic, password )
+        .then(response =>{
+
+    })
+}
 
 export default authReducer;

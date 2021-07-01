@@ -32,7 +32,7 @@ export const receptionAPI = {
             .then(response => response.data)
     },
     delete(id){
-        return instance.delete(`deleteReception`,{id})
+        return instance.delete(`deleteReception=`+id)
             .then(response => response.data)
     },
 }

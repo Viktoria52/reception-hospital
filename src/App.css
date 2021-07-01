@@ -1,8 +1,18 @@
 
-.App{
-  display: flex;
+.App {
+    /*display: flex;*/
+    /*background-color: #c7eaff;*/
+    background-color: rgba(199,234,255, 0.5);
+    height: 989px;
+
 }
 
+.App-header {
+    width: 100%;
+    background-color: #C5E9FF;
+    height: 117px;
+    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+}
 
 
 /*.App {*/
