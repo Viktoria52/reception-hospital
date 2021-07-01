@@ -3,7 +3,7 @@ import {useState} from "react";
 import Register from "./register/register";
 import style from "./containerAuth.module.css";
 import {connect, useSelector} from "react-redux";
-import {registerAuth} from "../../state/auth";
+import {passwordCreator, passwordRepeatCreator, registerAuth} from "../../state/auth";
 
 
 const ContainerAuthorization =(props) => {
@@ -16,7 +16,11 @@ const ContainerAuthorization =(props) => {
                 <p className={style.registration} onClick={()=>changeFlag(!flag)}> Зарегестрироваться </p>  </div>
             :
             <div>
-                <Register state={state} registerAuth={props.registerAuth}/>
+                <Register
+                    passwordRepeatCreator={props.passwordRepeatCreator}
+                    passwordCreator={props.passwordCreator}
+                    state={state}
+                    registerAuth={props.registerAuth}/>
                 <p  className={style.authorization} onClick={()=>changeFlag(!flag)}> Авторизоваться</p>
             </div>
         }
@@ -24,5 +28,5 @@ const ContainerAuthorization =(props) => {
 }
 
 // export default compose()
-export default connect(null, {registerAuth})(ContainerAuthorization)
+export default connect(null, {registerAuth,passwordCreator, passwordRepeatCreator})(ContainerAuthorization)
 // export default ContainerAuthorization
