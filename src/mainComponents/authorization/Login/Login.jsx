@@ -1,9 +1,8 @@
 import {useForm} from "react-hook-form";
 import style from "./login.module.css"
-import {NavLink} from "react-router-dom";
-import s from "../../nav/nav.module.css";
-import {loginAuth} from "../../../state/auth";
-import {connect} from "react-redux";
+// import {NavLink} from "react-router-dom";
+// import {loginAuth} from "../../../state/auth";
+// import {connect} from "react-redux";
 
 const Login = (props) => {
     console.log(props)

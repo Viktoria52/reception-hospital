@@ -4,9 +4,7 @@ const SET_USER = 'AUTH/SET_USER'
 const ERROR_MESSAGE = 'AUTH/ERROR_MESSAGE'
 
 let defaultState = {
-    name: null,
-    lastName: null,
-    patronymic: null,
+    login: null,
     password: null,
     error: null
 }
@@ -15,7 +13,8 @@ const authReducer = (state = defaultState, action) => {
     switch (action.type) {
         case SET_USER:
             return {
-                ...state
+                ...state,
+             login:action.login
             }
         case
         ERROR_MESSAGE:
@@ -28,32 +27,36 @@ const authReducer = (state = defaultState, action) => {
     }
 }
 
-export const setUser = (name, lastName, patronymic, password) => {
-    return {type: SET_USER, payload: {name, lastName, patronymic, password}}
+export const setUser = (login, password) => {
+    return {type: SET_USER, payload: {login, password}}
 }
 export const errorMessage = (error) => {
     return {type: ERROR_MESSAGE, payload: {error}}
 }
 
 
-export const loginAuth = (name, lastName, patronymic, password ) => (dispatch) => {
+export const loginAuth = (login, password ) => (dispatch) => {
 
-    authAPI.login(name, lastName, patronymic, password).then(data => {
+    authAPI.login(login, password).then(data => {
         if(data.statusCode === 200){
-            dispatch(setUser(name, lastName, patronymic, password));
+            dispatch(setUser(login, password));
         }
         // if (data.resultCode === 0) {
         //
         // } else {
-        //     let message = data.messages.length>0 ? 'Enter valid email or password' : 'error';
+        //     let message = data.error >0 ? 'Enter valid email or password' : 'error';
         //     console.log(message);
         //     dispatch(errorMessage(message))
         // }
     })}
 
-export const registerAuth = (name, lastName, patronymic, password ) => (dispatch) => {
-    authAPI.register(name, lastName, patronymic, password )
+export const registerAuth = (login, password ) => (dispatch) => {
+    authAPI.register(login, password )
         .then(response =>{
+            if(response.statusCode === 200){
+                console.log('ok!')
+            }
+            console.log(response)
 
     })
 }
