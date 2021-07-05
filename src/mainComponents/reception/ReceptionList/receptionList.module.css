@@ -1,0 +1,88 @@
+.main{
+    display: flex;
+    font-size: 18px;
+    justify-content: space-between;
+    background-color: #FFFFFF;
+    /* margin-top: 20px; */
+    /* margin-top: 5px; */
+    /* align-items: self-start;     */
+    /* border: 1px solid black; */
+
+}
+
+.border{
+    border-right: 1px solid black;
+    /* border-left: 1px solid black; */
+    width: 241px;
+    box-sizing: border-box;
+    padding: 7px;
+
+}
+
+.doc{
+    width: 231px;
+    border-radius: 1px black solid;
+    padding: 7px;
+
+}
+.date{
+    width: 162px;
+    /* padding: 7px; */
+    padding: 11px 18px 5px 30px;
+    border-right: 1px solid black;
+    border-left: 1px solid black;
+    box-sizing: border-box;
+
+}
+.complaints{
+    width: 202px;
+    padding: 7px;
+    border-right: 1px solid black;
+
+}
+.buttons{
+    display: flex;
+    width: 105px;
+    align-items: center;    
+    /* height: 20px; */
+}
+.delete{
+    background-image: url("../../../assets/delete.svg");
+    width: 14px;
+    height: 18px;
+}
+.edit{
+    background-image: url("../../../assets/edit.svg");
+    width: 18px;
+    margin-left: 10px;
+    height: 18px;
+}
+
+.receptionMain{
+    width: 1200px;
+    /* padding: 10px; */
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+
+    
+}
+.list{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    list-style-type: none;
+    background-color: #C4C4C4;
+    padding: 15px 30px 15px 30px;
+    margin-bottom: 0px;
+   
+}
+.list li{
+    font-size: 18px;
+    /* padding: 10px; */
+    box-sizing: border-box;
+}
+
+.elements{
+    border: 1px solid black;
+}
