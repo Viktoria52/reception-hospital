@@ -14,7 +14,6 @@ let defaultState = {
 }
 
 const authReducer = (state = defaultState, action) => {
-    console.log(state)
     switch (action.type) {
         case SET_USER:
             return {
@@ -29,18 +28,18 @@ const authReducer = (state = defaultState, action) => {
             }
         case
         PASSWORD_TEXT:
-            console.log(state.passwordText,state.passwordTextRepeat )
+            console.log(state.passwordText, state.passwordTextRepeat)
             return {
                 ...state,
                 passwordText: action.text
             }
-            case
-                PASSWORD_TEXT_REPEAT:
-                console.log(state.passwordText)
-                return {
-                    ...state,
-                    passwordTextRepeat: action.text
-                }
+        case
+        PASSWORD_TEXT_REPEAT:
+            console.log(state.passwordText)
+            return {
+                ...state,
+                passwordTextRepeat: action.text
+            }
         default:
             return state
 

@@ -10,7 +10,6 @@ let defaultState = {
     patronymicDoc: null,
     date: null,
     complaints: null,
-
     error: null
 }
 const receptionReducer = (state = defaultState, action) => {

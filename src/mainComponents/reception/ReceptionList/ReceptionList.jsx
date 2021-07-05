@@ -1,5 +1,7 @@
+import React from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
+import {getDocs} from "../../../state/doc";
 
 
 let temporaryArray = [
@@ -24,20 +26,28 @@ let elements = temporaryArray.map(p => <Post key='elems'
     date={p.date}
     complaints={p.complaints} />)
 
-const ReceptionList = (props) => {
-    return (<div className={style.receptionMain}>
-        <ul className={style.list}>
-            <li>Имя</li>
-            <li> Врач </li>
-            <li>Дата</li>
-            <li>Жалобы</li>
-        </ul>
-        <div className={style.elements} key='heapElems'>
-            {elements}
+class ReceptionList extends React.Component {
 
-        </div>
-    </div>
-    )
+    componentDidMount() {
+        this.props.getDocs()
+    }
+    render(){
+        console.log(this.props)
+        return (<div className={style.receptionMain}>
+                <ul className={style.list}>
+                    <li>Имя</li>
+                    <li> Врач </li>
+                    <li>Дата</li>
+                    <li>Жалобы</li>
+                </ul>
+                <div className={style.elements} key='heapElems'>
+                    {elements}
+
+                </div>
+            </div>
+        )
+    }
+
 
 }
 

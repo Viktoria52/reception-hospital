@@ -10,8 +10,9 @@ let defaultState = {
 const docReducer = (state = defaultState, action) => {
     switch (action.type) {
         case GET_DOCS:
+            console.log(state.docs)
             return {
-                ...state, docs: action.item
+                ...state, docs: action.nameDoc
             }
 
         default:
@@ -29,10 +30,9 @@ export const setDocs = (nameDoc) => {
 
 export const getDocs = () => {
     return (dispatch) => {
-
         docsAPI.getDocs().then(data => {
             console.log(data)
-            dispatch(setDocs(data.items));
+            dispatch(setDocs(data.name));
 
         })
     }

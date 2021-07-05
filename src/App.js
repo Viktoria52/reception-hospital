@@ -3,31 +3,35 @@ import {Route,Switch } from 'react-router-dom'
 import Reception from "./mainComponents/reception/Reception";
 import NewReception from "./mainComponents/newReception/NewReception";
 import ContainerAuthorization from "./mainComponents/authorization/containerAuthorization";
+import EditWindow from "./mainComponents/reception/editReception/EditWindow";
 
 function App() {
 
   return (
     <div className="App">
-            <header className="App-header">
+        <header className="App-header">
+            <Route path="/reception">
+                Приемы
+            </Route>
+        </header>
+        <div>
+            {/*<EditWindow />*/}
+        </div>
+        <main>
+            <Switch>
 
-            </header>
-         <main>
-             <ContainerAuthorization />
-             <Switch>
-                 {/*<Route path="/login">*/}
-                 {/*    <Login />*/}
-                 {/*</Route>*/}
-                 {/*<Route path="/registration">*/}
-                 {/*    <Register />*/}
-                 {/*</Route>*/}
-                 <Route path="/reception">
-                     <Reception />
-                 </Route>
-                 <Route path="/newReception">
-                     <NewReception />
-                 </Route>
-             </Switch>
-         </main>
+
+                <Route path="/reception">
+                    <Reception />
+                </Route>
+                <Route path="/newReception">
+                    <NewReception />
+                </Route>
+                <Route path='/'>
+                    <ContainerAuthorization />
+                </Route>
+            </Switch>
+        </main>
 
     </div>
   );

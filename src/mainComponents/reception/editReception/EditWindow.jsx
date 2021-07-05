@@ -1,6 +1,6 @@
 import s from './edit.module.css'
 import { useForm } from "react-hook-form";
-import Docs from '../../../common/docs';
+// import Docs from '../../../common/docs';
 
 
 const EditWindow = (props) => {
@@ -16,7 +16,7 @@ const EditWindow = (props) => {
                     <input className={s.inputs} type="text" />
                 </div>
                 <div>Врач:
-                    <Docs /> 
+                    {/*<Docs /> */}
                 </div>
                 <div>Дата
                     <input className={s.inputs} type="date" />

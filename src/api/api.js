@@ -19,6 +19,13 @@ export const authAPI = {
     }
 }
 
+export const docsAPI = {
+    getDocs(){
+        return instance.get('getDocs')
+            .then(response => response.data)
+    }
+}
+
 export const receptionAPI = {
     getAll() {
         return instance.get(`getAllReception`, {})
