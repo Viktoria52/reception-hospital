@@ -13,7 +13,8 @@ let defaultState = {
     nameDoc: null,
     date: null,
     complaints: null,
-    error: null
+    error: null,
+    preloader: false
 }
 const receptionReducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -26,7 +27,7 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 reception: action.payload.rec
             }
-            case DELETE_RECEPTION:
+        case DELETE_RECEPTION:
             return {
                 ...state,
 
@@ -68,21 +69,22 @@ export const getReceptions = () => {
 }
 
 export const newReception = (name, nameDoc, date, complaints) => {
-    return(dispatch) => {
-        receptionAPI.add(name, nameDoc, date, complaints).then(data =>{
+    return (dispatch) => {
+        defaultState.preloader = true
+        receptionAPI.add(name, nameDoc, date, complaints).then(data => {
+            defaultState.preloader = false
             dispatch(addReceptionCreator(data.data))
         })
     }
 }
 
 export const changeReception = (name, nameDoc, date, complaints) => {
-    return(dispatch) => {
+    return (dispatch) => {
         receptionAPI.change().then(date => {
 
         })
     }
 }
-
 
 
 export default receptionReducer;

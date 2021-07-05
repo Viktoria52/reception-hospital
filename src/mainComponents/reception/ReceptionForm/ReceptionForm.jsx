@@ -1,16 +1,18 @@
 import { useForm } from "react-hook-form";
 import style from "../reception.module.css"
-import {addReceptionCreator} from "../../../state/reception";
 
 
 // let elementsDoctors = doctors.map(p => <option>{p}</option>)
 
 const ReceptionForm = (props) => {
     let docs = props.docs.docReducer.docs;
+    console.log(docs)
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
     const onSubmit = (formData) => {
-        props.addReceptionCreator(formData.name,formData.nameDoc, formData.date, formData.complaints)
+        // props.addReceptionCreator(formData.name,formData.nameDoc, formData.date, formData.complaints)
+        props.newReception(formData.name,formData.nameDoc, formData.date, formData.complaints)
     };
+
     const { register, handleSubmit } = useForm();
     return (<div className={style.line}>
 

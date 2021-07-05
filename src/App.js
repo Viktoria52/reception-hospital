@@ -1,7 +1,6 @@
 import './App.css';
 import {Route,Switch } from 'react-router-dom'
 import Reception from "./mainComponents/reception/Reception";
-import NewReception from "./mainComponents/newReception/NewReception";
 import ContainerAuthorization from "./mainComponents/authorization/containerAuthorization";
 import EditWindow from "./mainComponents/reception/editReception/EditWindow";
 
@@ -24,9 +23,7 @@ function App() {
                 <Route path="/reception">
                     <Reception />
                 </Route>
-                <Route path="/newReception">
-                    <NewReception />
-                </Route>
+
                 <Route path='/'>
                     <ContainerAuthorization />
                 </Route>

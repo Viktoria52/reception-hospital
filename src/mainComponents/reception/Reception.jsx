@@ -14,6 +14,7 @@ const Reception = (props) => {
                 changeReception={props.changeReception}
                 newReception={props.newReception}
                 addReceptionCreator={props.addReceptionCreator}
+                newReception={props.newReception}
             /></header>
 
 
