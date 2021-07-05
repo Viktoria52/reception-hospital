@@ -1,19 +1,15 @@
 import { useForm } from "react-hook-form";
 import style from "../reception.module.css"
+import {addReceptionCreator} from "../../../state/reception";
 
 
-// let doctors = ["Андреев Андрей Андреевич",
-//     "Семенов Илья Петрович",
-//     "Пономарева Ксения Павловна",
-//     "Елисеева Василиса Денисовна",
-//     ]
 // let elementsDoctors = doctors.map(p => <option>{p}</option>)
 
-
-
 const ReceptionForm = (props) => {
+    let docs = props.docs.docReducer.docs;
+    let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
     const onSubmit = (formData) => {
-
+        props.addReceptionCreator(formData.name,formData.nameDoc, formData.date, formData.complaints)
     };
     const { register, handleSubmit } = useForm();
     return (<div className={style.line}>
@@ -30,10 +26,10 @@ const ReceptionForm = (props) => {
                 <p>Врач:</p>
                 <select
                     className={style.doctors}
-                    {...register("doctor")}
+                    {...register("nameDoc")}
                     type="text" >
                     <option></option>
-                    {/*{elementsDoctors}*/}
+                    {elementsDoctors}
                 </select>
             </div>
             <div>

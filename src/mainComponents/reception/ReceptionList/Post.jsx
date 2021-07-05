@@ -5,7 +5,7 @@ const Post = (props) => {
     return (
         <div className={style.main}>
             <div className={style.border}> {props.name}</div>
-            <div className={style.doc}> {props.doc} </div>
+            <div className={style.doc}> {props.nameDoc} </div>
             <div className={style.date}>{props.date}</div>
             <div className={style.complaints}>{props.complaints}</div>
             <div className={style.buttons}>

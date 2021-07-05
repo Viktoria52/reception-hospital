@@ -2,9 +2,9 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: "http://localhost:3000/",
-    // headers:{
-    //     "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZGMxYTRhYjdlNWY4MmQ5MjhhNWRjMyIsImlhdCI6MTYyNTAzNzM5NywiZXhwIjoxNjI1MTIzNzk3fQ.JWgIWxxgk1AP7Iwbp6FSpTbaPumb9tg8r9bJgKETgLs"
-    // }
+    headers:{
+        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZGQ4OTA3ZTQ3ZDhhMjc0Y2ZlOTZjMCIsImlhdCI6MTYyNTQ3NjcxMCwiZXhwIjoxNjI1NTYzMTEwfQ.nIuSAHmg8oNZumkeYLhGUitWKPixQqjETBoj1AkaFbM"
+    }
 })
 
 export const authAPI = {
@@ -31,34 +31,26 @@ export const receptionAPI = {
         return instance.get(`getAllReception`, {})
             .then(response => response.data)
     },
-    add(name, lastName, patronymic, nameDoc, lastNameDoc, patronymicDoc, date, complaints) {
+    add(name, nameDoc, date, complaints) {
         return instance.put(`addReception`, {
             name,
-            lastName,
-            patronymic,
             nameDoc,
-            lastNameDoc,
-            patronymicDoc,
             date,
             complaints
         })
             .then(response => response.data)
     },
-    change(name, lastName, patronymic, nameDoc, lastNameDoc, patronymicDoc, date, complaints) {
+    change(name,nameDoc, date, complaints) {
         return instance.patch(`changeReception`, {
             name,
-            lastName,
-            patronymic,
             nameDoc,
-            lastNameDoc,
-            patronymicDoc,
             date,
             complaints
         })
             .then(response => response.data)
     },
     delete(id) {
-        return instance.delete(`deleteReception=` + id)
+        return instance.delete(`deleteReception${id}` )
             .then(response => response.data)
     },
 }

@@ -6,33 +6,28 @@ let defaultState = {
     docs: []
 }
 
-
 const docReducer = (state = defaultState, action) => {
     switch (action.type) {
         case GET_DOCS:
-            console.log(state.docs)
             return {
-                ...state, docs: action.nameDoc
+                ...state,
+                docs: action.payload.nameDoc,
             }
-
         default:
             return state
-
     }
 }
 
 export const setDocs = (nameDoc) => {
     return {
-        type: GET_DOCS,
-        payload: {nameDoc}
+        type: GET_DOCS, payload: {nameDoc}
     }
 }
 
 export const getDocs = () => {
     return (dispatch) => {
         docsAPI.getDocs().then(data => {
-            console.log(data)
-            dispatch(setDocs(data.name));
+            dispatch(setDocs(data.data));
 
         })
     }

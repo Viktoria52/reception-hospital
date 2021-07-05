@@ -1,9 +1,13 @@
 import {  applyMiddleware, combineReducers, compose, createStore  } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './auth'
+import receptionReducer from "./reception";
+import docReducer from "./doc";
 
 const reducer = combineReducers({
-    authReducer
+    authReducer,
+    docReducer,
+    receptionReducer
 })
 
 const composeEnhancers = compose;
