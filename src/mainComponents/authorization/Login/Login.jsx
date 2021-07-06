@@ -5,13 +5,11 @@ import style from "./login.module.css"
 // import {connect} from "react-redux";
 
 const Login = (props) => {
-    console.log(props)
     const onSubmit = (formData) => {
-        // props.loginAuth(formData.login, formData.password)
+        props.loginAuth(formData.login, formData.password)
         console.log(formData)
     };
     const {register, handleSubmit} = useForm();
-
     return (<div className={style.mainLogin}>
             <h1 className={style.logIn}>Войти в систему </h1>
             <form onSubmit={handleSubmit(onSubmit)}>

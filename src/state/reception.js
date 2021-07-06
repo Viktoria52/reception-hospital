@@ -102,6 +102,8 @@ export const changeReception = (name, nameDoc, date, complaints) => {
 export const deleteReception = (id) => {
     return async dispatch => {
         let response = await receptionAPI.delete(id)
+        console.log(response.statusCode )
+
     }
 }
 

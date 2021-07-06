@@ -2,33 +2,36 @@ import axios from "axios";
 
 const instance = axios.create({
     baseURL: "http://localhost:3000/",
-    headers:{
-        "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZGQ4OTA3ZTQ3ZDhhMjc0Y2ZlOTZjMCIsImlhdCI6MTYyNTQ3NjcxMCwiZXhwIjoxNjI1NTYzMTEwfQ.nIuSAHmg8oNZumkeYLhGUitWKPixQqjETBoj1AkaFbM"
-    }
 })
 
+let token = ''
+let token1 = localStorage.getItem('token')
+
 export const authAPI = {
-    login(login, password) {
-        return instance.post(`login`, {login, password})
+    login(login, password, token) {
+        return instance.post(`login`, {login, password},)
             .then(response => response.data)
+            .then(response => token = response.token)
+            .then(response => localStorage.setItem('token', token))
     },
     register(login, password) {
         return instance.post(`register`, {login, password},
             {headers: {"Content-type": "application/json"}})
             .then(response => response.data)
+
     }
 }
 
 export const docsAPI = {
     getDocs(){
-        return instance.get('getDocs')
+        return instance.get('getDocs', {headers: { Authorization: token1 }})
             .then(response => response.data)
     }
 }
 
 export const receptionAPI = {
     getAll() {
-        return instance.get(`getAllReception`, {})
+        return instance.get(`getAllReception`, {headers: { Authorization: token1 }})
             .then(response => response.data)
     },
     add(name, nameDoc, date, complaints) {
@@ -37,7 +40,7 @@ export const receptionAPI = {
             nameDoc,
             date,
             complaints
-        })
+        }, {headers: { Authorization: `${token1}` }})
             .then(response => response.data)
     },
     change(name,nameDoc, date, complaints) {
@@ -46,12 +49,12 @@ export const receptionAPI = {
             nameDoc,
             date,
             complaints
-        })
+        }, {headers: { Authorization: `${token1}` }})
             .then(response => response.data)
     },
     delete(id) {
         console.log(id)
-        return instance.delete(`deleteReception?id=` + id )
+        return instance.delete(`deleteReception?id=` + id, {headers: { Authorization: `${token1}` }})
             .then(response => response.data)
     },
 }

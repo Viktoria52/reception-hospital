@@ -4,13 +4,15 @@ const SET_USER = 'AUTH/SET_USER'
 const ERROR_MESSAGE = 'AUTH/ERROR_MESSAGE'
 const PASSWORD_TEXT = 'AUTH/PASSWORD_TEXT'
 const PASSWORD_TEXT_REPEAT = 'AUTH/PASSWORD_TEXT_REPEAT'
+// const SET_TOKEN = 'AUTH/SET_TOKEN'
 
 let defaultState = {
     login: null,
     password: null,
     error: null,
     passwordText: null,
-    passwordTextRepeat: null
+    passwordTextRepeat: null,
+    // token: null
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -35,11 +37,17 @@ const authReducer = (state = defaultState, action) => {
             }
         case
         PASSWORD_TEXT_REPEAT:
-            console.log(state.passwordText)
             return {
                 ...state,
                 passwordTextRepeat: action.text
             }
+        // case
+        // SET_TOKEN:
+        //     console.log(state.token)
+        //     return {
+        //         ...state,
+        //         token: action.payload.tokenText
+        //     }
         default:
             return state
 
@@ -58,14 +66,18 @@ export const passwordCreator = (text) => {
 export const passwordRepeatCreator = (text) => {
     return {type: PASSWORD_TEXT_REPEAT, payload: text}
 }
+// export const setToken = (tokenText) => {
+//     return {type: SET_TOKEN, payload: {tokenText}}
+// }
 
 
 export const loginAuth = (login, password) => (dispatch) => {
 
     authAPI.login(login, password).then(data => {
-        if (data.statusCode === 200) {
-            dispatch(setUser(login, password));
-        }
+        console.log(data)
+        // if (data.statusCode === 200) {
+        //     dispatch(setToken(data.token))
+        // }
         // if (data.resultCode === 0) {
         //
         // } else {
