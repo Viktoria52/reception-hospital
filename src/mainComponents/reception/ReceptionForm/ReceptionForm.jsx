@@ -22,6 +22,7 @@ const ReceptionForm = (props) => {
             <div>
                 <p>Имя:</p>
                 <input
+                    className={style.someButton}
                     {...register("name")}
                     type="text" />
             </div>
@@ -38,12 +39,14 @@ const ReceptionForm = (props) => {
             <div>
                 <p>Дата:</p>
                 <input
+                    className={style.someButton}
                     {...register("date")}
                     type="date" />
             </div>
             <div>
                 <p>Жалобы:</p>
                 <input
+                    className={style.someButton}
                     {...register("complaints")}
                     type="text" />
             </div>

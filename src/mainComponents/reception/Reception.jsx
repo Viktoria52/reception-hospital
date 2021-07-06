@@ -4,9 +4,9 @@ import {connect, useSelector} from "react-redux";
 import docReducer, {getDocs} from "../../state/doc";
 import {
     addReceptionCreator,
-    changeReception,
+    changeReception, changeReceptionAC,
     deleteReception,
-    getReceptions,
+    getReceptions, idEditReception,
     newReception
 } from "../../state/reception";
 
@@ -20,15 +20,17 @@ const Reception = (props) => {
                 changeReception={props.changeReception}
                 newReception={props.newReception}
                 addReceptionCreator={props.addReceptionCreator}
-                newReception={props.newReception}
+
             /></header>
 
 
             <main><ReceptionList
+                idEditReception={props.idEditReception}
                 docs = {state}
                 getDocs = {props.getDocs}
                 getReceptions = {props.getReceptions}
                 deleteReception={props.deleteReception}
+                changeReceptionAC={props.changeReceptionAC}
 
             /></main>
         </div>
@@ -37,4 +39,7 @@ const Reception = (props) => {
 }
 
 
-export default connect(null, {getDocs,getReceptions, changeReception,newReception, deleteReception})(Reception);
+export default connect(null, {getDocs,getReceptions,
+    changeReception,newReception,
+    deleteReception,idEditReception,
+    changeReceptionAC})(Reception);

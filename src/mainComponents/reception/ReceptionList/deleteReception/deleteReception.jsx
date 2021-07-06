@@ -1,20 +1,18 @@
+import s from './deleteReception.module.css'
 
-
-const Post = (props) => {
+const DeleteReception = (props) => {
 
     return (
-        <div >
-            <div>Удалить прием</div>
-            <div>Вы действительно хотите удалить прием</div>
-            <div>
-                <button>Cancel</button>
-                <button>Delete</button>
+        <div className={s.main}>
+            <div className={s.delete}>Удалить прием </div>
+            <div className={s.caption}>Вы действительно хотите удалить прием ?</div>
+            <div className={s.buttons}>
+                <button className={s.cancel}>Cancel</button>
+                <button className={s.deleteButton}>Delete</button>
             </div>
-
-
         </div>
     )
 }
 
 
-export default Post
+export default DeleteReception
