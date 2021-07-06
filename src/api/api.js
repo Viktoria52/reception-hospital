@@ -50,7 +50,8 @@ export const receptionAPI = {
             .then(response => response.data)
     },
     delete(id) {
-        return instance.delete(`deleteReception${id}` )
+        console.log(id)
+        return instance.delete(`deleteReception?id=` + id )
             .then(response => response.data)
     },
 }

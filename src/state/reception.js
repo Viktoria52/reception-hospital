@@ -14,7 +14,8 @@ let defaultState = {
     date: null,
     complaints: null,
     error: null,
-    preloader: false
+    preloader: false,
+
 }
 const receptionReducer = (state = defaultState, action) => {
     switch (action.type) {
@@ -60,11 +61,23 @@ export const changeReceptionAC = (name, nameDoc, date, complaints) => {
 }
 
 
+// export const getReceptions = () => {
+//     return (dispatch) => {
+//         // defaultState.preloader = true
+//         receptionAPI.getAll().then(data => {
+//             defaultState.preloader = false
+//             dispatch(setReception(data.data));
+//
+//         })
+//     }
+// }
 export const getReceptions = () => {
-    return (dispatch) => {
-        receptionAPI.getAll().then(data => {
-            dispatch(setReception(data.data));
-        })
+    return async dispatch => {
+        // defaultState.preloader = true
+        let response = await receptionAPI.getAll()
+        console.log(response.data)
+        // defaultState.preloader = false
+        dispatch(setReception(response.data));
     }
 }
 
@@ -83,6 +96,12 @@ export const changeReception = (name, nameDoc, date, complaints) => {
         receptionAPI.change().then(date => {
 
         })
+    }
+}
+
+export const deleteReception = (id) => {
+    return async dispatch => {
+        let response = await receptionAPI.delete(id)
     }
 }
 

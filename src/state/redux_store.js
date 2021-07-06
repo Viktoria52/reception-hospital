@@ -3,11 +3,13 @@ import thunk from 'redux-thunk';
 import authReducer from './auth'
 import receptionReducer from "./reception";
 import docReducer from "./doc";
+import appReducer from "./initial";
 
 const reducer = combineReducers({
     authReducer,
     docReducer,
-    receptionReducer
+    receptionReducer,
+    appReducer
 })
 
 const composeEnhancers = compose;

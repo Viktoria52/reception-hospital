@@ -5,9 +5,10 @@ import style from "../reception.module.css"
 // let elementsDoctors = doctors.map(p => <option>{p}</option>)
 
 const ReceptionForm = (props) => {
-    let docs = props.docs.docReducer.docs;
-    console.log(docs)
+    let docs = props.docs.docReducer.docs || [];
+
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
+
     const onSubmit = (formData) => {
         // props.addReceptionCreator(formData.name,formData.nameDoc, formData.date, formData.complaints)
         props.newReception(formData.name,formData.nameDoc, formData.date, formData.complaints)

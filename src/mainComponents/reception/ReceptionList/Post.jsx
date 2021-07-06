@@ -2,6 +2,11 @@ import style from "./receptionList.module.css"
 
 
 const Post = (props) => {
+    // console.log(props.id)
+    const id = props.id
+    // console.log(id)
+
+    console.log(props.id)
     return (
         <div className={style.main}>
             <div className={style.border}> {props.name}</div>
@@ -9,8 +14,13 @@ const Post = (props) => {
             <div className={style.date}>{props.date}</div>
             <div className={style.complaints}>{props.complaints}</div>
             <div className={style.buttons}>
-                <div className={style.delete}></div>
-                <div className={style.edit}></div>
+                <div
+                    onClick={() => {
+                        // console.log(props.id)
+                        props.deleteReception(props.id)
+                }}
+                     className={style.delete}/>
+                <div className={style.edit}/>
             </div>
         </div>
     )

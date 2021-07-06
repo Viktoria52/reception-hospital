@@ -2,7 +2,13 @@ import ReceptionForm from "./ReceptionForm/ReceptionForm";
 import ReceptionList from "./ReceptionList/ReceptionList";
 import {connect, useSelector} from "react-redux";
 import docReducer, {getDocs} from "../../state/doc";
-import {addReceptionCreator, changeReception, getReceptions, newReception} from "../../state/reception";
+import {
+    addReceptionCreator,
+    changeReception,
+    deleteReception,
+    getReceptions,
+    newReception
+} from "../../state/reception";
 
 
 const Reception = (props) => {
@@ -22,6 +28,7 @@ const Reception = (props) => {
                 docs = {state}
                 getDocs = {props.getDocs}
                 getReceptions = {props.getReceptions}
+                deleteReception={props.deleteReception}
 
             /></main>
         </div>
@@ -30,4 +37,4 @@ const Reception = (props) => {
 }
 
 
-export default connect(null, {getDocs,getReceptions, changeReception,newReception})(Reception);
+export default connect(null, {getDocs,getReceptions, changeReception,newReception, deleteReception})(Reception);

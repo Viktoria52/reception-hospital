@@ -1,9 +1,12 @@
-
+import s from './Preloader.module.css'
 
 const Preloader =( ) => {
     return(
-        <div>
-            <img src="preloader.gif" alt=""/>
+        <div className={s.main}>
+            {/*<img src="preloader.gif" alt="preloader" />*/}
+
         </div>
     )
 }
+
+export default Preloader

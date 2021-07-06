@@ -3,7 +3,7 @@ import Post from "./Post"
 import style from "./receptionList.module.css"
 import {getDocs} from "../../../state/doc";
 import {loginAuth} from "../../../state/auth";
-import {getReceptions} from "../../../state/reception";
+import {deleteReception, getReceptions} from "../../../state/reception";
 
 
 // let temporaryArray = [
@@ -33,7 +33,6 @@ import {getReceptions} from "../../../state/reception";
 //  complaints={p.complaints}/>)
 
 class ReceptionList extends React.Component {
-
     componentDidMount() {
         this.props.getDocs()
         this.props.getReceptions()
@@ -41,7 +40,9 @@ class ReceptionList extends React.Component {
 
     render() {
         let reception = this.props.docs.receptionReducer.reception
-        let elementsReception = reception.map(p => <Post key={p._id}
+        let elementsReception = reception.map(p => <Post id={p._id}
+          deleteReception={this.props.deleteReception}
+              key={p._id}
              name={p.name}
             nameDoc={p.nameDoc}
             date={p.date}
