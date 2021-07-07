@@ -10,11 +10,10 @@ import {
     newReception
 } from "../../state/reception";
 import {useEffect, useState} from "react";
-import {sortValueAC} from "../../state/sort";
+import {sortValueAC, triage} from "../../state/sort";
 
 
 const Reception = (props) => {
-    // console.log(props)
     // console.log(props.state.receptionReducer.reception)
     // console.log(props.state.receptionReducer.reception)
     const [reception, newRec] = useState(props.state.receptionReducer.reception);
@@ -23,7 +22,7 @@ const Reception = (props) => {
     }, [props.state.receptionReducer.reception])
 
     const state = useSelector((state) => state)
-    console.log(state)
+
     return (<div>
             <header><ReceptionForm
                 docs = {state}
@@ -31,11 +30,12 @@ const Reception = (props) => {
                 changeReception={props.changeReception}
                 newReception={props.newReception}
                 addReceptionCreator={props.addReceptionCreator}
-
             /></header>
 
-
             <main><ReceptionList
+                valueSorting = {state.sortValue.valueSorting}
+                valueOption = {state.sortValue.valueOption}
+                triage={props.triage}
                 sortValueAC={props.sortValueAC}
                 reception ={reception}
                 deleteReceptionAC={props.deleteReceptionAC}
@@ -53,10 +53,12 @@ const Reception = (props) => {
 }
 
 let mapStateToProps = (state) => ({
-        state: state
+        state: state,
+    // valueOption: state.sortReducer.
 })
 
 export default connect(mapStateToProps, {getDocs,getReceptions,
     changeReception,newReception,
     deleteReception,idEditReception,
-    changeReceptionAC,deleteReceptionAC,sortValueAC})(Reception);
+    changeReceptionAC,deleteReceptionAC,
+    sortValueAC,triage})(Reception);
