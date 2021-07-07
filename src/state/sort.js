@@ -1,35 +1,25 @@
 import {getDocs} from "./doc";
 import {getReceptions} from "./reception";
 
-const INITIALIZED = 'INITIALIZED';
+const SORT_VALUE = 'SORT/SORT_VALUE';
 
 let InitialState = {
-    initial: false,
+    valueOption: '',
 }
-const appReducer = (state = InitialState, action) => {
+const sortReducer = (state = InitialState, action) => {
     switch (action.type) {
-        case INITIALIZED:
+        case SORT_VALUE:
             return {
                 ...state,
-                initial:action.init
-
+                valueOption:action.value
             };
         default: return state;
-    };
-}
-export const InitializedSuccess = (init) => { return { type: INITIALIZED, init:init } }
-
-
-export const Initialize = () => (dispatch) => {
-    let promise = dispatch(getDocs(), getReceptions())
-
-    Promise.all([promise])
-        .then(() => {
-                dispatch(InitializedSuccess(true))
-            }
-        )
+    }
 }
 
-export default appReducer;
+export const sortValueAC = (value) => {
+    console.log('value', value)
+    return { type: SORT_VALUE, value:value } }
 
+export default sortReducer
 

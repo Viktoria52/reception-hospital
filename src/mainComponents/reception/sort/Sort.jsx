@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
+import {sortValue} from "../../../state/sort";
+
 const Moment = require('moment')
 
 
@@ -12,53 +14,56 @@ const Sort = (props) => {
     const [flag, setFlag] = useState(false)
     const [flagDate, setFlagDate] = useState(false)
     const onSubmit = (formData) => {
-
+        console.log(formData)
     };
-    console.log(flag)
-    const { register, handleSubmit } = useForm();
-    return(
+
+    async function handleChange  (e){
+        let text = await e.target.value
+        props.sortValueAC(text)
+    }
+
+    const {register, handleSubmit} = useForm();
+    return (
         <div>
-            <form>
-
-
-            <div>
-                <p>Сортировать по</p>
-                <select>
-                    <option value=""> </option>
-                    <option onClick={()=>{setFlag(true)}} value="1">Имя</option>
-                    <option onClick={()=>{setFlag(!flag)}} value="2">Врач</option>
-                    <option onClick={()=>{setFlagDate(!flagDate)}} value="3">Дата</option>
-                    <option value="">None</option>
-                </select>
-            </div>
-            {flag ?
-               <div>
-                   <select name="" id="">
-                       <option value="">По возрастанию</option>
-                       <option value="">По убыванию </option>
-                   </select>
-               </div> : 
-                null}
-
-            {flagDate ?
+            <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
-                    <input type="date"/>
-                    <input type="date"/>
-                    <input type="submit" value='Фильтровать'/>
-                </div> :
-                null
+                    <p>Сортировать по</p>
+                    <select onChange={handleChange}>
+                        <option value=""> </option>
+                        <option  {...register("name")} value="name">Имя</option>
+                        <option {...register("doc")} value="doc">Врач</option>
+                        <option {...register("date")} value="date">Дата</option>
+                        <option {...register("none")} value="none">None</option>
+                    </select>
+                </div>
+                {flag ?
+                    <div>
+                        <select name="" id="">
+                            <option value="">По возрастанию</option>
+                            <option value="">По убыванию</option>
+                        </select>
+                    </div> :
+                    null}
 
-            }
+                {flagDate ?
+                    <div>
+                        <input type="date"/>
+                        <input type="date"/>
+                        <input type="submit" value='Фильтровать'/>
+                    </div> :
+                    null
 
-            {/*<button*/}
-            {/*    onClick={async () => {*/}
-            {/*        await sortedArray(props.reception)*/}
-            {/*        this.setState({reception:props.reception})*/}
-            {/*        // console.log(copyReception)*/}
-            {/*        // setReception(reception)*/}
-            {/*    }}>*/}
-            {/*    Sort by date*/}
-            {/*</button>*/}
+                }
+
+                {/*<button*/}
+                {/*    onClick={async () => {*/}
+                {/*        await sortedArray(props.reception)*/}
+                {/*        this.setState({reception:props.reception})*/}
+                {/*        // console.log(copyReception)*/}
+                {/*        // setReception(reception)*/}
+                {/*    }}>*/}
+                {/*    Sort by date*/}
+                {/*</button>*/}
             </form>
         </div>
     )

@@ -4,12 +4,14 @@ import authReducer from './auth'
 import receptionReducer from "./reception";
 import docReducer from "./doc";
 import appReducer from "./initial";
+import sortValue from "./sort";
 
 const reducer = combineReducers({
     authReducer,
     docReducer,
     receptionReducer,
-    appReducer
+    appReducer,
+    sortValue
 })
 
 const composeEnhancers = compose;

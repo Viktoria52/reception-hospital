@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
+import {sortValue} from "../../../state/sort";
 
 
 class ReceptionList extends React.Component {
@@ -36,7 +37,9 @@ class ReceptionList extends React.Component {
 
         return (<div key={'receptionList.main'} className={style.receptionMain}>
                 <div>
-                    <Sort reception={this.props.reception}/>
+                    <Sort
+                        sortValue={this.props.sortValue}
+                        reception={this.props.reception}/>
                 </div>
                 <ul key={'listReception'} className={style.list}>
                     <li key={'list.name'}>Имя</li>
