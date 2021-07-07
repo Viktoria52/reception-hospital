@@ -1,6 +1,6 @@
-*{
+* {
     padding: 0;
-    margin:0
+    margin: 0
 }
 
 .main {
@@ -8,7 +8,6 @@
     height: 327px;
     background-color: #FFFFFF;
     margin: 0 auto;
-    /*padding: 20px;*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -18,7 +17,7 @@
     font-size: 36px;
     height: 90px;
     box-sizing: border-box;
-padding: 20px;
+    padding: 20px;
     /*border: 1px solid red;*/
     box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
     font-weight: 300;
@@ -35,12 +34,9 @@ padding: 20px;
     height: 90px;
     padding: 20px;
     box-sizing: border-box;
-    /*border: 1px solid red;*/
     display: flex;
     justify-content: flex-end;
-    /*padding: 20px;*/
     align-items: flex-end;
-    /*padding-right: 48px;*/
     box-shadow: 0px -6px 3px 1px rgba(0, 0, 0, 0.25);
 
 

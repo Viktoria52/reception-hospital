@@ -86,3 +86,21 @@
 .elements{
     border: 1px solid black;
 }
+
+.deleteReceptionWindow{
+    /*position: absolute;*/
+    /*background-color: rgba(0, 0, 0, 0.8);*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*padding: 50px;*/
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    /* height: 100vh; */
+    height: 611px;
+    margin: 0;
+    padding: 19px 15px 0px 288px;
+    padding-top: 132px;
+    left: 0;
+    margin: 0 auto;
+}

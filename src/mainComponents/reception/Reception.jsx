@@ -5,13 +5,22 @@ import docReducer, {getDocs} from "../../state/doc";
 import {
     addReceptionCreator,
     changeReception, changeReceptionAC,
-    deleteReception,
+    deleteReception, deleteReceptionAC,
     getReceptions, idEditReception,
     newReception
 } from "../../state/reception";
+import {useEffect, useState} from "react";
 
 
 const Reception = (props) => {
+    // console.log(props)
+    // console.log(props.state.receptionReducer.reception)
+    // console.log(props.state.receptionReducer.reception)
+    const [reception, newRec] = useState(props.state.receptionReducer.reception);
+    useEffect(() =>{
+        newRec(props.state.receptionReducer.reception);
+    }, [props.state.receptionReducer.reception])
+
     const state = useSelector((state) => state)
     return (<div>
             <header><ReceptionForm
@@ -25,6 +34,8 @@ const Reception = (props) => {
 
 
             <main><ReceptionList
+                reception ={reception}
+                deleteReceptionAC={props.deleteReceptionAC}
                 idEditReception={props.idEditReception}
                 docs = {state}
                 getDocs = {props.getDocs}
@@ -38,8 +49,11 @@ const Reception = (props) => {
 
 }
 
+let mapStateToProps = (state) => ({
+        state: state
+})
 
-export default connect(null, {getDocs,getReceptions,
+export default connect(mapStateToProps, {getDocs,getReceptions,
     changeReception,newReception,
     deleteReception,idEditReception,
-    changeReceptionAC})(Reception);
+    changeReceptionAC,deleteReceptionAC})(Reception);

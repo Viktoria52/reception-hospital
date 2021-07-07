@@ -1,15 +1,19 @@
 import {docsAPI, receptionAPI} from "../api/api";
 import {setDocs} from "./doc";
+const Moment = require('moment')
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
 const SET_ALL_RECEPTION = 'REC/SET_ALL_RECEPTION'
 const CHANGE_RECEPTION = 'REC/CHANGE_RECEPTION'
-const DELETE_RECEPTION = 'REC/DELETE_RECEPTION'
+// const DELETE_RECEPTION = 'REC/DELETE_RECEPTION'
 const ID_EDIT_RECEPTION = 'REC/ID_EDIT_RECEPTION'
+const DELETE_RECEPTION_ID = 'REC/DELETE_RECEPTION_ID'
+// const RECEPTION_SORT = '/REC/RECEPTION_SORT'
 
 
 let defaultState = {
     reception: [],
+    // receptionSort: [],
     name: null,
     nameDoc: null,
     date: null,
@@ -17,9 +21,11 @@ let defaultState = {
     error: null,
     preloader: false,
     idEdit: null,
-    id: null
+    id: null,
+    idDelete: null
 
 }
+
 const receptionReducer = (state = defaultState, action) => {
     switch (action.type) {
         case ADD_RECEPTION:
@@ -29,11 +35,7 @@ const receptionReducer = (state = defaultState, action) => {
         case SET_ALL_RECEPTION:
             return {
                 ...state,
-                reception: action.payload.rec
-            }
-        case DELETE_RECEPTION:
-            return {
-                ...state,
+                reception: action.payload.rec,
 
             }
         case ID_EDIT_RECEPTION:
@@ -50,6 +52,16 @@ const receptionReducer = (state = defaultState, action) => {
                 complaints: action.payload.complaints,
                 id: action.payload.id
             }
+            case DELETE_RECEPTION_ID:
+            return {
+                ...state,
+              idDelete: action.payload.text
+            }
+        // case RECEPTION_SORT:
+        //     return {
+        //         ...state,
+        //       reception: state.reception.sort((a, b) => new Moment(a.date).format('YYYYMMDD') - new Moment(b.date).format('YYYYMMDD'))}
+
         default:
             return state
 
@@ -63,12 +75,18 @@ export const addReceptionCreator = (name, nameDoc, date, complaints) => {
     }
 }
 
-export const setReception = (rec) => {
+export const setReception = (rec, receptionSort) => {
     return {
         type: SET_ALL_RECEPTION,
-        payload: {rec}
+        payload: {rec,receptionSort}
     }
 }
+// export const sortReception = () => {
+//     return {
+//         type: RECEPTION_SORT,
+//         payload: {}
+//     }
+// }
 
 export const changeReceptionAC = (name, nameDoc, date, complaints,id) => {
     return {
@@ -81,6 +99,12 @@ export const idEditReception = (id) => {
     return {
         type: ID_EDIT_RECEPTION,
         payload: {id}
+    }
+}
+export const deleteReceptionAC = (text) => {
+    return {
+        type: DELETE_RECEPTION_ID,
+        payload: {text}
     }
 }
 
@@ -115,7 +139,7 @@ export const changeReception = (name, nameDoc, date, complaints,id) => {
 export const deleteReception = (id) => {
     return async dispatch => {
         let response = await receptionAPI.delete(id)
-        console.log(response.statusCode)
+        console.log(response)
 
     }
 }

@@ -1,12 +1,19 @@
+import React from "react";
 import style from "./receptionList.module.css"
-import {changeReceptionAC, idEditReception} from "../../../state/reception";
-import {Link} from "react-router-dom";
 import { Redirect } from 'react-router'
 import {useState} from "react";
+import DeleteReception from "./deleteReception/deleteReception";
 
 
+
+
+// const sortDate =
 const Post = (props) => {
+    // console.log(props)
+
     const [edit, setEdit] = useState(false)
+    const [deleteMode, setDelete] = useState(false)
+
     return (
         <div className={style.main}>
             <div className={style.border}> {props.name}</div>
@@ -15,9 +22,9 @@ const Post = (props) => {
             <div className={style.complaints}>{props.complaints}</div>
             <div className={style.buttons}>
                 <div
-                    onClick={() => {
-                        // console.log(props.id)
-                        props.deleteReception(props.id)
+                    onClick={async() => {
+                        await props.deleteReceptionAC(props.id)
+                        setDelete(true)
                 }}
                      className={style.delete}/>
                 <div
@@ -31,6 +38,19 @@ const Post = (props) => {
                 {edit ?
                 <Redirect to={'/reception/editWindow'} /> :
                 null}
+                {deleteMode ?
+                    <Redirect to={'/reception/delete'} >
+                        <div className={style.deleteReceptionWindow}>
+                            <DeleteReception
+                                idEdit={props.idEdit}
+                                deleteReception={props.deleteReception}
+                                // changeReceptionAC={props.changeReceptionAC}
+                            />
+                        </div>
+                    </Redirect>
+                     :
+                    null
+                }
         </div>
         </div>
     )

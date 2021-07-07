@@ -7,7 +7,13 @@ import EditWindow from "./mainComponents/reception/editReception/EditWindow";
 import Preloader from "./assets/Preloader";
 import {connect} from "react-redux";
 import {Initialize} from "./state/initial";
-import {changeReception, changeReceptionAC, idEditReception} from "./state/reception";
+import {
+    changeReception,
+    changeReceptionAC,
+    deleteReception,
+    deleteReceptionAC,
+    idEditReception
+} from "./state/reception";
 import {Redirect} from "react-router";
 import DeleteReception from "./mainComponents/reception/ReceptionList/deleteReception/deleteReception";
 
@@ -18,10 +24,14 @@ class App extends React.Component {
     componentDidMount() {
         this.props.Initialize()
     }
+    componentDidUpdate(prevProps, prevState) {
+        // will be true
+        const locationChanged = this.props.location !== prevProps.location;
+
+    }
 
     render() {
         // console.log(this.props.initial)
-
         if (!this.props.initial) {
             return <Preloader/>
         }
@@ -43,11 +53,14 @@ class App extends React.Component {
                 {
                     !token1 ?
                         <Redirect to={'/'}/> :
-                        null
+                        <Redirect to={'/reception'} />
                 }
                 <Route path='/reception/delete'>
                     <div className='containerDelete'>
-                        <DeleteReception/>
+                        <DeleteReception
+                            idDelete={this.props.idDelete}
+                            deleteReception={this.props.deleteReception}
+                        />
                     </div>
 
                 </Route>
@@ -57,7 +70,12 @@ class App extends React.Component {
                     </Route>
                     <Route path="/reception">
                         <img className="logo"/>
-                        <p class="complaints">Приемы </p>
+                        <p className="complaints">Приемы </p>
+                        <button
+                        onClick={()=>{
+                            localStorage.removeItem('token');
+                        }}
+                        >Выход</button>
                     </Route>
                 </header>
                 <main>
@@ -81,8 +99,10 @@ const mapStateToProps = (state) => ({
     initial: state.appReducer.initial,
     reception: state.receptionReducer.reception,
     idEdit: state.receptionReducer.idEdit,
-    receptionsForEdit: state.receptionReducer
+    receptionsForEdit: state.receptionReducer,
+    idDelete: state.receptionReducer.idDelete
 })
 
-export default connect(mapStateToProps, {Initialize, changeReceptionAC, changeReception})(App)
+export default connect(mapStateToProps,
+    {Initialize, changeReceptionAC, changeReception,deleteReceptionAC,deleteReception})(App)
 // export default App;
