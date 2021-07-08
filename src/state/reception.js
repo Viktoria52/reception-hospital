@@ -1,5 +1,6 @@
 import {docsAPI, receptionAPI} from "../api/api";
 import {setDocs} from "./doc";
+
 const Moment = require('moment')
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
@@ -52,10 +53,10 @@ const receptionReducer = (state = defaultState, action) => {
                 complaints: action.payload.complaints,
                 id: action.payload.id
             }
-            case DELETE_RECEPTION_ID:
+        case DELETE_RECEPTION_ID:
             return {
                 ...state,
-              idDelete: action.payload.text
+                idDelete: action.payload.text
             }
         // case RECEPTION_SORT:
         //     return {
@@ -78,7 +79,7 @@ export const addReceptionCreator = (name, nameDoc, date, complaints) => {
 export const setReception = (rec, receptionSort) => {
     return {
         type: SET_ALL_RECEPTION,
-        payload: {rec,receptionSort}
+        payload: {rec, receptionSort}
     }
 }
 // export const sortReception = () => {
@@ -88,10 +89,10 @@ export const setReception = (rec, receptionSort) => {
 //     }
 // }
 
-export const changeReceptionAC = (name, nameDoc, date, complaints,id) => {
+export const changeReceptionAC = (name, nameDoc, date, complaints, id) => {
     return {
         type: CHANGE_RECEPTION,
-        payload: {name, nameDoc, date, complaints,id}
+        payload: {name, nameDoc, date, complaints, id}
     }
 }
 
@@ -128,11 +129,10 @@ export const newReception = (name, nameDoc, date, complaints) => {
     }
 }
 
-export const changeReception = (name, nameDoc, date, complaints,id) => {
+export const changeReception = (name, nameDoc, date, complaints, id) => {
     return async (dispatch) => {
-        let response = await receptionAPI.change(name, nameDoc, date, complaints,id)
+        let response = await receptionAPI.change(name, nameDoc, date, complaints, id)
         dispatch(changeReceptionAC(response.name, response.nameDoc, response.date, response.complaints, id))
-
     }
 }
 
@@ -140,7 +140,6 @@ export const deleteReception = (id) => {
     return async dispatch => {
         let response = await receptionAPI.delete(id)
         console.log(response)
-
     }
 }
 

@@ -5,9 +5,6 @@ import {useState} from "react";
 import DeleteReception from "./deleteReception/deleteReception";
 
 
-
-
-// const sortDate =
 const Post = (props) => {
     // console.log(props)
 
@@ -33,7 +30,6 @@ const Post = (props) => {
                         setEdit(!edit)
                     }}
                 className={style.edit}
-
                 > </div>
                 {edit ?
                 <Redirect to={'/reception/editWindow'} /> :
@@ -55,6 +51,4 @@ const Post = (props) => {
         </div>
     )
 }
-
-
 export default Post

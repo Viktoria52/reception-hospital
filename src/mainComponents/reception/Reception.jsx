@@ -17,6 +17,7 @@ const Reception = (props) => {
     // console.log(props.state.receptionReducer.reception)
     // console.log(props.state.receptionReducer.reception)
     const [reception, newRec] = useState(props.state.receptionReducer.reception);
+
     useEffect(() =>{
         newRec(props.state.receptionReducer.reception);
     }, [props.state.receptionReducer.reception])

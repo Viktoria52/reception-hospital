@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import {sortValue, triage} from "../../../state/sort";
 import {loginAuth} from "../../../state/auth";
@@ -13,7 +13,13 @@ function sortedArray(copyReception) {
 
 
 const Sort = (props) => {
-    const [flag, setFlag] = useState(false)
+    const [rec, newRec] = useState(props.reception);
+
+    useEffect(() =>{
+        newRec(props.reception);
+    }, [props.reception])
+
+    const [flag, setFlag] = useState()
     const [flagDate, setFlagDate] = useState(false)
     const onSubmit = (formData) => {
 
@@ -24,38 +30,52 @@ const Sort = (props) => {
         props.sortValueAC(text)
     }
 
-    function sortNameDate(e) {
-        let text = e.target.value
-        props.triage(text)
+    async function sortNames(e) {
+        let text = await e.target.value
+        await props.triage(text)
+        // console.log(text)
+        if(text === 'ascending'){setFlag(true)}
+        if(text === 'decreasing'){setFlag(false)}
     }
 
-
-    let result = props.valueOption === "name" || props.valueOption === "doc"
-    let ascending = props.valueSorting === "ascending"
-    console.log(ascending)
-    //  if(ascending) {
-    //     props.reception.sort(function(a, b){
-    //             let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
-    //             if (nameA < nameB)
-    //                 return -1;
-    //             if (nameA > nameB)
-    //                 return 1;
-    //             return 0;
-    //         })
-    //         // this.setState({reception:props.reception})
-    //         console.log(props.reception)
-    //
-    // }
+// || props.valueOption === "doc"
+    let result = props.valueOption === "name"
+    if (flag === true) {
+        console.log('возрастание')
+        props.reception.sort(function (a, b) {
+                let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+                if (nameA < nameB)
+                    return -1;
+                if (nameA > nameB)
+                    return 1;
+                return 0;
+            }
+        )
+        console.log(props.reception)
+    }
+    if (flag === false) {
+        console.log('убывание')
+        props.reception.sort(function (a, b) {
+                let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+                if (nameA < nameB)
+                    return 1;
+                if (nameA > nameB)
+                    return -1;
+                return 0;
+            }
+        )
+        console.log(props.reception)
+    }
 
     // console.log(props.reception)
-    const {register, handleSubmit} = useForm();
+    const {handleSubmit} = useForm();
     return (
         <div>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div>
                     <p>Сортировать по</p>
                     <select onChange={handleChange}>
-                        <option value="no_value"></option>
+                        <option value="no_value"> </option>
                         <option value="name">Имя</option>
                         <option value="doc">Врач</option>
                         <option value="date">Дата</option>
@@ -67,8 +87,8 @@ const Sort = (props) => {
                 {result ?
                     <div>
                         Сортировка
-                        <select onChange={sortNameDate}>
-                            <option value="none"> </option>
+                        <select onChange={sortNames}>
+                            <option value="none"></option>
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>
                         </select>

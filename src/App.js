@@ -19,7 +19,7 @@ import DeleteReception from "./mainComponents/reception/ReceptionList/deleteRece
 
 // import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 let token1 = localStorage.getItem('token')
-console.log(token1)
+
 class App extends React.Component {
     componentDidMount() {
         this.props.Initialize()
