@@ -29,17 +29,25 @@ const Sort = (props) => {
         props.triage(text)
     }
 
-    async function ascendingFunction () {
-        if(ascending){
-            console.log(props.reception.sort((a, b) => a.name - b.name));
-            this.setState({reception:props.reception})
-        }
-    }
 
     let result = props.valueOption === "name" || props.valueOption === "doc"
     let ascending = props.valueSorting === "ascending"
-    // console.log(props)
-    console.log(props.reception)
+    console.log(ascending)
+    //  if(ascending) {
+    //     props.reception.sort(function(a, b){
+    //             let nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase();
+    //             if (nameA < nameB)
+    //                 return -1;
+    //             if (nameA > nameB)
+    //                 return 1;
+    //             return 0;
+    //         })
+    //         // this.setState({reception:props.reception})
+    //         console.log(props.reception)
+    //
+    // }
+
+    // console.log(props.reception)
     const {register, handleSubmit} = useForm();
     return (
         <div>
@@ -60,14 +68,14 @@ const Sort = (props) => {
                     <div>
                         Сортировка
                         <select onChange={sortNameDate}>
-                            <option value="none"></option>
+                            <option value="none"> </option>
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>
                         </select>
                     </div> :
                     null}
                 {/*{ascending ?*/}
-                {/*props.reception.sort() : null*/}
+                {/*    ascendingFunction() : null*/}
                 {/*}*/}
                 {flagDate ?
                     <div>

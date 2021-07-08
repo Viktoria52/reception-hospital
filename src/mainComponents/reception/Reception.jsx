@@ -20,7 +20,7 @@ const Reception = (props) => {
     useEffect(() =>{
         newRec(props.state.receptionReducer.reception);
     }, [props.state.receptionReducer.reception])
-
+    console.log(props.state.receptionReducer.reception)
     const state = useSelector((state) => state)
 
     return (<div>

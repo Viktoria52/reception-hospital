@@ -19,7 +19,7 @@ import DeleteReception from "./mainComponents/reception/ReceptionList/deleteRece
 
 // import mapStateToProps from "react-redux/lib/connect/mapStateToProps";
 let token1 = localStorage.getItem('token')
-
+console.log(token1)
 class App extends React.Component {
     componentDidMount() {
         this.props.Initialize()
@@ -52,8 +52,8 @@ class App extends React.Component {
                 </Route>
                 {
                     !token1 ?
-                        <Redirect to={'/'}/> :
-                        <Redirect to={'/reception'} />
+                        <Redirect to={'/'}/> : null
+                        // <Redirect to={'/reception'} />
                 }
                 <Route path='/reception/delete'>
                     <div className='containerDelete'>
