@@ -4,7 +4,7 @@ import {connect, useSelector} from "react-redux";
 import docReducer, {getDocs} from "../../state/doc";
 import {
     addReceptionCreator,
-    changeReception, changeReceptionAC,
+    changeReception,
     deleteReception, deleteReceptionAC,
     getReceptions, getSortData, idEditReception,
     newReception
@@ -26,7 +26,7 @@ const Reception = (props) => {
             <header><ReceptionForm
                 docs = {state}
                 getDocs = {props.getDocs}
-                changeReception={props.changeReception}
+                // changeReception={props.changeReception}
                 newReception={props.newReception}
                 addReceptionCreator={props.addReceptionCreator}
             /></header>
@@ -44,7 +44,7 @@ const Reception = (props) => {
                 getDocs = {props.getDocs}
                 getReceptions = {props.getReceptions}
                 deleteReception={props.deleteReception}
-                changeReceptionAC={props.changeReceptionAC}
+                // changeReceptionAC={props.changeReceptionAC}
 
             /></main>
         </div>
@@ -60,6 +60,6 @@ let mapStateToProps = (state) => ({
 export default connect(mapStateToProps, {getDocs,getReceptions,
     changeReception,newReception,
     deleteReception,idEditReception,
-    changeReceptionAC,deleteReceptionAC,
+    deleteReceptionAC,
     sortValueAC,triage,
     getSortData})(Reception);

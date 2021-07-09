@@ -7,8 +7,10 @@ import {useSelector} from "react-redux";
 
 const EditWindow = () => {
     const {reception, idEditPost} = useSelector((state) => state.receptionReducer)
-    console.log(reception)
-
+    // console.log(reception)
+    // console.log(idEditPost)
+// let a = reception.filter((value)=> value === idEditPost)
+//     console.log(a)
     const [edit, setEdit] = useState(false)
 
     const onSubmit = async (formData) => {

@@ -78,15 +78,12 @@ const receptionReducer = (state = defaultState, action) => {
                 reception: action.payload.array
             }
             case CHANGE_RECEPTION_ID:
+                console.log(state.idEditPost)
+                console.log(action)
             return {
                 ...state,
                 idEditPost: action.payload.id
             }
-
-        // case RECEPTION_SORT:
-        //     return {
-        //         ...state,
-        //       reception: state.reception.sort((a, b) => new Moment(a.date).format('YYYYMMDD') - new Moment(b.date).format('YYYYMMDD'))}
 
         default:
             return state
@@ -123,6 +120,7 @@ export const changeReceptionAC = (name, nameDoc, date, complaints, id) => {
 }
 
 export const changeReceptionId = (id) => { // id for window!
+    console.log(id)
     return{
         type: CHANGE_RECEPTION_ID,
         payload: {id}
