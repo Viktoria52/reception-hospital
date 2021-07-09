@@ -1,5 +1,6 @@
 import {getDocs} from "./doc";
-import {getReceptions} from "./reception";
+import {getReceptions, setReception} from "./reception";
+import {receptionAPI} from "../api/api";
 
 const SORT_VALUE = 'SORT/SORT_VALUE';
 const SORTING_VALUE = 'SORT/SORTING_VALUE';
@@ -29,6 +30,8 @@ export const sortValueAC = (text) => {
 
 export const triage = (text) => {
     return { type: SORTING_VALUE, text } }
+
+
 
 export default sortReducer
 

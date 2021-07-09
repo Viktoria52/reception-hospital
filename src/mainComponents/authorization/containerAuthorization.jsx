@@ -11,13 +11,13 @@ const ContainerAuthorization =(props) => {
     const state = useSelector((state) => state)
     return(<div className={style.mainAuth}>
         {flag ?
-            <div>
+            <div className={style.login}>
                 <Login
                     loginAuth = {props.loginAuth}
                 />
                 <p className={style.registration} onClick={()=>changeFlag(!flag)}> Зарегестрироваться </p>  </div>
             :
-            <div>
+            <div className={style.register}>
                 <Register
                     passwordRepeatCreator={props.passwordRepeatCreator}
                     passwordCreator={props.passwordCreator}

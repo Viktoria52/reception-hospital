@@ -3,8 +3,9 @@ import {useState} from "react";
 import {Redirect} from "react-router";
 
 const DeleteReception = (props) => {
-    console.log(props)
+
     const [flag, setFlag] = useState(false)
+    console.log(props)
     return (
         <div className={s.main}>
             <div className={s.delete}>Удалить прием </div>
@@ -18,6 +19,7 @@ const DeleteReception = (props) => {
                 <button
                     onClick={async()=>{
                         await props.deleteReception(props.idDelete)
+                        await props.getReceptions()
                         setFlag(!flag)
                     }}
                     className={s.deleteButton}>Delete</button>

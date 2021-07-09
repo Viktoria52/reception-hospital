@@ -33,6 +33,7 @@ export const receptionAPI = {
     getAll() {
         return instance.get(`getAllReception`, {headers: { Authorization: token1 }})
             .then(response => response.data)
+
     },
     add(name, nameDoc, date, complaints) {
         return instance.put(`addReception`, {
@@ -54,8 +55,11 @@ export const receptionAPI = {
             .then(response => response.data)
     },
     delete(id) {
-        console.log(id)
         return instance.delete(`deleteReception?id=` + id, {headers: { Authorization: `${token1}` }})
             .then(response => response.data)
     },
+    sortDate(sortFrom, sortTo){
+        return instance.get(`getSortRecDate?sortFrom=${sortFrom}&sortTo=${sortTo}`, {headers: { Authorization: `${token1}` }})
+            .then(response => response.data)
+    }
 }

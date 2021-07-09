@@ -2,23 +2,26 @@ import React, {useState} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
-import {sortValue, triage} from "../../../state/sort";
+import {getReceptions} from "../../../state/reception";
 
 
 class ReceptionList extends React.Component {
     componentDidMount() {
         this.props.getDocs()
         this.props.getReceptions()
+        // this.props.getSortData("2021-07-02","2021-07-17" )
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-
+        // if (this.props.reception !== prevProps) {
+        //     console.log('запрос')
+        //     this.props.getReceptions()
+        // }
         // console.log('component update!')
     }
 
     render() {
         let reception = this.props.reception
-        // console.log(reception)
         let elementsReception = reception.map(p => <Post
                 idDelete={this.props.docs.receptionReducer.idDelete}
                 deleteReceptionAC={this.props.deleteReceptionAC}
@@ -38,6 +41,8 @@ class ReceptionList extends React.Component {
         return (<div key={'receptionList.main'} className={style.receptionMain}>
                 <div>
                     <Sort
+                        getReceptions={this.props.getReceptions}
+                        getSortData={this.props.getSortData}
                         triage={this.props.triage}
                         valueSorting={this.props.valueSorting}
                         valueOption={this.props.valueOption}

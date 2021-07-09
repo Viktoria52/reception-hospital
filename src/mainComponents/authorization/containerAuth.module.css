@@ -1,24 +1,28 @@
 .mainAuth{
     background-color: white;
     width: 400px;
+
+
 }
 
 
 .registration{
-    margin-top: 18px;
+
     font-weight: 300;
     font-size: 18px;
     /*border: 1px solid gray;*/
     border: none;
-    /*background-color: none;*/
-    /*height: 40px;*/
-    /*width: 195px;*/
+    /*margin-top: -140px;*/
+    /*margin-right: 95px;*/
+    /*position: absolute;*/
 }
 
 .authorization{
-    margin-top: 18px;
+    /*margin-top: -10px;*/
+    /*margin-right: 95px;*/
     font-weight: 300;
     font-size: 18px;
+    /*position: absolute;*/
     /*border: 1px solid gray;*/
     /*background-color: white;*/
 }

@@ -10,20 +10,24 @@ const CHANGE_RECEPTION = 'REC/CHANGE_RECEPTION'
 const ID_EDIT_RECEPTION = 'REC/ID_EDIT_RECEPTION'
 const DELETE_RECEPTION_ID = 'REC/DELETE_RECEPTION_ID'
 // const RECEPTION_SORT = '/REC/RECEPTION_SORT'
+const SORT_DATE_RECEPTION = 'REC/SORT/DATE/RECEPTION'
+const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
 
 
 let defaultState = {
     reception: [],
     // receptionSort: [],
-    name: null,
-    nameDoc: null,
-    date: null,
-    complaints: null,
+    // name: '12',
+    // nameDoc: null,
+    // date: null,
+    // complaints: null,
     error: null,
     preloader: false,
     idEdit: null,
     id: null,
-    idDelete: null
+    idDelete: null,
+    messageDeleteApi: null,
+    idEditPost: null
 
 }
 
@@ -45,19 +49,40 @@ const receptionReducer = (state = defaultState, action) => {
                 idEdit: action.payload.id
             }
         case CHANGE_RECEPTION:
+            console.log(action)
             return {
                 ...state,
-                name: action.payload.name,
-                nameDoc: action.payload.nameDoc,
-                date: action.payload.date,
-                complaints: action.payload.complaints,
-                id: action.payload.id
+                reception: [...state.reception.map((item) => {
+                    if (item.id === action.payload.id) {
+                        return {
+                            ...item,
+                            name: action.payload.name,
+                            nameDoc: action.payload.nameDoc,
+                            date: action.payload.date,
+                            complaints: action.payload.complaints,
+                        }
+
+                    }
+                    return item
+                })],
             }
         case DELETE_RECEPTION_ID:
             return {
                 ...state,
-                idDelete: action.payload.text
+                idDelete: action.payload.text,
             }
+
+        case SORT_DATE_RECEPTION:
+            return {
+                ...state,
+                reception: action.payload.array
+            }
+            case CHANGE_RECEPTION_ID:
+            return {
+                ...state,
+                idEditPost: action.payload.id
+            }
+
         // case RECEPTION_SORT:
         //     return {
         //         ...state,
@@ -90,9 +115,17 @@ export const setReception = (rec, receptionSort) => {
 // }
 
 export const changeReceptionAC = (name, nameDoc, date, complaints, id) => {
+    console.log(name, nameDoc, date, complaints, id)
     return {
         type: CHANGE_RECEPTION,
         payload: {name, nameDoc, date, complaints, id}
+    }
+}
+
+export const changeReceptionId = (id) => { // id for window!
+    return{
+        type: CHANGE_RECEPTION_ID,
+        payload: {id}
     }
 }
 
@@ -102,10 +135,16 @@ export const idEditReception = (id) => {
         payload: {id}
     }
 }
-export const deleteReceptionAC = (text) => {
+export const deleteReceptionAC = (text, message) => {
     return {
         type: DELETE_RECEPTION_ID,
         payload: {text}
+    }
+}
+export const sortToDate = (array) => {
+    return {
+        type: SORT_DATE_RECEPTION,
+        payload: {array}
     }
 }
 
@@ -132,6 +171,7 @@ export const newReception = (name, nameDoc, date, complaints) => {
 export const changeReception = (name, nameDoc, date, complaints, id) => {
     return async (dispatch) => {
         let response = await receptionAPI.change(name, nameDoc, date, complaints, id)
+        console.log(response)
         dispatch(changeReceptionAC(response.name, response.nameDoc, response.date, response.complaints, id))
     }
 }
@@ -140,6 +180,13 @@ export const deleteReception = (id) => {
     return async dispatch => {
         let response = await receptionAPI.delete(id)
         console.log(response)
+    }
+}
+
+export const getSortData = (sortFrom, sortTo) => {
+    return async (dispatch) => {
+        let response = await receptionAPI.sortDate(sortFrom, sortTo)
+        await dispatch(sortToDate(response.data));
     }
 }
 

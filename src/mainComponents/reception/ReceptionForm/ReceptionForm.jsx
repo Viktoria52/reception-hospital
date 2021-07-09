@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import style from "../reception.module.css"
+import {useEffect} from "react";
 
 
 // let elementsDoctors = doctors.map(p => <option>{p}</option>)
@@ -8,7 +9,9 @@ const ReceptionForm = (props) => {
     let docs = props.docs.docReducer.docs || [];
 
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
+    useEffect(() =>{
 
+    }, [props.reception])
     const onSubmit = (formData) => {
         // props.addReceptionCreator(formData.name,formData.nameDoc, formData.date, formData.complaints)
         props.newReception(formData.name,formData.nameDoc, formData.date, formData.complaints)
