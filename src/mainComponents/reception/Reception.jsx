@@ -7,7 +7,7 @@ import {
     changeReception,
     deleteReception, deleteReceptionAC,
     getReceptions, getSortData, idEditReception,
-    newReception
+    newReception, changeReceptionAC, changeReceptionId
 } from "../../state/reception";
 import {useEffect, useState} from "react";
 import {sortValueAC, triage} from "../../state/sort";
@@ -21,6 +21,7 @@ const Reception = (props) => {
         newRec(props.state.receptionReducer.reception);
     }, [props.state.receptionReducer.reception])
     // console.log(props.state.receptionReducer.reception)
+
     const state = useSelector((state) => state)
     return (<div>
             <header><ReceptionForm
@@ -44,7 +45,8 @@ const Reception = (props) => {
                 getDocs = {props.getDocs}
                 getReceptions = {props.getReceptions}
                 deleteReception={props.deleteReception}
-                // changeReceptionAC={props.changeReceptionAC}
+                changeReceptionAC={props.changeReceptionAC}
+                changeReceptionId={props.changeReceptionId}
 
             /></main>
         </div>
@@ -62,4 +64,5 @@ export default connect(mapStateToProps, {getDocs,getReceptions,
     deleteReception,idEditReception,
     deleteReceptionAC,
     sortValueAC,triage,
-    getSortData})(Reception);
+    getSortData,changeReceptionAC,
+    changeReceptionId})(Reception);

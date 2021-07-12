@@ -16,11 +16,11 @@ const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
 
 let defaultState = {
     reception: [],
-    // receptionSort: [],
-    // name: '12',
-    // nameDoc: null,
-    // date: null,
-    // complaints: null,
+    receptionSort: [],
+    name: null,
+    nameDoc: null,
+    date: null,
+    complaints: null,
     error: null,
     preloader: false,
     idEdit: null,
@@ -48,23 +48,32 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 idEdit: action.payload.id
             }
-        case CHANGE_RECEPTION:
-            console.log(action)
+        // case CHANGE_RECEPTION:
+        //     console.log(action)
+        //     return {
+        //         ...state,
+        //         reception: [...state.reception.map((item) => {
+        //             if (item.id === action.payload.id) {
+        //                 return {
+        //                     ...item,
+        //                     name: action.payload.name,
+        //                     nameDoc: action.payload.nameDoc,
+        //                     date: action.payload.date,
+        //                     complaints: action.payload.complaints,
+        //                 }
+        //
+        //             }
+        //             return item
+        //         })],
+        //     }
+            case CHANGE_RECEPTION:
             return {
                 ...state,
-                reception: [...state.reception.map((item) => {
-                    if (item.id === action.payload.id) {
-                        return {
-                            ...item,
-                            name: action.payload.name,
-                            nameDoc: action.payload.nameDoc,
-                            date: action.payload.date,
-                            complaints: action.payload.complaints,
-                        }
-
-                    }
-                    return item
-                })],
+                name: action.payload.name,
+                nameDoc: action.payload.nameDoc,
+                date: action.payload.date,
+                complaints: action.payload.complaints,
+                id: action.payload.id
             }
         case DELETE_RECEPTION_ID:
             return {
@@ -78,8 +87,6 @@ const receptionReducer = (state = defaultState, action) => {
                 reception: action.payload.array
             }
             case CHANGE_RECEPTION_ID:
-                console.log(state.idEditPost)
-                console.log(action)
             return {
                 ...state,
                 idEditPost: action.payload.id

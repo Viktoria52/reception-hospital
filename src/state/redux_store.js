@@ -5,6 +5,7 @@ import receptionReducer from "./reception";
 import docReducer from "./doc";
 import appReducer from "./initial";
 import sortValue from "./sort";
+import {composeWithDevTools} from "redux-devtools-extension";
 
 const reducer = combineReducers({
     authReducer,
@@ -14,8 +15,7 @@ const reducer = combineReducers({
     sortValue
 })
 
-const composeEnhancers = compose;
-const store = createStore(reducer, composeEnhancers(
+const store = createStore(reducer, composeWithDevTools(
     applyMiddleware(thunk))) //DAL
 
 export default store;

@@ -3,7 +3,7 @@ import style from "./receptionList.module.css"
 import { Redirect } from 'react-router'
 import {useState} from "react";
 import DeleteReception from "./deleteReception/deleteReception";
-import {changeReceptionId} from "../../../state/reception";
+import {changeReceptionAC, changeReceptionId} from "../../../state/reception";
 
 
 const Post = (props) => {
@@ -26,9 +26,9 @@ const Post = (props) => {
                 }}
                      className={style.delete}/>
                 <div
-                    onClick={()=> {
-                        // props.changeReceptionAC(props.name, props.nameDoc, props.date, props.complaints, props.id)
-                        changeReceptionId(props.id)
+                    onClick={async ()=> {
+                        await props.changeReceptionAC(props.name, props.nameDoc, props.date, props.complaints, props.id)
+                        await props.changeReceptionId(props.id)
                         setEdit(!edit)
                     }}
                 className={style.edit}

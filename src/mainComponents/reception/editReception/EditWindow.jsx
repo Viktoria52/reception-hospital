@@ -6,15 +6,15 @@ import {changeReception} from "../../../state/reception";
 import {useSelector} from "react-redux";
 
 const EditWindow = () => {
-    const {reception, idEditPost} = useSelector((state) => state.receptionReducer)
+    const {reception, idEditPost,name,nameDoc,date,complaints,id} = useSelector((state) => state.receptionReducer)
     // console.log(reception)
     // console.log(idEditPost)
 // let a = reception.filter((value)=> value === idEditPost)
-//     console.log(a)
+//     console.log(name,nameDoc,date,complaints,id)
     const [edit, setEdit] = useState(false)
 
     const onSubmit = async (formData) => {
-        await changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, reception.id)
+        await changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id)
         // await props.getReceptions()
         setEdit(!edit)
     };
@@ -28,7 +28,7 @@ const EditWindow = () => {
                         <p>Имя </p>
                         <input
                             {...register("name")}
-                            defaultValue={reception.name}
+                            defaultValue={name}
                             className={s.inputs}
                             type="text"/>
                     </div>
@@ -36,7 +36,7 @@ const EditWindow = () => {
                         <p>Врач:</p>
                         <input
                             {...register("nameDoc")}
-                            defaultValue={reception.nameDoc}
+                            defaultValue={nameDoc}
                             className={s.inputs}
                             type="text"/>
                     </div>
@@ -44,7 +44,7 @@ const EditWindow = () => {
                         <p>Дата </p>
                         <input
                             {...register("date")}
-                            defaultValue={reception.date}
+                            defaultValue={date}
                             className={s.inputs}
                             type="date"/>
                     </div>
@@ -52,7 +52,7 @@ const EditWindow = () => {
                         <p>Жалобы </p>
                         <input
                             {...register("complaints")}
-                            defaultValue={reception.complaints}
+                            defaultValue={complaints}
                             className={s.inputs}
                             type="text"/>
                     </div>

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
-import {getReceptions} from "../../../state/reception";
+import {changeReceptionId, getReceptions} from "../../../state/reception";
 
 
 class ReceptionList extends React.Component {
@@ -25,6 +25,7 @@ class ReceptionList extends React.Component {
         let elementsReception = reception.map(p => <Post
                 idDelete={this.props.docs.receptionReducer.idDelete}
                 deleteReceptionAC={this.props.deleteReceptionAC}
+                changeReceptionId={this.props.changeReceptionId}
                 changeReceptionAC={this.props.changeReceptionAC}
                 idEditReception={this.props.idEditReception}
                 id={p._id}
