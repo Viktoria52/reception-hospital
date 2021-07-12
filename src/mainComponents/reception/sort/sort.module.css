@@ -1,0 +1,74 @@
+.sorting{
+    display: flex;
+    padding: 16px;
+    justify-content: flex-end;
+}
+.select{
+    height: 47px;
+    width: 200px;
+    outline: none;
+    border: 1px solid grey;
+    background-color: #FFFFFF;
+    font-size: 18px;
+}
+.containerSortingBy{
+    display: flex;
+    align-items: center;
+
+    justify-content: flex-end;
+}
+.sortBy{
+    margin-right: 18px;
+    font-size: 18px;
+}
+.direction{
+    margin-top: 5px;
+    display: flex;
+
+}
+.directionSelect{
+    height: 47px;
+    width: 200px;
+    outline: none;
+    border: 1px solid grey;
+    background-color: #FFFFFF;
+}
+.date{
+    outline: none;
+    height: 40px;
+    width: 238px;
+    border: 1px solid grey;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.date2{
+    outline: none;
+    height: 40px;
+    width: 238px;
+    border: 1px solid grey;
+    font-size: 16px;
+    box-sizing: border-box;
+
+    /*font-weight: 300;*/
+}
+span{
+    margin-left: 52px;
+    margin-right: 8px;
+    font-size: 18px;
+}
+.directionSpan{
+    margin-left: 52px;
+    margin-right: 8px;
+    font-size: 18px;
+    align-self: center;
+}
+.filterButton{
+    outline: none;
+    height: 40px;
+    width: 238px;
+    font-size: 16px;
+    border: 1px solid grey;
+    background-color: #FFFFFF;
+    margin-left: 40px;
+}
+

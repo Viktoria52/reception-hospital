@@ -2,16 +2,29 @@
 .App {
     /*display: flex;*/
     /*background-color: #c7eaff;*/
-    background-color: rgba(199,234,255, 0.5);
+    background-color: rgba(199,234,255);
     /*height: 989px;*/
 
 }
 
 .App-header {
-    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     background-color: #C5E9FF;
-    height: 117px;
-    box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);
+    /*height: 117px;*/
+    padding: 23px;
+    box-shadow: 4px 6px 6px 7px rgba(0, 0, 0, 0.29);
+    /*box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);*/
+}
+.exit{
+    width: 156px;
+    height: 46px;
+    background-color: #FFFFFF;
+    outline: none;
+    border: 1px solid #bdbdbd;
+    font-size: 24px;
+    margin-right: 23px;
 }
 .main {
     background-color: #C5E9FF;
@@ -25,11 +38,15 @@
 }
 .logo{
     background-image: url("./assets/logo.svg");
+    width: 89px;
+    height: 71px;
+    margin-left: 23px;
 }
 .complaints{
     padding: 0;
-    margin:0;
+    /*margin:0;*/
     font-size: 36px;
+    margin-left: -724px;
 }
 .containerEditWindow{
     /*border: 1px solid red;*/

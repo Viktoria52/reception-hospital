@@ -40,7 +40,7 @@ class ReceptionList extends React.Component {
 
 
         return (<div key={'receptionList.main'} className={style.receptionMain}>
-                <div>
+                <div className={style.sortContainer}>
                     <Sort
                         getReceptions={this.props.getReceptions}
                         getSortData={this.props.getSortData}

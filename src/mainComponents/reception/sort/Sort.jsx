@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
+import style from './sort.module.css'
 
 const Moment = require('moment')
 
@@ -33,7 +34,7 @@ const Sort = (props) => {
 
     function handleChange(e) {
         let text = e.target.value
-        props.sortValueAC(text)
+        props.sortValueAC(text) //сохранение значения сортировки name/docname/date в valueOption
     }
 
     useEffect(() => {
@@ -42,7 +43,7 @@ const Sort = (props) => {
         }
     }, [props.valueOption]);
 
-    async function sortNames(e) {
+    async function sortNames(e) { //сортировка имен и врачей
         let text = await e.target.value
         await props.triage(text)
         // console.log(text)
@@ -126,12 +127,12 @@ const Sort = (props) => {
 // console.log(props.reception)
     const {register, handleSubmit} = useForm();
     return (
-        <div>
+        <div className={style.sorting}>
             <form onSubmit={handleSubmit(onSubmit)}>
-                <div>
-                    <p>Сортировать по</p>
-                    <select onChange={handleChange}>
-                        <option value="no_value"></option>
+                <div className={style.containerSortingBy}>
+                    <p className={style.sortBy}>Сортировать по:</p>
+                    <select className={style.select} onChange={handleChange}>
+                        <option value="no_value"> </option>
                         <option value="name">Имя</option>
                         <option value="doc">Врач</option>
                         <option value="date">Дата</option>
@@ -141,10 +142,10 @@ const Sort = (props) => {
 
 
                 {resultName || resultDoc ?
-                    <div>
-                        Сортировка
-                        <select onChange={sortNames}>
-                            <option value="none"></option>
+                    <div className={style.direction}>
+                       <span className={style.directionSpan}>Направление: </span>
+                        <select className={style.directionSelect} onChange={sortNames}>
+                            <option value="none"> </option>
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>
                         </select>
@@ -153,10 +154,16 @@ const Sort = (props) => {
 
 
                 {resultDate ?
-                    <div>
-                        <input {...register("dateFrom")} type="date"/>
-                        <input {...register("dateTo")} type="date"/>
-                        <input type="submit" value='Фильтровать'/>
+                    <div className={style.direction}>
+                        <div>
+                          <span>  с:</span>
+                            <input className={style.date} {...register("dateFrom")} type="date"/> </div>
+
+                       <div>
+                           <span> по:</span>
+                           <input className={style.date2} {...register("dateTo")} type="date"/>
+                       </div>
+                        <input className={style.filterButton}  type="submit" value='Фильтровать'/>
                     </div> :
                     null
 

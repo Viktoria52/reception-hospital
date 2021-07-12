@@ -11,63 +11,66 @@ let token1 = localStorage.getItem('token')
 
 const App = () => {
 
-        // console.log(this.props.initial)
-        // if (!this.props.initial) {
-        //     return <Preloader/>
-        // }
-        return (
-            <div className="App">
-                <Route path="/reception/EditWindow">
-                    <div className='containerEditWindow'>
-                        <div className='editWindow'>
-                            <EditWindow
-                            />
-                        </div>
+    // console.log(this.props.initial)
+    // if (!this.props.initial) {
+    //     return <Preloader/>
+    // }
+    return (
+        <div className="App">
+            <Route path="/reception/EditWindow">
+                <div className='containerEditWindow'>
+                    <div className='editWindow'>
+                        <EditWindow
+                        />
                     </div>
-                </Route>
-                {
-                    !token1 ?
-                        <Redirect to={'/'}/> :
-                        <Redirect to={'/reception'} />
-                }
-                <Route path='/reception/delete'>
-                    <div className='containerDelete'>
-                        <DeleteReception/>
-                    </div>
+                </div>
+            </Route>
+            {
+                !token1 ?
+                    <Redirect to={'/'}/> :
+                    <Redirect to={'/reception'}/>
+            }
+            <Route path='/reception/delete'>
+                <div className='containerDelete'>
+                    <DeleteReception/>
+                </div>
 
-                </Route>
-                <header className="App-header">
-                    {/*<Route path={"/"}>*/}
-                    {/*    Войти в систему*/}
-                    {/*</Route>*/}
-                    <Route path="/reception">
-                        <img className="logo"/>
-                        <p className="complaints">Приемы </p>
-                        <button
-                        onClick={()=>{
+            </Route>
+            <header className="App-header">
+                {/*<Route path={"/"}>*/}
+                {/*    Войти в систему*/}
+                {/*</Route>*/}
+                <Route path="/reception">
+                    <div className="logo"/>
+                    <p className="complaints">Приемы </p>
+                    <button
+                        className='exit'
+                        onClick={() => {
                             localStorage.removeItem('token');
                         }}
-                        >Выход</button>
-                    </Route>
-                </header>
-                <main className='main'>
-                    <div className='main'>
-                        <Switch>
-                            <Route path="/reception">
-                                <Reception/>
-                            </Route>
-                            <Route path='/'>
-                                <div className='containerAuth'>
-                                    <ContainerAuthorization/>
-                                </div>
-                            </Route>
-                        </Switch>
-                    </div>
+                    > Выход
+                    </button>
 
-                </main>
+                </Route>
+            </header>
+            <main className='main'>
+                <div className='main'>
+                    <Switch>
+                        <Route path="/reception">
+                            <Reception/>
+                        </Route>
+                        <Route path='/'>
+                            <div className='containerAuth'>
+                                <ContainerAuthorization/>
+                            </div>
+                        </Route>
+                    </Switch>
+                </div>
 
-            </div>
-        );
+            </main>
+
+        </div>
+    );
 }
 
 export default App

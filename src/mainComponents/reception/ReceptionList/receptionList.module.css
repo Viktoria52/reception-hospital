@@ -63,7 +63,7 @@
     /* padding: 10px; */
     margin: 0 auto;
     box-sizing: border-box;
-    background-color: #FFFFFF;
+    /*background-color: #FFFFFF;*/
 
     
 }
@@ -103,4 +103,8 @@
     padding-top: 132px;
     left: 0;
     margin: 0 auto;
+}
+.sortContainer{
+    /*background-color: #C5E9FF;*/
+    padding-top: 10px;
 }
