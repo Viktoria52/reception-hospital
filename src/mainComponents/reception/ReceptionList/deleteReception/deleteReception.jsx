@@ -1,11 +1,13 @@
 import s from './deleteReception.module.css'
 import {useState} from "react";
 import {Redirect} from "react-router";
+import {connect, useSelector} from "react-redux";
+import {deleteReception, getReceptions} from "../../../../state/reception";
 
 const DeleteReception = (props) => {
-
+    const {idDelete} = useSelector((state) => state.receptionReducer)
+    console.log(idDelete)
     const [flag, setFlag] = useState(false)
-    console.log(props)
     return (
         <div className={s.main}>
             <div className={s.delete}>Удалить прием </div>
@@ -18,7 +20,7 @@ const DeleteReception = (props) => {
                     className={s.cancel}>Cancel</button>
                 <button
                     onClick={async()=>{
-                        await props.deleteReception(props.idDelete)
+                        await props.deleteReception(idDelete)
                         await props.getReceptions()
                         setFlag(!flag)
                     }}
@@ -32,4 +34,4 @@ const DeleteReception = (props) => {
 }
 
 
-export default DeleteReception
+export default connect(null,{deleteReception,getReceptions})(DeleteReception)

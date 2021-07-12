@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import './App.css';
 import {Route, Switch} from 'react-router-dom'
 import Reception from "./mainComponents/reception/Reception";
@@ -10,6 +10,7 @@ import DeleteReception from "./mainComponents/reception/ReceptionList/deleteRece
 let token1 = localStorage.getItem('token')
 
 const App = () => {
+
         // console.log(this.props.initial)
         // if (!this.props.initial) {
         //     return <Preloader/>
@@ -19,7 +20,8 @@ const App = () => {
                 <Route path="/reception/EditWindow">
                     <div className='containerEditWindow'>
                         <div className='editWindow'>
-                            <EditWindow/>
+                            <EditWindow
+                            />
                         </div>
                     </div>
                 </Route>
@@ -35,9 +37,9 @@ const App = () => {
 
                 </Route>
                 <header className="App-header">
-                    <Route path={"/"}>
-                        Войти в систему
-                    </Route>
+                    {/*<Route path={"/"}>*/}
+                    {/*    Войти в систему*/}
+                    {/*</Route>*/}
                     <Route path="/reception">
                         <img className="logo"/>
                         <p className="complaints">Приемы </p>
@@ -58,7 +60,6 @@ const App = () => {
                                 <div className='containerAuth'>
                                     <ContainerAuthorization/>
                                 </div>
-
                             </Route>
                         </Switch>
                     </div>

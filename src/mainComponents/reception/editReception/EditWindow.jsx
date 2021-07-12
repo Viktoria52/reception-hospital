@@ -1,23 +1,31 @@
 import s from './edit.module.css'
 import {useForm} from "react-hook-form";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {Redirect} from "react-router";
+import {connect, useSelector} from "react-redux";
 import {changeReception} from "../../../state/reception";
-import {useSelector} from "react-redux";
 
-const EditWindow = () => {
-    const {reception, idEditPost,name,nameDoc,date,complaints,id} = useSelector((state) => state.receptionReducer)
-    // console.log(reception)
-    // console.log(idEditPost)
-// let a = reception.filter((value)=> value === idEditPost)
-//     console.log(name,nameDoc,date,complaints,id)
+const EditWindow = (props) => {
+    const {reception, idEditPost, name, nameDoc, date, complaints, id} = useSelector((state) => state.receptionReducer)
+    const {docs} = useSelector((state) => state.docReducer)
+    console.log(complaints)
+    const [rec, newRec] = useState([name, nameDoc, date, complaints, id]);
+
     const [edit, setEdit] = useState(false)
-
+    useEffect(() => {
+        newRec(rec)
+        console.log('rerender')
+    }, [name, nameDoc, date, complaints, id])
     const onSubmit = async (formData) => {
-        await changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id)
+        await props.changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id)
         // await props.getReceptions()
+
         setEdit(!edit)
     };
+
+    let docArray = docs || [];
+    let elementsDoctors = docArray.map(p => <option key={p._id}>{p.name}</option>)
+
     // console.log(reception)
     const {register, handleSubmit} = useForm();
     return (<div className={s.main}>
@@ -34,11 +42,17 @@ const EditWindow = () => {
                     </div>
                     <div>
                         <p>Врач:</p>
-                        <input
+                        <select
+                            className={s.nameDoc}
                             {...register("nameDoc")}
-                            defaultValue={nameDoc}
-                            className={s.inputs}
-                            type="text"/>
+                            type="text">
+                            {elementsDoctors}
+                        </select>
+                        {/*<input*/}
+                        {/*    {...register("nameDoc")}*/}
+                        {/*    defaultValue={nameDoc}*/}
+                        {/*    className={s.inputs}*/}
+                        {/*    type="text"/>*/}
                     </div>
                     <div>
                         <p>Дата </p>
@@ -66,16 +80,14 @@ const EditWindow = () => {
                         defaultValue={'Cancel'}
                     />
                     <input
-
                         className={s.save}
-                        defaultValue={'Save'}
                         type="submit"
-
+                        defaultValue={'Save'}
                     />
                 </div>
                 {edit ?
-                    <Redirect to={'/reception'}/> :
-                    null}
+                    <Redirect to={'/reception'}/> : null
+                }
             </form>
 
 
@@ -84,4 +96,4 @@ const EditWindow = () => {
 
 }
 
-export default EditWindow
+export default connect(null, {changeReception})(EditWindow)

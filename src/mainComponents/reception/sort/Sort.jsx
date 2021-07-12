@@ -27,10 +27,9 @@ const Sort = (props) => {
     const onSubmit = (formData) => {
         dateFromReg = formData.dateFrom
         dateToReg = formData.dateTo
-        props.getSortData(dateFromReg, dateToReg)
+        props.getSortData(dateFromReg, dateToReg) //date!
 
     };
-
 
     function handleChange(e) {
         let text = e.target.value
@@ -71,7 +70,8 @@ const Sort = (props) => {
     let resultName = props.valueOption === "name"
     let resultDoc = props.valueOption === "doc"
     let resultDate = props.valueOption === "date"
-    if (docSort === true) {
+
+    if (docSort === true) { // sort by doc
         console.log('возрастание')
         props.reception.sort(function (a, b) {
                 let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
@@ -84,7 +84,7 @@ const Sort = (props) => {
         )
     }
 
-    if (docSort === false) {
+    if (docSort === false) { // sort by doc
         console.log('убывание')
         props.reception.sort(function (a, b) {
                 let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
@@ -96,7 +96,7 @@ const Sort = (props) => {
             }
         )
     }
-    if (flag === true) {
+    if (flag === true) {// sort by name
         console.log('возрастание')
         props.reception.sort(function (a, b) {
                 let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
@@ -109,7 +109,7 @@ const Sort = (props) => {
         )
         console.log(props.reception)
     }
-    if (flag === false) {
+    if (flag === false) { // sort by name
         console.log('убывание')
         props.reception.sort(function (a, b) {
                 let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();

@@ -1,5 +1,6 @@
 import {docsAPI, receptionAPI} from "../api/api";
 import {setDocs} from "./doc";
+import {loginAuth} from "./auth";
 
 const Moment = require('moment')
 
@@ -127,7 +128,7 @@ export const changeReceptionAC = (name, nameDoc, date, complaints, id) => {
 }
 
 export const changeReceptionId = (id) => { // id for window!
-    console.log(id)
+    // console.log(id)
     return{
         type: CHANGE_RECEPTION_ID,
         payload: {id}
@@ -165,19 +166,20 @@ export const getReceptions = () => {
 
 export const newReception = (name, nameDoc, date, complaints) => {
     return (dispatch) => {
-        defaultState.preloader = true
+        // defaultState.preloader = true
         receptionAPI.add(name, nameDoc, date, complaints).then(data => {
-            defaultState.preloader = false
+            // defaultState.preloader = false
             dispatch(addReceptionCreator(data.data))
         })
     }
 }
 
-export const changeReception = (name, nameDoc, date, complaints, id) => {
+export const changeReception = (name='Anna', nameDoc, date, complaints='changed', id) => {
     return async (dispatch) => {
         let response = await receptionAPI.change(name, nameDoc, date, complaints, id)
-        console.log(response)
-        dispatch(changeReceptionAC(response.name, response.nameDoc, response.date, response.complaints, id))
+        response.map((value)=>{
+            dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, id))
+        })
     }
 }
 

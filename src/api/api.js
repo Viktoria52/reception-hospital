@@ -44,7 +44,7 @@ export const receptionAPI = {
         }, {headers: { Authorization: `${token1}` }})
             .then(response => response.data)
     },
-    change(name,nameDoc, date, complaints,_id="12") {
+    change(name='some Name',nameDoc, date, complaints,_id) {
         return instance.patch(`changeReception`, {
             name,
             nameDoc,

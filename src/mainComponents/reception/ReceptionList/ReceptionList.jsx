@@ -48,7 +48,8 @@ class ReceptionList extends React.Component {
                         valueSorting={this.props.valueSorting}
                         valueOption={this.props.valueOption}
                         sortValueAC={this.props.sortValueAC}
-                        reception={this.props.reception}/>
+                        reception={this.props.reception}
+                    />
                 </div>
                 <ul key={'listReception'} className={style.list}>
                     <li key={'list.name'}>Имя</li>

@@ -73,3 +73,11 @@ h1 {
     font-size: 18px;
 }
 
+.nameDoc{
+    width: 572px;
+    height: 40px;
+    border: 1px solid grey;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 6px;
+}
