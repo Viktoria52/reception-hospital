@@ -4,7 +4,9 @@ const SET_USER = 'AUTH/SET_USER'
 const ERROR_MESSAGE = 'AUTH/ERROR_MESSAGE'
 const PASSWORD_TEXT = 'AUTH/PASSWORD_TEXT'
 const PASSWORD_TEXT_REPEAT = 'AUTH/PASSWORD_TEXT_REPEAT'
-// const SET_TOKEN = 'AUTH/SET_TOKEN'
+const SET_TOKEN = 'AUTH/SET_TOKEN'
+const SET_AUTH = 'AUTH/SET_AUTH'
+let token1 = localStorage.getItem('token')
 
 let defaultState = {
     login: null,
@@ -12,7 +14,8 @@ let defaultState = {
     error: null,
     passwordText: null,
     passwordTextRepeat: null,
-    // token: null
+    tokenAuth: token1,
+    isAuth: false
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -41,13 +44,18 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 passwordTextRepeat: action.text
             }
-        // case
-        // SET_TOKEN:
-        //     console.log(state.token)
-        //     return {
-        //         ...state,
-        //         token: action.payload.tokenText
-        //     }
+        case
+        SET_TOKEN:
+            return {
+                ...state,
+                tokenAuth: action.payload.tokenText
+            }
+            case
+            SET_AUTH:
+            return {
+                ...state,
+                isAuth: action.payload.bool
+            }
         default:
             return state
 
@@ -69,12 +77,24 @@ export const passwordRepeatCreator = (text) => {
 // export const setToken = (tokenText) => {
 //     return {type: SET_TOKEN, payload: {tokenText}}
 // }
+export const setToken = (tokenText) => {
+    // console.log(tokenText)
+    return {type: SET_TOKEN, payload: {tokenText}}
+}
+export const Auth = (bool) => {
+    return {type: SET_AUTH, payload: {bool}}
+}
 
 
-export const loginAuth = (login, password) => (dispatch) => {
 
-    authAPI.login(login, password).then(data => {
-        console.log(data)
+
+export const loginAuth = (login, password) =>
+    async (dispatch) => {
+
+        const response = await authAPI.login(login, password)
+        await dispatch(setToken(response))
+        await dispatch(Auth(true))
+        // console.log(response)
         // if (data.statusCode === 200) {
         //     dispatch(setToken(data.token))
         // }
@@ -85,8 +105,8 @@ export const loginAuth = (login, password) => (dispatch) => {
         //     console.log(message);
         //     dispatch(errorMessage(message))
         // }
-    })
-}
+
+    }
 
 export const registerAuth = (login, password) => (dispatch) => {
     authAPI.register(login, password)

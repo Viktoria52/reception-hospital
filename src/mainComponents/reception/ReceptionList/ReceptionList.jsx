@@ -22,6 +22,7 @@ class ReceptionList extends React.Component {
 
     render() {
         let reception = this.props.reception
+
         let elementsReception = reception.map(p => <Post
                 idDelete={this.props.docs.receptionReducer.idDelete}
                 deleteReceptionAC={this.props.deleteReceptionAC}

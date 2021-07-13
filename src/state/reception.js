@@ -177,9 +177,13 @@ export const newReception = (name, nameDoc, date, complaints) => {
 export const changeReception = (name='Anna', nameDoc, date, complaints='changed', id) => {
     return async (dispatch) => {
         let response = await receptionAPI.change(name, nameDoc, date, complaints, id)
-        response.map((value)=>{
-            dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, id))
-        })
+
+        if(response.status === 200){
+            response.data.map((value)=>{
+                dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, id))
+            })
+        }
+
     }
 }
 

@@ -1,4 +1,5 @@
 import axios from "axios";
+import {setToken} from "../state/auth";
 
 const instance = axios.create({
     baseURL: "http://localhost:3000/",
@@ -13,12 +14,12 @@ export const authAPI = {
             .then(response => response.data)
             .then(response => token = response.token)
             .then(response => localStorage.setItem('token', token))
+            .then(response => token)
     },
     register(login, password) {
         return instance.post(`register`, {login, password},
             {headers: {"Content-type": "application/json"}})
             .then(response => response.data)
-
     }
 }
 
@@ -52,7 +53,8 @@ export const receptionAPI = {
             complaints,
             _id
         }, {headers: { Authorization: `${token1}` }})
-            .then(response => response.data)
+            // .then(response => response.data)
+            .then(response => response)
     },
     delete(id) {
         return instance.delete(`deleteReception?id=` + id, {headers: { Authorization: `${token1}` }})

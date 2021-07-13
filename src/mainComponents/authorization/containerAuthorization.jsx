@@ -10,6 +10,7 @@ const ContainerAuthorization =(props) => {
     const [flag, changeFlag] = useState(true);
     const state = useSelector((state) => state)
     return(<div className={style.mainAuth}>
+        {/*<div className={style.hospital} />*/}
         {flag ?
             <div className={style.login}>
                 <Login
@@ -29,6 +30,5 @@ const ContainerAuthorization =(props) => {
     </div>)
 }
 
-// export default compose()
 export default connect(null, {registerAuth,passwordCreator, passwordRepeatCreator,loginAuth})(ContainerAuthorization)
 // export default ContainerAuthorization

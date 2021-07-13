@@ -1,28 +1,45 @@
 import {useForm} from "react-hook-form";
 import style from "./login.module.css"
-// import {NavLink} from "react-router-dom";
-// import {loginAuth} from "../../../state/auth";
-// import {connect} from "react-redux";
+import {useSelector} from "react-redux";
+import {Redirect} from "react-router";
 
 const Login = (props) => {
     const onSubmit = (formData) => {
         props.loginAuth(formData.login, formData.password)
-        console.log(formData)
     };
+    const {tokenAuth} = useSelector((state) => state.authReducer)
+    // console.log(tokenAuth)
     const {register, handleSubmit} = useForm();
     return (<div className={style.mainLogin}>
             <h1 className={style.logIn}>Войти в систему </h1>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className={style.login}>
                     <p>Login:</p>
-                    <input {...register("login")} type={"text"} placeholder={'login'}/>
+                    <input
+                        {...register("login")}
+                        type={"text"}
+                        placeholder={'login'}/>
                 </div>
                 <div className={style.password}>
                     <p>Password:</p>
                     <input {...register("password")} type={'password'} placeholder={'password'}/>
                 </div>
                 <div className={style.containerAuth}>
-                    <input value={'Войти'} className={style.button} type="submit"/>
+
+                    {/*<Link to={l => ({tokenAuth, pathname:'/reception' })}>*/}
+                        <input
+                        value={'Войти'}
+                        className={style.button}
+                        type="submit"
+                        />
+                    {/*{ tokenAuth &&*/}
+                    {/*    <Redirect to={'/reception'} />*/}
+
+                    {/*}*/}
+                    {/*</Link>*/}
+
+
+
                     {/*<div className={style.link}>*/}
                     {/*    <NavLink className={s.link} to='/registration'>Зарегестрироваться</NavLink>*/}
                     {/*</div>*/}

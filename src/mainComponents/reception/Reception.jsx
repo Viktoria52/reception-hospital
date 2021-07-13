@@ -21,7 +21,7 @@ const Reception = (props) => {
         newRec(props.state.receptionReducer.reception);
     }, [props.state.receptionReducer.reception])
     // console.log(props.state.receptionReducer.reception)
-
+    // console.log(reception)
     const state = useSelector((state) => state)
     return (<div>
             <header><ReceptionForm

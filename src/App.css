@@ -1,10 +1,6 @@
 
 .App {
-    /*display: flex;*/
-    /*background-color: #c7eaff;*/
-    background-color: rgba(199,234,255);
-    /*height: 989px;*/
-
+    background-color: rgb(199, 234, 255);
 }
 
 .App-header {
@@ -12,12 +8,11 @@
     justify-content: space-between;
     align-items: center;
     background-color: #C5E9FF;
-    /*height: 117px;*/
     padding: 23px;
     box-shadow: 4px 6px 6px 7px rgba(0, 0, 0, 0.29);
-    /*box-shadow: 4px 4px 4px 4px rgba(0, 0, 0, 0.25);*/
 }
-.exit{
+
+.exit {
     width: 156px;
     height: 46px;
     background-color: #FFFFFF;
@@ -26,48 +21,60 @@
     font-size: 24px;
     margin-right: 23px;
 }
+
 .main {
     background-color: #C5E9FF;
     height: 100vh;
     margin-top: 21px;
 }
-.containerAuth{
-    padding: 41px 56px 41px 56px;
 
-    float: right;
+.containerAuth {
+    padding: 41px 56px 41px 56px;
+    display: flex;
+    justify-content: space-around;
 }
-.logo{
+
+.logo {
     background-image: url("./assets/logo.svg");
     width: 89px;
     height: 71px;
     margin-left: 23px;
 }
-.complaints{
+
+.complaints {
     padding: 0;
-    /*margin:0;*/
     font-size: 36px;
     margin-left: -724px;
 }
-.containerEditWindow{
-    /*border: 1px solid red;*/
+
+.containerEditWindow {
     background-color: rgba(0, 0, 0, 0.8);
-    /*opacity: 0.5;*/
     width: 100%;
     height: 100%;
-position:absolute;
+    position: absolute;
 }
+
 .editWindow {
     position: absolute;
     border: 1px solid black;
 
 }
-.containerDelete{
+
+.containerDelete {
     position: absolute;
     background-color: rgba(0, 0, 0, 0.8);
     width: 100%;
     height: 100%;
     padding: 50px;
 }
+
+.hospital {
+    background-image: url("./assets/hospital.svg");
+    width: 375px;
+    height: 375px;
+    /*background-color: none;*/
+}
+
 /*.App {*/
 /*  text-align: center;*/
 /*}*/
