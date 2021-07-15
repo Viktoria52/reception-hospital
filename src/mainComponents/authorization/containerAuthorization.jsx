@@ -1,14 +1,28 @@
 import Login from "./Login/Login";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Register from "./register/register";
 import style from "./containerAuth.module.css";
-import {connect, useSelector} from "react-redux";
-import {loginAuth, passwordCreator, passwordRepeatCreator, registerAuth} from "../../state/auth";
+import {connect, useDispatch, useSelector} from "react-redux";
+import {loginAuth, passwordCreator, passwordRepeatCreator, registerAuth, setTittle} from "../../state/auth";
 
 
 const ContainerAuthorization =(props) => {
     const [flag, changeFlag] = useState(true);
     const state = useSelector((state) => state)
+    const {registerMessage} = useSelector((state) => state.authReducer)
+    const dispatch = useDispatch()
+
+    useEffect(()=>{
+        console.log(flag)
+        if(registerMessage){
+            setTimeout(()=> changeFlag(true), 3000)
+        }
+        if(flag){
+           dispatch(setTittle('Войти в систему'))
+        } else {
+            dispatch(setTittle('Зарегестрироваться в системе'))
+        }
+    },[registerMessage, flag])
     return(<div className={style.mainAuth}>
         {/*<div className={style.hospital} />*/}
         {flag ?
@@ -30,5 +44,8 @@ const ContainerAuthorization =(props) => {
     </div>)
 }
 
-export default connect(null, {registerAuth,passwordCreator, passwordRepeatCreator,loginAuth})(ContainerAuthorization)
+export default connect(null,
+    {registerAuth,passwordCreator,
+        passwordRepeatCreator,
+        loginAuth, setTittle})(ContainerAuthorization)
 // export default ContainerAuthorization

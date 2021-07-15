@@ -7,9 +7,11 @@
     padding-left: 39px;
 }
 .logIn{
-    font-family: inherit;    font-weight: 300;
+    font-family: inherit;
+    font-weight: 300;
     size: 36px;
-    Line-height:42px
+    Line-height:42px;
+    padding: 11px 5px 28px 5px;
 }
 .login input {
     padding: 5px;
@@ -18,8 +20,13 @@
     height: 40px;
     font-size: 21px;
     box-sizing: border-box;
-}
+    margin-top: 3px;
 
+}
+.password{
+    margin-top: 10px;
+
+}
 .password input {
     padding: 5px;
     width: 321px;
@@ -27,6 +34,7 @@
     border: 1px solid gray;
     font-size: 21px;
     box-sizing: border-box;
+    margin-top: 3px;
 }
 
 .button {

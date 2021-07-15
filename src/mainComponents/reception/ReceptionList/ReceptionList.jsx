@@ -1,70 +1,62 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
 import {changeReceptionId, getReceptions} from "../../../state/reception";
+import {getDocs} from "../../../state/doc";
+import {useDispatch, useSelector} from "react-redux";
 
 
-class ReceptionList extends React.Component {
-    componentDidMount() {
-        this.props.getDocs()
-        this.props.getReceptions()
-        // this.props.getSortData("2021-07-02","2021-07-17" )
-    }
+const ReceptionList = (props) => {
+    const {reception} = useSelector(state => state.receptionReducer)
+    const dispatch = useDispatch()
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        // if (this.props.reception !== prevProps) {
-        //     console.log('запрос')
-        //     this.props.getReceptions()
-        // }
-        // console.log('component update!')
-    }
+    useEffect(() => {
+        dispatch(getDocs())
+        dispatch(getReceptions())
+    }, [])
 
-    render() {
-        let reception = this.props.reception
-
-        let elementsReception = reception.map(p => <Post
-                idDelete={this.props.docs.receptionReducer.idDelete}
-                deleteReceptionAC={this.props.deleteReceptionAC}
-                changeReceptionId={this.props.changeReceptionId}
-                changeReceptionAC={this.props.changeReceptionAC}
-                idEditReception={this.props.idEditReception}
-                id={p._id}
-                deleteReception={this.props.deleteReception}
-                key={p._id}
-                name={p.name}
-                nameDoc={p.nameDoc}
-                date={p.date}
-                complaints={p.complaints}
-            />
-        )
-
-
-        return (<div key={'receptionList.main'} className={style.receptionMain}>
-                <div className={style.sortContainer}>
-                    <Sort
-                        getReceptions={this.props.getReceptions}
-                        getSortData={this.props.getSortData}
-                        triage={this.props.triage}
-                        valueSorting={this.props.valueSorting}
-                        valueOption={this.props.valueOption}
-                        sortValueAC={this.props.sortValueAC}
-                        reception={this.props.reception}
-                    />
-                </div>
-                <ul key={'listReception'} className={style.list}>
-                    <li key={'list.name'}>Имя</li>
-                    <li key={'list.doc'}> Врач</li>
-                    <li key={'list.date'}>Дата</li>
-                    <li key={'list.complaints'}>Жалобы</li>
-                </ul>
-
-                <div className={style.elements} key='heapElems'>
-                    {elementsReception}
-                </div>
+    return (<div key={'receptionList.main'} className={style.receptionMain}>
+            <div className={style.sortContainer}>
+                <Sort
+                    getReceptions={props.getReceptions}
+                    getSortData={props.getSortData}
+                    triage={props.triage}
+                    valueSorting={props.valueSorting}
+                    valueOption={props.valueOption}
+                    sortValueAC={props.sortValueAC}
+                    reception={props.reception}
+                />
             </div>
-        )
-    }
+            <ul key={'listReception'} className={style.list}>
+                <li key={'list.name'}>Имя</li>
+                <li key={'list.doc'}> Врач</li>
+                <li key={'list.date'}>Дата</li>
+                <li key={'list.complaints'}>Жалобы</li>
+            </ul>
+
+            <div className={style.elements} key='heapElems'>
+                {
+                    reception.map(receptionUser => <Post
+                            idDelete={props.docs.receptionReducer.idDelete}
+                            deleteReceptionAC={props.deleteReceptionAC}
+                            changeReceptionId={props.changeReceptionId}
+                            changeReceptionAC={props.changeReceptionAC}
+                            idEditReception={props.idEditReception}
+                            id={receptionUser._id}
+                            deleteReception={props.deleteReception}
+                            key={receptionUser._id}
+                            name={receptionUser.name}
+                            nameDoc={receptionUser.nameDoc}
+                            date={receptionUser.date}
+                            complaints={receptionUser.complaints}
+                        />
+                    )
+                }
+
+            </div>
+        </div>
+    )
 
 
 }

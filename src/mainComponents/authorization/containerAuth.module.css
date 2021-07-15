@@ -7,9 +7,15 @@
     font-weight: 300;
     font-size: 18px;
     border: none;
+    position: absolute;
+    margin-top: -146px;
+    margin-left: 192px;
 }
 
 .authorization{
     font-weight: 300;
     font-size: 18px;
+    position: absolute;
+    margin-top: -93px;
+    margin-left: 228px;
 }

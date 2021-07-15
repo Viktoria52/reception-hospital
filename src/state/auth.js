@@ -6,6 +6,9 @@ const PASSWORD_TEXT = 'AUTH/PASSWORD_TEXT'
 const PASSWORD_TEXT_REPEAT = 'AUTH/PASSWORD_TEXT_REPEAT'
 const SET_TOKEN = 'AUTH/SET_TOKEN'
 const SET_AUTH = 'AUTH/SET_AUTH'
+const SET_REGISTER_MESSAGE = 'AUTH/SET_REGISTER_MESSAGE'
+const SET_TITLE = 'AUTH/SET_TITLE'
+
 let token1 = localStorage.getItem('token')
 
 let defaultState = {
@@ -15,7 +18,10 @@ let defaultState = {
     passwordText: null,
     passwordTextRepeat: null,
     tokenAuth: token1,
-    isAuth: false
+    isAuth: false,
+    registerMessage: null,
+    title: null,
+    loginLength: null
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -50,11 +56,23 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 tokenAuth: action.payload.tokenText
             }
-            case
-            SET_AUTH:
+        case
+        SET_AUTH:
             return {
                 ...state,
                 isAuth: action.payload.bool
+            }
+        case
+        SET_REGISTER_MESSAGE:
+            return {
+                ...state,
+                registerMessage: action.payload.message
+            }
+        case
+        SET_TITLE:
+            return {
+                ...state,
+                title: action.payload.tit
             }
         default:
             return state
@@ -78,14 +96,17 @@ export const passwordRepeatCreator = (text) => {
 //     return {type: SET_TOKEN, payload: {tokenText}}
 // }
 export const setToken = (tokenText) => {
-    // console.log(tokenText)
     return {type: SET_TOKEN, payload: {tokenText}}
 }
 export const Auth = (bool) => {
     return {type: SET_AUTH, payload: {bool}}
 }
-
-
+export const setRegisterMessage = (message) => {
+    return {type: SET_REGISTER_MESSAGE, payload: {message}}
+}
+export const setTittle = (tit) => {
+    return {type: SET_TITLE, payload: {tit}}
+}
 
 
 export const loginAuth = (login, password) =>
@@ -108,15 +129,16 @@ export const loginAuth = (login, password) =>
 
     }
 
-export const registerAuth = (login, password) => (dispatch) => {
-    authAPI.register(login, password)
-        .then(response => {
-            if (response.statusCode === 200) {
-                console.log('ok!')
-            }
-            console.log(response)
+export const registerAuth = (login, password) =>
+    async (dispatch) => {
+        const response = await authAPI.register(login, password)
+        if (response.status === 200) {
+            console.log('ok!')
+            dispatch(setRegisterMessage(response.data))
+        }
+        console.log(response.data)
 
-        })
-}
+
+    }
 
 export default authReducer;

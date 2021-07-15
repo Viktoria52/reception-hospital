@@ -2,22 +2,25 @@ import s from './edit.module.css'
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
 import {Redirect} from "react-router";
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import {changeReception} from "../../../state/reception";
 
-const EditWindow = (props) => {
+const EditWindow = () => {
     const {reception, idEditPost, name, nameDoc, date, complaints, id} = useSelector((state) => state.receptionReducer)
     const {docs} = useSelector((state) => state.docReducer)
-    console.log(complaints)
-    const [rec, newRec] = useState([name, nameDoc, date, complaints, id]);
 
+    const [rec, newRec] = useState([name, nameDoc, date, complaints, id]);
     const [edit, setEdit] = useState(false)
+
+    const dispatch = useDispatch()
+
     useEffect(() => {
         newRec(rec)
         console.log('rerender')
     }, [name, nameDoc, date, complaints, id])
+
     const onSubmit = async (formData) => {
-        await props.changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id)
+        await dispatch(changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id))
         // await props.getReceptions()
 
         setEdit(!edit)
@@ -85,8 +88,8 @@ const EditWindow = (props) => {
                         defaultValue={'Save'}
                     />
                 </div>
-                {edit ?
-                    <Redirect to={'/reception'}/> : null
+                {edit &&
+                    <Redirect to={'/reception'}/>
                 }
             </form>
 

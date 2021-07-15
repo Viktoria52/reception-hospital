@@ -1,52 +1,51 @@
 import ReceptionForm from "./ReceptionForm/ReceptionForm";
 import ReceptionList from "./ReceptionList/ReceptionList";
-import {connect, useSelector} from "react-redux";
+import {connect, useDispatch, useSelector} from "react-redux";
 import docReducer, {getDocs} from "../../state/doc";
 import {
     addReceptionCreator,
     changeReception,
     deleteReception, deleteReceptionAC,
     getReceptions, getSortData, idEditReception,
-    newReception, changeReceptionAC, changeReceptionId
+    changeReceptionAC, changeReceptionId
 } from "../../state/reception";
 import {useEffect, useState} from "react";
 import {sortValueAC, triage} from "../../state/sort";
+import {setTittle} from "../../state/auth";
 
 
 const Reception = (props) => {
     // console.log(props.state.receptionReducer.reception)
     // console.log(props.state.receptionReducer.reception)
-    const [reception, newRec] = useState(props.state.receptionReducer.reception);
+    const {reception} = useSelector(state => state.receptionReducer);
+    const { title} = useSelector((state) => state.authReducer)
+
+    const dispatch = useDispatch()
     useEffect(() =>{
-        newRec(props.state.receptionReducer.reception);
-    }, [props.state.receptionReducer.reception])
-    // console.log(props.state.receptionReducer.reception)
-    // console.log(reception)
+
+        dispatch(setTittle('Приемы'))
+    }, [reception,title ])
+
     const state = useSelector((state) => state)
+
     return (<div>
-            <header><ReceptionForm
-                docs = {state}
-                getDocs = {props.getDocs}
-                // changeReception={props.changeReception}
-                newReception={props.newReception}
-                addReceptionCreator={props.addReceptionCreator}
-            /></header>
+            <header><ReceptionForm/></header>
 
             <main><ReceptionList
-                getSortData = {props.getSortData}
+                getSortData = {getSortData}
                 valueSorting = {state.sortValue.valueSorting}
                 valueOption = {state.sortValue.valueOption}
-                triage={props.triage}
-                sortValueAC={props.sortValueAC}
+                triage={triage}
+                sortValueAC={sortValueAC}
                 reception ={reception}
-                deleteReceptionAC={props.deleteReceptionAC}
-                idEditReception={props.idEditReception}
+                deleteReceptionAC={deleteReceptionAC}
+                idEditReception={idEditReception}
                 docs = {state}
-                getDocs = {props.getDocs}
-                getReceptions = {props.getReceptions}
-                deleteReception={props.deleteReception}
-                changeReceptionAC={props.changeReceptionAC}
-                changeReceptionId={props.changeReceptionId}
+                getDocs = {getDocs}
+                getReceptions = {getReceptions}
+                deleteReception={deleteReception}
+                changeReceptionAC={changeReceptionAC}
+                changeReceptionId={changeReceptionId}
 
             /></main>
         </div>
@@ -54,15 +53,4 @@ const Reception = (props) => {
 
 }
 
-let mapStateToProps = (state) => ({
-        state: state,
-    // valueOption: state.sortReducer.
-})
-
-export default connect(mapStateToProps, {getDocs,getReceptions,
-    changeReception,newReception,
-    deleteReception,idEditReception,
-    deleteReceptionAC,
-    sortValueAC,triage,
-    getSortData,changeReceptionAC,
-    changeReceptionId})(Reception);
+export default Reception

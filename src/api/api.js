@@ -19,7 +19,7 @@ export const authAPI = {
     register(login, password) {
         return instance.post(`register`, {login, password},
             {headers: {"Content-type": "application/json"}})
-            .then(response => response.data)
+            .then(response => response)
     }
 }
 
@@ -58,7 +58,7 @@ export const receptionAPI = {
     },
     delete(id) {
         return instance.delete(`deleteReception?id=` + id, {headers: { Authorization: `${token1}` }})
-            .then(response => response.data)
+            .then(response => response)
     },
     sortDate(sortFrom, sortTo){
         return instance.get(`getSortRecDate?sortFrom=${sortFrom}&sortTo=${sortTo}`, {headers: { Authorization: `${token1}` }})

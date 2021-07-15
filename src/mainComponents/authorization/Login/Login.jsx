@@ -1,13 +1,16 @@
 import {useForm} from "react-hook-form";
 import style from "./login.module.css"
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router";
+import {setTittle} from "../../../state/auth";
 
 const Login = (props) => {
-    const onSubmit = (formData) => {
-        props.loginAuth(formData.login, formData.password)
+    const {registerMessage} = useSelector((state) => state.authReducer)
+    const dispatch = useDispatch()
+
+    const onSubmit = async(formData) => {
+        await props.loginAuth(formData.login, formData.password)
     };
-    const {tokenAuth} = useSelector((state) => state.authReducer)
     // console.log(tokenAuth)
     const {register, handleSubmit} = useForm();
     return (<div className={style.mainLogin}>
@@ -16,9 +19,12 @@ const Login = (props) => {
                 <div className={style.login}>
                     <p>Login:</p>
                     <input
+
                         {...register("login")}
                         type={"text"}
-                        placeholder={'login'}/>
+                        placeholder={'login'}
+
+                    />
                 </div>
                 <div className={style.password}>
                     <p>Password:</p>

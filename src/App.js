@@ -7,22 +7,24 @@ import EditWindow from "./mainComponents/reception/editReception/EditWindow";
 import {Redirect} from "react-router";
 import DeleteReception from "./mainComponents/reception/ReceptionList/deleteReception/deleteReception";
 import {useDispatch, useSelector} from "react-redux";
-import {Auth} from "./state/auth";
+import {Auth, setTittle} from "./state/auth";
+import Header from "./mainComponents/header/header";
 
 // let token1 = localStorage.getItem('token')
 
 const App = () => {
-const {tokenAuth, isAuth} = useSelector((state) => state.authReducer)
+    const {tokenAuth, isAuth, title} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
+    useEffect(() => {
+        if (tokenAuth) {
+            dispatch(Auth(true))
+        }
+        //
+        // if (isAuth === true) {
+        //     dispatch(setTittle(null))
+        // }
+    }, [tokenAuth, title])
 
-
-    useEffect(()=>{
-        if(tokenAuth){
-                dispatch(Auth(true))
-            }
-    }, [tokenAuth])
-    // console.log(token)
-    // console.log(this.props.initial)
     // if (!this.props.initial) {
     //     return <Preloader/>
     // }
@@ -48,21 +50,25 @@ const {tokenAuth, isAuth} = useSelector((state) => state.authReducer)
                 </div>
             </Route>
             <header className="App-header">
-                <Route path="/reception">
-                    <div className="logo"/>
-                    <p className="complaints">Приемы </p>
-                    <Link to='/'>
-                        <button
-                            className='exit'
-                            onClick={async() => {
-                                await localStorage.removeItem('token');
-                                 dispatch(Auth(false))
-                            }}
-                        > Выход
-                        </button>
-                    </Link>
+                <Header />
+                {/*<div className="logo"/>*/}
+                {/*{title &&*/}
+                {/*<p className='title'>{title}</p>}*/}
+                {/*<Route path="/reception">*/}
+                {/*    /!*<div className="logo"/>*!/*/}
+                {/*    <p className="complaints">Приемы </p>*/}
+                {/*    <Link to='/'>*/}
+                {/*        <button*/}
+                {/*            className='exit'*/}
+                {/*            onClick={async () => {*/}
+                {/*                await localStorage.removeItem('token');*/}
+                {/*                dispatch(Auth(false))*/}
+                {/*            }}*/}
+                {/*        > Выход*/}
+                {/*        </button>*/}
+                {/*    </Link>*/}
 
-                </Route>
+                {/*</Route>*/}
 
 
             </header>
@@ -74,7 +80,7 @@ const {tokenAuth, isAuth} = useSelector((state) => state.authReducer)
                         </Route>
                         <Route path='/'>
                             <div className='containerAuth'>
-                                <div className='hospital' />
+                                <div className='hospital'/>
                                 <ContainerAuthorization/>
                             </div>
                         </Route>

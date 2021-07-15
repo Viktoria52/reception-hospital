@@ -12,15 +12,7 @@
     box-shadow: 4px 6px 6px 7px rgba(0, 0, 0, 0.29);
 }
 
-.exit {
-    width: 156px;
-    height: 46px;
-    background-color: #FFFFFF;
-    outline: none;
-    border: 1px solid #bdbdbd;
-    font-size: 24px;
-    margin-right: 23px;
-}
+
 
 .main {
     background-color: #C5E9FF;
@@ -33,7 +25,16 @@
     display: flex;
     justify-content: space-around;
 }
-
+.logo-in-auth{
+    background-image: url("./assets/logo.svg");
+    width: 89px;
+    height: 71px;
+    margin-left: 23px;
+}
+.title{
+    font-size: 38px;
+    font-weight: 300;
+}
 .logo {
     background-image: url("./assets/logo.svg");
     width: 89px;
@@ -56,8 +57,6 @@
 
 .editWindow {
     position: absolute;
-    border: 1px solid black;
-
 }
 
 .containerDelete {

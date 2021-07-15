@@ -11,25 +11,27 @@ const docReducer = (state = defaultState, action) => {
         case GET_DOCS:
             return {
                 ...state,
-                docs: action.payload.nameDoc,
+                docs: [...state.docs, action.docs],
             }
         default:
             return state
     }
 }
 
-export const setDocs = (nameDoc) => {
+export const setDocs = (docs) => {
     return {
-        type: GET_DOCS, payload: {nameDoc}
+        type: GET_DOCS, docs
     }
 }
 
 export const getDocs = () => {
-    return (dispatch) => {
-        docsAPI.getDocs().then(data => {
-            dispatch(setDocs(data.data));
 
+    return (dispatch) => {
+        docsAPI.getDocs()
+            .then(response => {
+            dispatch(setDocs(response.data));
         })
+            .catch(err => console.log(err))
     }
 }
 

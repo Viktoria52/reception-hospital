@@ -18,8 +18,12 @@
     height: 40px;
     font-size: 21px;
     box-sizing: border-box;
+    margin-top: 3px;
 }
 
+.password{
+    margin-top: 10px;
+}
 .password input {
     /*margin-top: 47px;*/
     padding: 5px;
@@ -28,6 +32,7 @@
     border: 1px solid gray;
     font-size: 21px;
     box-sizing: border-box;
+    margin-top: 3px;
 }
 
 .button {
@@ -59,4 +64,9 @@ input {
 
 .error{
     color: red;
+}
+
+.messageReg{
+    background-color: greenyellow;
+    width: 230px;
 }
