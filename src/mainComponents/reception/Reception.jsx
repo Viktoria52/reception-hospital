@@ -1,5 +1,5 @@
-import ReceptionForm from "./ReceptionForm/ReceptionForm";
-import ReceptionList from "./ReceptionList/ReceptionList";
+import ReceptionForm from "./receptionForm/ReceptionForm";
+import ReceptionList from "./receptionList/ReceptionList";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {setTittle} from "../../state/auth";

@@ -25,13 +25,18 @@ export const setDocs = (docs) => {
 }
 
 export const getDocs = () => {
+    return async (dispatch) => {
+        try{
+            const response = await docsAPI.getDocs()
+            if(response.status === 200){
+                dispatch(setDocs(response.data.data));
+            }
+        }catch(err){
+            console.log(err)
+        }
 
-    return (dispatch) => {
-        docsAPI.getDocs()
-            .then(response => {
-            dispatch(setDocs(response.data));
-        })
-            .catch(err => console.log(err))
+
+
     }
 }
 

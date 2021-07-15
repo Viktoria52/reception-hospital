@@ -8,8 +8,8 @@ const SET_TOKEN = 'AUTH/SET_TOKEN'
 const SET_AUTH = 'AUTH/SET_AUTH'
 const SET_REGISTER_MESSAGE = 'AUTH/SET_REGISTER_MESSAGE'
 const SET_TITLE = 'AUTH/SET_TITLE'
-
-let token1 = localStorage.getItem('token')
+const VALIDATION_LOGIN_LENGTH = 'AUTH/VALIDATION_LOGIN_LENGTH'
+const FAILED_REGISTER_MESSAGE = 'AUTH/FAILED_REGISTER_MESSAGE'
 
 let defaultState = {
     login: null,
@@ -17,11 +17,12 @@ let defaultState = {
     error: null,
     passwordText: null,
     passwordTextRepeat: null,
-    tokenAuth: token1,
+    tokenAuth: localStorage.getItem('token'),
     isAuth: false,
     registerMessage: null,
     title: null,
-    loginLength: null
+    loginLength: null,
+    messageFailedRegister: null
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -74,6 +75,18 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 title: action.payload.tit
             }
+        case
+        VALIDATION_LOGIN_LENGTH:
+            return {
+                ...state,
+                loginLength: action.message
+            }
+        case
+        FAILED_REGISTER_MESSAGE:
+            return {
+                ...state,
+                messageFailedRegister: action.message
+            }
         default:
             return state
 
@@ -108,37 +121,38 @@ export const setTittle = (tit) => {
     return {type: SET_TITLE, payload: {tit}}
 }
 
+export const validLengthLoginAC = (message) => {
+    return {type: VALIDATION_LOGIN_LENGTH, message}
+}
+export const registerFailedMessageAC = (message) => {
+    return {type: FAILED_REGISTER_MESSAGE, message}
+}
+
 
 export const loginAuth = (login, password) =>
     async (dispatch) => {
+        try {
+            const response = await authAPI.login(login, password)
+            localStorage.setItem('token', response.data)
+            dispatch(Auth(true))
 
-        const response = await authAPI.login(login, password)
-        await dispatch(setToken(response))
-        await dispatch(Auth(true))
-        // console.log(response)
-        // if (data.statusCode === 200) {
-        //     dispatch(setToken(data.token))
-        // }
-        // if (data.resultCode === 0) {
-        //
-        // } else {
-        //     let message = data.error >0 ? 'Enter valid email or password' : 'error';
-        //     console.log(message);
-        //     dispatch(errorMessage(message))
-        // }
-
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 export const registerAuth = (login, password) =>
     async (dispatch) => {
-        const response = await authAPI.register(login, password)
-        if (response.status === 200) {
-            console.log('ok!')
-            dispatch(setRegisterMessage(response.data))
+        try {
+            const response = await authAPI.register(login, password)
+            if (response.status === 200) {
+                dispatch(setRegisterMessage(response.data))
+            }
+
+        } catch (error) {
+            dispatch(registerFailedMessageAC('Такой пользователь уже есть'))
+            console.log(error)
         }
-        console.log(response.data)
-
-
     }
 
 export default authReducer;

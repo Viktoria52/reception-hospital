@@ -13,15 +13,14 @@ const ContainerAuthorization =(props) => {
     const dispatch = useDispatch()
 
     useEffect(()=>{
-        console.log(flag)
-        if(registerMessage){
-            setTimeout(()=> changeFlag(true), 3000)
-        }
-        if(flag){
-           dispatch(setTittle('Войти в систему'))
-        } else {
-            dispatch(setTittle('Зарегестрироваться в системе'))
-        }
+        // if(registerMessage){
+        //     setTimeout(()=> changeFlag(true), 3000)
+        // }
+        // if(flag){
+        //    dispatch(setTittle('Войти в систему'))
+        // } else {
+        //     dispatch(setTittle('Зарегестрироваться в системе'))
+        // }
     },[registerMessage, flag])
     return(<div className={style.mainAuth}>
         {/*<div className={style.hospital} />*/}

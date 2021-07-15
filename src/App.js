@@ -5,31 +5,29 @@ import Reception from "./mainComponents/reception/Reception";
 import ContainerAuthorization from "./mainComponents/authorization/containerAuthorization";
 import EditWindow from "./mainComponents/reception/editReception/EditWindow";
 import {Redirect} from "react-router";
-import DeleteReception from "./mainComponents/reception/ReceptionList/deleteReception/deleteReception";
+import DeleteReception from "./mainComponents/reception/receptionList/deleteReception/deleteReception";
 import {useDispatch, useSelector} from "react-redux";
-import {Auth, setTittle} from "./state/auth";
+import {Auth} from "./state/auth";
 import Header from "./mainComponents/header/header";
-
-// let token1 = localStorage.getItem('token')
+import Preloader from "./assets/Preloader";
 
 const App = () => {
-    const {tokenAuth, isAuth, title} = useSelector((state) => state.authReducer)
+    const {tokenAuth, isAuth} = useSelector((state) => state.authReducer)
+    const {preloader} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
     useEffect(() => {
         if (tokenAuth) {
             dispatch(Auth(true))
         }
-        //
-        // if (isAuth === true) {
-        //     dispatch(setTittle(null))
-        // }
-    }, [tokenAuth, title])
+    }, [tokenAuth])
 
-    // if (!this.props.initial) {
+    // if (preloader) {
     //     return <Preloader/>
     // }
+
     return (
         <div className="App">
+
             <Route path="/reception/EditWindow">
                 <div className='containerEditWindow'>
                     <div className='editWindow'>
@@ -51,24 +49,8 @@ const App = () => {
             </Route>
             <header className="App-header">
                 <Header />
-                {/*<div className="logo"/>*/}
-                {/*{title &&*/}
-                {/*<p className='title'>{title}</p>}*/}
-                {/*<Route path="/reception">*/}
-                {/*    /!*<div className="logo"/>*!/*/}
-                {/*    <p className="complaints">Приемы </p>*/}
-                {/*    <Link to='/'>*/}
-                {/*        <button*/}
-                {/*            className='exit'*/}
-                {/*            onClick={async () => {*/}
-                {/*                await localStorage.removeItem('token');*/}
-                {/*                dispatch(Auth(false))*/}
-                {/*            }}*/}
-                {/*        > Выход*/}
-                {/*        </button>*/}
-                {/*    </Link>*/}
 
-                {/*</Route>*/}
+
 
 
             </header>

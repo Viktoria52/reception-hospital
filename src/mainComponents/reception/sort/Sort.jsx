@@ -11,23 +11,15 @@ const Sort = () => {
     let dateToReg = ''
     const {reception} = useSelector(state => state.receptionReducer)
     const {valueOption, valueSorting} = useSelector(state => state.sortReducer)
-    console.log(valueOption, valueSorting)
     const dispatch = useDispatch()
-    // const [rec, newRec] = useState(reception);
 
-    // useEffect(() => {
-    //     newRec(reception);
-    // }, [reception])
-
-    const [flag, setFlag] = useState() // sort by name
-    const [docSort, setFlagDoc] = useState() // sort by doc
-    // const [flagDate, setFlagDate] = useState(false) // sort by date
+    // const [flag, setFlag] = useState() // sort by name
+    // const [docSort, setFlagDoc] = useState() // sort by doc
 
     const onSubmit = (formData) => {
         dateFromReg = formData.dateFrom
         dateToReg = formData.dateTo
         dispatch(getSortData(dateFromReg, dateToReg)) //date!
-
     };
 
     function handleChange(e) {
@@ -49,7 +41,6 @@ const Sort = () => {
     async function sortNames(e) { //сортировка имен и врачей
         let text = await e.target.value
         await dispatch(triage(text))
-        console.log(text)
         if (valueSorting) {
             if (valueOption === 'name') {
                 dispatch(getSortName(valueSorting)) //name
@@ -60,81 +51,26 @@ const Sort = () => {
         }
 
 
-        if (text === "none") {
-            dispatch(triage(''))
-        }
-        if (resultName) {
-            if (valueSorting === 'ascending') {
-                setFlag(true)
-            }
-            if (valueSorting === 'decreasing') {
-                setFlag(false)
-            }
-        }
-        if (resultDoc) {
-            if (valueSorting === 'ascending') {
-                setFlagDoc(true)
-            }
-            if (valueSorting === 'decreasing') {
-                setFlagDoc(false)
-            }
-        }
+        // if (text === "none") {
+        //     dispatch(triage(''))
+        // }
+        // if (resultName) {
+        //     if (valueSorting === 'ascending') {
+        //         setFlag(true)
+        //     }
+        //     if (valueSorting === 'decreasing') {
+        //         setFlag(false)
+        //     }
+        // }
+        // if (resultDoc) {
+        //     if (valueSorting === 'ascending') {
+        //         setFlagDoc(true)
+        //     }
+        //     if (valueSorting === 'decreasing') {
+        //         setFlagDoc(false)
+        //     }
+        // }
     }
-
-
-    // if (docSort === true) { // sort by doc
-    //     console.log('возрастание')
-    //     reception.sort(function (a, b) {
-    //             let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
-    //             if (nameA < nameB)
-    //                 return -1;
-    //             if (nameA > nameB)
-    //                 return 1;
-    //             return 0;
-    //         }
-    //     )
-    // }
-    //
-    // if (docSort === false) { // sort by doc
-    //     console.log('убывание')
-    //     reception.sort(function (a, b) {
-    //             let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
-    //             if (nameA < nameB)
-    //                 return 1;
-    //             if (nameA > nameB)
-    //                 return -1;
-    //             return 0;
-    //         }
-    //     )
-    // }
-    // if (flag === true) {// sort by name
-    //     console.log('возрастание')
-    //     reception.sort(function (a, b) {
-    //             let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-    //             if (nameA < nameB)
-    //                 return -1;
-    //             if (nameA > nameB)
-    //                 return 1;
-    //             return 0;
-    //         }
-    //     )
-    //     // console.log(props.reception)
-    // }
-    // if (flag === false) { // sort by name
-    //     console.log('убывание')
-    //     reception.sort(function (a, b) {
-    //             let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-    //             if (nameA < nameB)
-    //                 return 1;
-    //             if (nameA > nameB)
-    //                 return -1;
-    //             return 0;
-    //         }
-    //     )
-    //     // console.log(props.reception)
-    // }
-
-// console.log(props.reception)
     const {register, handleSubmit} = useForm();
     return (
         <div className={style.sorting}>

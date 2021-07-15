@@ -29,10 +29,11 @@ const Header = () => {
                     <Link to='/'>
                         <button
                             className={style.exit}
-                            onClick={async () => {
-                                await localStorage.removeItem('token');
-                                await dispatch(setToken(null))
+                            onClick={ () => {
+                                 localStorage.removeItem('token');
+                                 // dispatch(setToken(null))
                                 dispatch(Auth(false))
+
                             }}
                         > Выход
                         </button>

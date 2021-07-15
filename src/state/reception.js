@@ -15,6 +15,7 @@ const SORT_DATE_RECEPTION = 'REC/SORT/DATE/RECEPTION'
 const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
 const SORT_NAME = 'REC/SORT_NAME'
 const SORT_NAME_DOC = 'REC/SORT_NAME_DOC'
+// const PRELOADER = 'REC/PRELOADER'
 
 
 let defaultState = {
@@ -25,7 +26,7 @@ let defaultState = {
     date: null,
     complaints: null,
     error: null,
-    preloader: false,
+    // preloader: false,
     idEdit: null,
     id: null,
     idDelete: null,
@@ -133,6 +134,11 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 idEditPost: action.payload.id
             }
+            // case PRELOADER:
+            // return {
+            //     ...state,
+            //     preloader: action.bool
+            // }
 
         default:
             return state
@@ -219,25 +225,32 @@ export const sortToNameDoc = (array) => {
         array
     }
 }
+// export const preloaderAC= (bool) => {
+//     return {
+//         type: PRELOADER,
+//         bool
+//     }
+// }
 
 
 export const getReceptions = () => {
     return async dispatch => {
-        // defaultState.preloader = true
+        // await dispatch(preloaderAC( true))
         let response = await receptionAPI.getAll()
-        // defaultState.preloader = false
-        dispatch(setReception(response.data));
+        if(response.status === 200){
+            dispatch(setReception(response.data.data));
+        }
     }
 }
 
 export const newReception = (name, nameDoc, date, complaints) => {
-    return (dispatch) => {
+    return async (dispatch) => {
         // defaultState.preloader = true
-        receptionAPI.add(name, nameDoc, date, complaints).then(response => {
-            // defaultState.preloader = false
-            console.log(response)
-            dispatch(addReceptionCreator(response))
-        })
+       const response = await receptionAPI.add(name, nameDoc, date, complaints)
+        // defaultState.preloader = false
+        if(response.status === 200){
+            dispatch(addReceptionCreator(response.data))
+        }
     }
 }
 
@@ -268,14 +281,14 @@ export const deleteReception = (id) => {
 export const getSortData = (sortFrom, sortTo) => {
     return async (dispatch) => {
         let response = await receptionAPI.sortDate(sortFrom, sortTo)
-        await dispatch(sortToDate(response.data));
+        if(response.status === 200){
+            await dispatch(sortToDate(response.data.data));
+        }
     }
 }
 export const getSortName = (valueSort) => {
-    console.log(valueSort)
     return async (dispatch) => {
         let response = await receptionAPI.sortName(valueSort)
-        console.log(response.data)
         if (response.status === 200) {
             await dispatch(sortToName(response.data.data));
         }

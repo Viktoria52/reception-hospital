@@ -8,12 +8,17 @@ import {useDispatch, useSelector} from "react-redux";
 
 
 const ReceptionList = () => {
-    const {reception, } = useSelector(state => state.receptionReducer)
+    const {reception } = useSelector(state => state.receptionReducer)
+    const {tokenAuth} = useSelector((state) => state.authReducer)
+    console.log(tokenAuth)
+    console.log(reception)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(getDocs())
-        dispatch(getReceptions())
+        if(tokenAuth){
+            dispatch(getDocs())
+            dispatch(getReceptions())
+        }
     }, [])
 
     return (<div key={'receptionList.main'} className={style.receptionMain}>
