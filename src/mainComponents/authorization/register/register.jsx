@@ -1,11 +1,13 @@
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
 import style from "./register.module.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {registerAuth} from "../../../state/auth";
 
-const Register = (props) => {
+const Register = () => {
     const {register, handleSubmit, watch} = useForm();
-
+    // const {registerMessage} = useSelector((state) => state.authReducer)
+    const dispatch = useDispatch()
     // const {registerMessage} = useSelector((state) => state.authReducer)
 
     const watchAllFields = watch()
@@ -13,7 +15,7 @@ const Register = (props) => {
     const onSubmit = async (formData) => {
         console.log(formData)
 
-        props.registerAuth(formData.login, formData.password)
+        dispatch(registerAuth(formData.login, formData.password))
     }
     return (<div className={style.mainLogin}>
             <h1 className={style.registration}>Регистрация</h1>
@@ -33,8 +35,8 @@ const Register = (props) => {
                     />
                 </div>
                 {errLogin ?
-                <p>{errLogin}</p>:
-                null}
+                    <p>{errLogin}</p> :
+                    null}
 
                 <div>
                 </div>

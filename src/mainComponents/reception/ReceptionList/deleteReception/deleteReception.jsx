@@ -4,7 +4,7 @@ import {Redirect} from "react-router";
 import {connect, useDispatch, useSelector} from "react-redux";
 import {deleteReception, getReceptions} from "../../../../state/reception";
 
-const DeleteReception = (props) => {
+const DeleteReception = () => {
     const {idDelete} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
 
@@ -23,7 +23,6 @@ const DeleteReception = (props) => {
                 <button
                     onClick={async()=>{
                         await dispatch(deleteReception(idDelete))
-                        // await dispatch(getReceptions())
                         setFlag(!flag)
                     }}
                     className={s.deleteButton}>Delete</button>

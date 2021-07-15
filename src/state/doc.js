@@ -1,6 +1,6 @@
 import {docsAPI} from "../api/api";
 
-const GET_DOCS = 'REC/ADD_RECEPTION'
+const GET_DOCS = 'REC/GET_DOCS'
 
 let defaultState = {
     docs: []
@@ -11,7 +11,7 @@ const docReducer = (state = defaultState, action) => {
         case GET_DOCS:
             return {
                 ...state,
-                docs: [...state.docs, action.docs],
+                docs:  action.docs,
             }
         default:
             return state

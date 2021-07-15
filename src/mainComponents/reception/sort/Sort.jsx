@@ -1,128 +1,138 @@
 import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import style from './sort.module.css'
+import {useDispatch, useSelector} from "react-redux";
+import {sortValueAC, triage} from "../../../state/sort";
+import {getReceptions, getSortData, getSortName, getSortNameDoc} from "../../../state/reception";
 
-const Moment = require('moment')
 
-
-// function sortedArray() {
-//     arrayDate.sort((a, b) => new Moment(a).format('YYYYMMDD') - new Moment(b).format('YYYYMMDD'))
-// }
-
-// let sortedCars = arrayDate.sort((a, b) =>
-// Date.parse(new Date(a.date.split("/").reverse().join("-"))) - Date.parse(new Date(b.date.split("/").reverse().join("-")))); //сортировка даты по порядку(возрастание)
-
-const Sort = (props) => {
+const Sort = () => {
     let dateFromReg = ''
     let dateToReg = ''
-    const [rec, newRec] = useState(props.reception);
+    const {reception} = useSelector(state => state.receptionReducer)
+    const {valueOption, valueSorting} = useSelector(state => state.sortReducer)
+    console.log(valueOption, valueSorting)
+    const dispatch = useDispatch()
+    // const [rec, newRec] = useState(reception);
 
-    useEffect(() => {
-        newRec(props.reception);
-    }, [props.reception])
+    // useEffect(() => {
+    //     newRec(reception);
+    // }, [reception])
 
     const [flag, setFlag] = useState() // sort by name
     const [docSort, setFlagDoc] = useState() // sort by doc
-    const [flagDate, setFlagDate] = useState(false) // sort by date
+    // const [flagDate, setFlagDate] = useState(false) // sort by date
 
     const onSubmit = (formData) => {
         dateFromReg = formData.dateFrom
         dateToReg = formData.dateTo
-        props.getSortData(dateFromReg, dateToReg) //date!
+        dispatch(getSortData(dateFromReg, dateToReg)) //date!
 
     };
 
     function handleChange(e) {
         let text = e.target.value
-        props.sortValueAC(text) //сохранение значения сортировки name/docname/date в valueOption
+        dispatch(sortValueAC(text)) //сохранение значения сортировки name/docname/date в valueOption
     }
 
     useEffect(() => {
-        if (props.valueOption === 'none') { // сброс фильтрации даты
-            props.getReceptions()
+        if (valueOption === 'none') { // сброс фильтрации даты
+            dispatch(getReceptions())
         }
-    }, [props.valueOption]);
+    }, [valueOption]);
+
+
+    let resultName = valueOption === "name"
+    let resultDoc = valueOption === "doc"
+    let resultDate = valueOption === "date"
 
     async function sortNames(e) { //сортировка имен и врачей
         let text = await e.target.value
-        await props.triage(text)
-        // console.log(text)
+        await dispatch(triage(text))
+        console.log(text)
+        if (valueSorting) {
+            if (valueOption === 'name') {
+                dispatch(getSortName(valueSorting)) //name
+            }
+            if (valueOption === 'doc') {
+                dispatch(getSortNameDoc(valueSorting)) //doctors
+            }
+        }
+
+
         if (text === "none") {
-            props.triage('')
+            dispatch(triage(''))
         }
         if (resultName) {
-            if (text === 'ascending') {
+            if (valueSorting === 'ascending') {
                 setFlag(true)
             }
-            if (text === 'decreasing') {
+            if (valueSorting === 'decreasing') {
                 setFlag(false)
             }
         }
         if (resultDoc) {
-            if (text === 'ascending') {
+            if (valueSorting === 'ascending') {
                 setFlagDoc(true)
             }
-            if (text === 'decreasing') {
+            if (valueSorting === 'decreasing') {
                 setFlagDoc(false)
             }
         }
     }
 
-    let resultName = props.valueOption === "name"
-    let resultDoc = props.valueOption === "doc"
-    let resultDate = props.valueOption === "date"
 
-    if (docSort === true) { // sort by doc
-        console.log('возрастание')
-        props.reception.sort(function (a, b) {
-                let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
-                if (nameA < nameB)
-                    return -1;
-                if (nameA > nameB)
-                    return 1;
-                return 0;
-            }
-        )
-    }
-
-    if (docSort === false) { // sort by doc
-        console.log('убывание')
-        props.reception.sort(function (a, b) {
-                let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
-                if (nameA < nameB)
-                    return 1;
-                if (nameA > nameB)
-                    return -1;
-                return 0;
-            }
-        )
-    }
-    if (flag === true) {// sort by name
-        console.log('возрастание')
-        props.reception.sort(function (a, b) {
-                let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-                if (nameA < nameB)
-                    return -1;
-                if (nameA > nameB)
-                    return 1;
-                return 0;
-            }
-        )
-        console.log(props.reception)
-    }
-    if (flag === false) { // sort by name
-        console.log('убывание')
-        props.reception.sort(function (a, b) {
-                let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
-                if (nameA < nameB)
-                    return 1;
-                if (nameA > nameB)
-                    return -1;
-                return 0;
-            }
-        )
-        console.log(props.reception)
-    }
+    // if (docSort === true) { // sort by doc
+    //     console.log('возрастание')
+    //     reception.sort(function (a, b) {
+    //             let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
+    //             if (nameA < nameB)
+    //                 return -1;
+    //             if (nameA > nameB)
+    //                 return 1;
+    //             return 0;
+    //         }
+    //     )
+    // }
+    //
+    // if (docSort === false) { // sort by doc
+    //     console.log('убывание')
+    //     reception.sort(function (a, b) {
+    //             let nameA = a.nameDoc.toLowerCase(), nameB = b.nameDoc.toLowerCase();
+    //             if (nameA < nameB)
+    //                 return 1;
+    //             if (nameA > nameB)
+    //                 return -1;
+    //             return 0;
+    //         }
+    //     )
+    // }
+    // if (flag === true) {// sort by name
+    //     console.log('возрастание')
+    //     reception.sort(function (a, b) {
+    //             let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+    //             if (nameA < nameB)
+    //                 return -1;
+    //             if (nameA > nameB)
+    //                 return 1;
+    //             return 0;
+    //         }
+    //     )
+    //     // console.log(props.reception)
+    // }
+    // if (flag === false) { // sort by name
+    //     console.log('убывание')
+    //     reception.sort(function (a, b) {
+    //             let nameA = a.name.toLowerCase(), nameB = b.name.toLowerCase();
+    //             if (nameA < nameB)
+    //                 return 1;
+    //             if (nameA > nameB)
+    //                 return -1;
+    //             return 0;
+    //         }
+    //     )
+    //     // console.log(props.reception)
+    // }
 
 // console.log(props.reception)
     const {register, handleSubmit} = useForm();
@@ -132,7 +142,7 @@ const Sort = (props) => {
                 <div className={style.containerSortingBy}>
                     <p className={style.sortBy}>Сортировать по:</p>
                     <select className={style.select} onChange={handleChange}>
-                        <option value="no_value"> </option>
+                        <option value="no_value"/>
                         <option value="name">Имя</option>
                         <option value="doc">Врач</option>
                         <option value="date">Дата</option>
@@ -143,9 +153,9 @@ const Sort = (props) => {
 
                 {resultName || resultDoc ?
                     <div className={style.direction}>
-                       <span className={style.directionSpan}>Направление: </span>
+                        <span className={style.directionSpan}>Направление: </span>
                         <select className={style.directionSelect} onChange={sortNames}>
-                            <option value="none"> </option>
+                            <option value="no_value"/>
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>
                         </select>
@@ -156,28 +166,20 @@ const Sort = (props) => {
                 {resultDate ?
                     <div className={style.direction}>
                         <div>
-                          <span>  с:</span>
-                            <input className={style.date} {...register("dateFrom")} type="date"/> </div>
+                            <span>  с:</span>
+                            <input className={style.date} {...register("dateFrom")} type="date"/></div>
 
-                       <div>
-                           <span> по:</span>
-                           <input className={style.date2} {...register("dateTo")} type="date"/>
-                       </div>
-                        <input className={style.filterButton}  type="submit" value='Фильтровать'/>
+                        <div>
+                            <span> по:</span>
+                            <input className={style.date2} {...register("dateTo")} type="date"/>
+                        </div>
+                        <input className={style.filterButton} type="submit" value='Фильтровать'/>
                     </div> :
                     null
 
                 }
 
-                {/*<button*/}
-                {/*    onClick={async () => {*/}
-                {/*        await sortedArray(props.reception)*/}
-                {/*        this.setState({reception:props.reception})*/}
-                {/*        // console.log(copyReception)*/}
-                {/*        // setReception(reception)*/}
-                {/*    }}>*/}
-                {/*    Sort by date*/}
-                {/*</button>*/}
+
             </form>
         </div>
     )

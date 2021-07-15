@@ -2,14 +2,14 @@ import {useForm} from "react-hook-form";
 import style from "./login.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router";
-import {setTittle} from "../../../state/auth";
+import {loginAuth, setTittle} from "../../../state/auth";
 
-const Login = (props) => {
-    const {registerMessage} = useSelector((state) => state.authReducer)
+const Login = () => {
+    // const {registerMessage} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
 
     const onSubmit = async(formData) => {
-        await props.loginAuth(formData.login, formData.password)
+        await dispatch(loginAuth(formData.login, formData.password))
     };
     // console.log(tokenAuth)
     const {register, handleSubmit} = useForm();

@@ -8,20 +8,16 @@ import {newReception} from "../../../state/reception";
 
 // let elementsDoctors = doctors.map(p => <option>{p}</option>)
 
-const ReceptionForm = (props) => {
+const ReceptionForm = () => {
+
     // let docs = props.docs.docReducer.docs || [];
     const {docs} = useSelector((state) => state.docReducer)
     const {reception} = useSelector(state => state.receptionReducer)
 
     const dispatch = useDispatch()
-
-    console.log(docs)
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
-    // useEffect(() =>{
-    //
-    // }, [reception])
+
     const onSubmit = (formData) => {
-        // props.addReceptionCreator(formData.name,formData.nameDoc, formData.date, formData.complaints)
         dispatch(newReception(formData.name,formData.nameDoc, formData.date, formData.complaints))
     };
 
@@ -43,7 +39,7 @@ const ReceptionForm = (props) => {
                     className={style.doctors}
                     {...register("nameDoc")}
                     type="text" >
-                    <option></option>
+                    <option> </option>
                     {elementsDoctors}
                 </select>
             </div>

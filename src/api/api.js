@@ -63,5 +63,14 @@ export const receptionAPI = {
     sortDate(sortFrom, sortTo){
         return instance.get(`getSortRecDate?sortFrom=${sortFrom}&sortTo=${sortTo}`, {headers: { Authorization: `${token1}` }})
             .then(response => response.data)
+    } ,
+    sortName(valueSort){
+        return instance.get(`getSortName?valueSort=${valueSort}`, {headers: { Authorization: `${token1}` }})
+            .then(response => response)
+    },
+    sortNameDoc(valueSort){
+        return instance.get(`getSortNameDoctors?valueSort=${valueSort}`, {headers: { Authorization: `${token1}` }})
+            .then(response => response)
     }
+
 }

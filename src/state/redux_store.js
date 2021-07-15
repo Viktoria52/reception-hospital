@@ -6,13 +6,15 @@ import docReducer from "./doc";
 import appReducer from "./initial";
 import sortValue from "./sort";
 import {composeWithDevTools} from "redux-devtools-extension";
+import sortReducer from "./sort";
 
 const reducer = combineReducers({
     authReducer,
     docReducer,
     receptionReducer,
     appReducer,
-    sortValue
+    sortValue,
+    sortReducer
 })
 
 const store = createStore(reducer, composeWithDevTools(

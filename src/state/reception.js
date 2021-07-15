@@ -8,18 +8,18 @@ const ADD_RECEPTION = 'REC/ADD_RECEPTION'
 const SET_ALL_RECEPTION = 'REC/SET_ALL_RECEPTION'
 const CHANGE_RECEPTION = 'REC/CHANGE_RECEPTION'
 const CHANGE_RECEPTION_ARRAY = 'REC/CHANGE_RECEPTION_ARRAY'
-// const DELETE_RECEPTION = 'REC/DELETE_RECEPTION'
 const ID_EDIT_RECEPTION = 'REC/ID_EDIT_RECEPTION'
 const DELETE_RECEPTION_ID = 'REC/DELETE_RECEPTION_ID'
 const DELETE_FROM_ARRAY = 'REC/DELETE_FROM_ARRAY'
-// const RECEPTION_SORT = '/REC/RECEPTION_SORT'
 const SORT_DATE_RECEPTION = 'REC/SORT/DATE/RECEPTION'
 const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
+const SORT_NAME = 'REC/SORT_NAME'
+const SORT_NAME_DOC = 'REC/SORT_NAME_DOC'
 
 
 let defaultState = {
     reception: [],
-    receptionSort: [],
+    // receptionSort: [],
     name: null,
     nameDoc: null,
     date: null,
@@ -30,7 +30,8 @@ let defaultState = {
     id: null,
     idDelete: null,
     messageDeleteApi: null,
-    idEditPost: null
+    idEditPost: null,
+
 }
 
 const receptionReducer = (state = defaultState, action) => {
@@ -41,10 +42,9 @@ const receptionReducer = (state = defaultState, action) => {
                 reception: [...state.reception, action.payload],
             }
         case SET_ALL_RECEPTION:
-            console.log(action)
             return {
                 ...state,
-                reception: [...state.reception, ...action.response,]
+                reception: action.response
             }
         case ID_EDIT_RECEPTION:
             return {
@@ -118,6 +118,16 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 reception: action.payload.array
             }
+        case SORT_NAME:
+            return {
+                ...state,
+                reception: action.array
+            }
+        case SORT_NAME_DOC:
+            return {
+                ...state,
+                reception: action.array
+            }
         case CHANGE_RECEPTION_ID:
             return {
                 ...state,
@@ -185,7 +195,6 @@ export const deleteReceptionAC = (text) => {
     }
 }
 export const deleteFromArray = (idRec) => {
-    console.log(idRec)
     return {
         type: DELETE_FROM_ARRAY,
         payload: {idRec}
@@ -198,6 +207,18 @@ export const sortToDate = (array) => {
         payload: {array}
     }
 }
+export const sortToName = (array) => {
+    return {
+        type: SORT_NAME,
+        array
+    }
+}
+export const sortToNameDoc = (array) => {
+    return {
+        type: SORT_NAME_DOC,
+        array
+    }
+}
 
 
 export const getReceptions = () => {
@@ -205,7 +226,6 @@ export const getReceptions = () => {
         // defaultState.preloader = true
         let response = await receptionAPI.getAll()
         // defaultState.preloader = false
-        console.log(response)
         dispatch(setReception(response.data));
     }
 }
@@ -249,6 +269,24 @@ export const getSortData = (sortFrom, sortTo) => {
     return async (dispatch) => {
         let response = await receptionAPI.sortDate(sortFrom, sortTo)
         await dispatch(sortToDate(response.data));
+    }
+}
+export const getSortName = (valueSort) => {
+    console.log(valueSort)
+    return async (dispatch) => {
+        let response = await receptionAPI.sortName(valueSort)
+        console.log(response.data)
+        if (response.status === 200) {
+            await dispatch(sortToName(response.data.data));
+        }
+    }
+}
+export const getSortNameDoc = (valueSort) => {
+    return async (dispatch) => {
+        let response = await receptionAPI.sortNameDoc(valueSort)
+        if (response.status === 200) {
+            await dispatch(sortToNameDoc(response.data.data));
+        }
     }
 }
 
