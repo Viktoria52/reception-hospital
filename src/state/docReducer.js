@@ -11,7 +11,7 @@ const docReducer = (state = defaultState, action) => {
         case GET_DOCS:
             return {
                 ...state,
-                docs:  action.docs,
+                docs: action.docs,
             }
         default:
             return state
@@ -24,20 +24,16 @@ export const setDocs = (docs) => {
     }
 }
 
-export const getDocs = () => {
-    return async (dispatch) => {
-        try{
+export const getDocs = () =>
+    async (dispatch) => {
+        try {
             const response = await docsAPI.getDocs()
-            if(response.status === 200){
+            if (response.status === 200) {
                 dispatch(setDocs(response.data.data));
             }
-        }catch(err){
+        } catch (err) {
             console.log(err)
         }
-
-
-
     }
-}
 
 export default docReducer;

@@ -18,6 +18,8 @@
     height: 45px;
     width: 188px;
     box-sizing: border-box;
+    overflow-wrap: break-word;
+    word-break: break-word;
 
 }
 .button{

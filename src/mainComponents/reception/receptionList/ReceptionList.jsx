@@ -10,15 +10,7 @@ import {useDispatch, useSelector} from "react-redux";
 const ReceptionList = () => {
     const {reception} = useSelector(state => state.receptionReducer)
     const {tokenAuth} = useSelector((state) => state.authReducer)
-
     const dispatch = useDispatch()
-
-    // useEffect(() => {
-    //     if(tokenAuth){
-    //         dispatch(getDocs())
-    //         dispatch(getReceptions())
-    //     }
-    // }, [])
 
     useMemo(() => {
         if (tokenAuth) {

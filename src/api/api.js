@@ -19,15 +19,15 @@ export const authAPI = {
 }
 
 export const docsAPI = {
-    getDocs(){
-        return instance.get('getDocs', {headers: { Authorization: token1() }})
+    getDocs() {
+        return instance.get('getDocs', {headers: {Authorization: token1()}})
             .then(response => response)
     }
 }
 
 export const receptionAPI = {
     getAll() {
-        return instance.get(`getAllReception`, {headers: { Authorization: token1() }})
+        return instance.get(`getAllReception`, {headers: {Authorization: token1()}})
             .then(response => response)
 
     },
@@ -37,34 +37,34 @@ export const receptionAPI = {
             nameDoc,
             date,
             complaints
-        }, {headers: { Authorization: `${token1()}` }})
+        }, {headers: {Authorization: `${token1()}`}})
             .then(response => response)
     },
-    change(name='some Name',nameDoc, date, complaints,_id) {
+    change(name = 'some Name', nameDoc, date, complaints, _id) {
         return instance.patch(`changeReception`, {
             name,
             nameDoc,
             date,
             complaints,
             _id
-        }, {headers: { Authorization: `${token1()}` }})
+        }, {headers: {Authorization: `${token1()}`}})
             // .then(response => response.data)
             .then(response => response)
     },
     delete(id) {
-        return instance.delete(`deleteReception?id=` + id, {headers: { Authorization: `${token1()}` }})
+        return instance.delete(`deleteReception?id=` + id, {headers: {Authorization: `${token1()}`}})
             .then(response => response)
     },
-    sortDate(sortFrom, sortTo){
-        return instance.get(`getSortRecDate?sortFrom=${sortFrom}&sortTo=${sortTo}`, {headers: { Authorization: `${token1()}` }})
-            .then(response => response)
-    } ,
-    sortName(valueSort){
-        return instance.get(`getSortName?valueSort=${valueSort}`, {headers: { Authorization: `${token1()}` }})
+    sortDate(sortFrom, sortTo) {
+        return instance.get(`getSortRecDate?sortFrom=${sortFrom}&sortTo=${sortTo}`, {headers: {Authorization: `${token1()}`}})
             .then(response => response)
     },
-    sortNameDoc(valueSort){
-        return instance.get(`getSortNameDoctors?valueSort=${valueSort}`, {headers: { Authorization: `${token1()}` }})
+    sortName(valueSort) {
+        return instance.get(`getSortName?valueSort=${valueSort}`, {headers: {Authorization: `${token1()}`}})
+            .then(response => response)
+    },
+    sortNameDoc(valueSort) {
+        return instance.get(`getSortNameDoctors?valueSort=${valueSort}`, {headers: {Authorization: `${token1()}`}})
             .then(response => response)
     }
 

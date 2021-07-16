@@ -1,8 +1,5 @@
-import {docsAPI, receptionAPI} from "../api/api";
-import {setDocs} from "./docReducer";
-import {loginAuth} from "./authReducer";
+import {receptionAPI} from "../api/api";
 
-const Moment = require('moment')
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
 const SET_ALL_RECEPTION = 'REC/SET_ALL_RECEPTION'
@@ -17,18 +14,15 @@ const SORT_NAME = 'REC/SORT_NAME'
 const SORT_NAME_DOC = 'REC/SORT_NAME_DOC'
 const EDIT_MODE = 'REC/EDIT_MODE'
 const DELETE_MODE = 'REC/DELETE_MODE'
-// const PRELOADER = 'REC/PRELOADER'
 
 
 let defaultState = {
     reception: [],
-    // receptionSort: [],
     name: null,
     nameDoc: null,
     date: null,
     complaints: null,
     error: null,
-    // preloader: false,
     idEdit: null,
     id: null,
     idDelete: null,
@@ -56,7 +50,7 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 idEdit: action.payload.id
             }
-        case CHANGE_RECEPTION: //данные для редактррования
+        case CHANGE_RECEPTION: //данные для редактрования
             return {
                 ...state,
                 name: action.payload.name,
@@ -111,12 +105,12 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 idEditPost: action.payload.id
             }
-            case EDIT_MODE:
+        case EDIT_MODE:
             return {
                 ...state,
                 flagEdit: action.flag
             }
-            case DELETE_MODE:
+        case DELETE_MODE:
             return {
                 ...state,
                 flagDelete: action.flag
@@ -128,7 +122,6 @@ const receptionReducer = (state = defaultState, action) => {
 }
 
 export const addReceptionCreator = (payload) => {
-    // console.log(data)
     return {
         type: ADD_RECEPTION,
         payload
@@ -141,12 +134,6 @@ export const setReception = (response) => {
         response
     }
 }
-// export const sortReception = () => {
-//     return {
-//         type: RECEPTION_SORT,
-//         payload: {}
-//     }
-// }
 
 export const changeReceptionAC = (name, nameDoc, date, complaints, id) => {
     return {
@@ -161,20 +148,14 @@ export const changeReceptionArray = (name, nameDoc, date, complaints, id) => {
     }
 }
 
-export const changeReceptionId = (id) => { // id for window!
-    // console.log(id)
-    return {
-        type: CHANGE_RECEPTION_ID,
-        payload: {id}
-    }
-}
+// export const changeReceptionId = (id) => { // id for window!
+//     // console.log(id)
+//     return {
+//         type: CHANGE_RECEPTION_ID,
+//         payload: {id}
+//     }
+// }
 
-export const idEditReception = (id) => {
-    return {
-        type: ID_EDIT_RECEPTION,
-        payload: {id}
-    }
-}
 export const deleteReceptionAC = (text) => {
     return {
         type: DELETE_RECEPTION_ID,
@@ -226,75 +207,65 @@ export const setDeleteMode = (flag) => {
 // }
 
 
-export const getReceptions = () => {
-    return async dispatch => {
+export const getReceptions = () =>
+     async dispatch => {
         // await dispatch(preloaderAC( true))
         let response = await receptionAPI.getAll()
         if (response.status === 200) {
             dispatch(setReception(response.data.data));
         }
-    }
 }
 
-export const newReception = (name, nameDoc, date, complaints) => {
-    return async (dispatch) => {
+export const newReception = (name, nameDoc, date, complaints) =>
+    async (dispatch) => {
         // defaultState.preloader = true
         const response = await receptionAPI.add(name, nameDoc, date, complaints)
         // defaultState.preloader = false
         if (response.status === 200) {
             dispatch(addReceptionCreator(response.data))
         }
-    }
 }
 
-export const changeReception = (name = 'Anna', nameDoc, date, complaints = 'changed', _id) => {
-    return async (dispatch) => {
+export const changeReception = (name, nameDoc, date, complaints, _id) =>
+    async (dispatch) => {
         let response = await receptionAPI.change(name, nameDoc, date, complaints, _id)
-
         if (response.status === 200) {
             response.data.map((value) => {
                 dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, _id))
                 dispatch(changeReceptionArray(value.name, value.nameDoc, value.date, value.complaints, _id))
             })
         }
-
-    }
 }
 
-export const deleteReception = (id) => {
-    return async dispatch => {
+export const deleteReception = (id) =>
+     async (dispatch) => {
         let response = await receptionAPI.delete(id)
         if (response.status === 200) {
             dispatch(deleteFromArray(id))
         }
-        // console.log(response)
-    }
 }
 
-export const getSortData = (sortFrom, sortTo) => {
-    return async (dispatch) => {
+export const getSortData = (sortFrom, sortTo) =>
+     async (dispatch) => {
         let response = await receptionAPI.sortDate(sortFrom, sortTo)
         if (response.status === 200) {
             await dispatch(sortToDate(response.data.data));
         }
-    }
 }
-export const getSortName = (valueSort) => {
-    return async (dispatch) => {
+export const getSortName = (valueSort) =>
+    async (dispatch) => {
         let response = await receptionAPI.sortName(valueSort)
         if (response.status === 200) {
             await dispatch(sortToName(response.data.data));
         }
-    }
 }
-export const getSortNameDoc = (valueSort) => {
-    return async (dispatch) => {
+
+export const getSortNameDoc = (valueSort) =>
+    async (dispatch) => {
         let response = await receptionAPI.sortNameDoc(valueSort)
         if (response.status === 200) {
             await dispatch(sortToNameDoc(response.data.data));
         }
     }
-}
-
 
 export default receptionReducer;

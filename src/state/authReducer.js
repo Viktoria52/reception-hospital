@@ -78,7 +78,6 @@ export const loginAuth = (login, password) =>
             const response = await authAPI.login(login, password)
             localStorage.setItem('token', response.data)
             dispatch(AuthReducer(true))
-
         } catch (error) {
             console.log(error)
         }
@@ -91,7 +90,6 @@ export const registerAuth = (login, password) =>
             if (response.status === 200) {
                 dispatch(setRegisterMessage(response.data))
             }
-
         } catch (error) {
             dispatch(registerFailedMessageAC('Пользователь с таким логином уже есть'))
             console.log(error)

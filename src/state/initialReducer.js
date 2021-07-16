@@ -20,15 +20,15 @@ const initialReducer = (state = InitialState, action) => {
 export const InitializedSuccess = (init) => { return { type: INITIALIZED, init:init } }
 
 
-export const Initialize = () => (dispatch) => {
-    let promise = dispatch(getDocs(), getReceptions())
-
-    Promise.all([promise])
-        .then(() => {
-                dispatch(InitializedSuccess(true))
-            }
-        )
-}
+// export const Initialize = () => (dispatch) => {
+//     let promise = dispatch(getDocs(), getReceptions())
+//
+//     Promise.all([promise])
+//         .then(() => {
+//                 dispatch(InitializedSuccess(true))
+//             }
+//         )
+// }
 
 export default initialReducer;
 
