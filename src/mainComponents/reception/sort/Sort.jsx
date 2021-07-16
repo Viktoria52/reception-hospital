@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import {useForm} from "react-hook-form";
 import style from './sort.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {sortValueAC, triage} from "../../../state/sort";
-import {getReceptions, getSortData, getSortName, getSortNameDoc} from "../../../state/reception";
+import {sortValueAC, triage} from "../../../state/sortReducer";
+import {getReceptions, getSortData, getSortName, getSortNameDoc} from "../../../state/receptionReducer";
 
 
 const Sort = () => {

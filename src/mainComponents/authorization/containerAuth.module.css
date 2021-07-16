@@ -1,3 +1,17 @@
+
+.containerAuthorization{
+    padding: 41px 56px 41px 56px;
+    display: flex;
+    justify-content: space-around;
+}
+.hospital{
+    /*padding: 41px 56px 41px 56px;*/
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    background-image: url("../../assets/hospital.svg");
+    width: 375px;
+    height: 375px;
+}
 .mainAuth{
     background-color: white;
     width: 400px;

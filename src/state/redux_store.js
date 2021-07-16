@@ -1,12 +1,12 @@
 import {  applyMiddleware, combineReducers, compose, createStore  } from 'redux';
 import thunk from 'redux-thunk';
-import authReducer from './auth'
-import receptionReducer from "./reception";
-import docReducer from "./doc";
-import appReducer from "./initial";
-import sortValue from "./sort";
+import authReducer from './authReducer'
+import receptionReducer from "./receptionReducer";
+import docReducer from "./docReducer";
+import appReducer from "./initialReducer";
+import sortValue from "./sortReducer";
 import {composeWithDevTools} from "redux-devtools-extension";
-import sortReducer from "./sort";
+import sortReducer from "./sortReducer";
 
 const reducer = combineReducers({
     authReducer,

@@ -4,17 +4,19 @@ import {Redirect} from 'react-router'
 import {useState} from "react";
 import DeleteReception from "./deleteReception/deleteReception";
 import {useDispatch, useSelector} from "react-redux";
-import {changeReceptionAC, changeReceptionId, deleteReceptionAC} from "../../../state/reception";
+import {
+    changeReceptionAC,
+    changeReceptionId,
+    deleteReceptionAC,
+    setDeleteMode,
+    setEditMode
+} from "../../../state/receptionReducer";
 
 
 const Post = (props) => {
-    // const {idDelete, } = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
-    const [edit, setEdit] = useState(false)
-    const [deleteMode, setDelete] = useState(false)
-    useEffect(() => {
-
-    })
+    // const [edit, setEdit] = useState(false)
+    // const [deleteMode, setDelete] = useState(false)
 
     return (
         <div className={style.main}>
@@ -26,29 +28,31 @@ const Post = (props) => {
                 <div
                     onClick={async () => {
                         await dispatch(deleteReceptionAC(props.id))
-                        setDelete(true)
+                        dispatch(setDeleteMode(true))
+                        // setDelete(true)
                     }}
                     className={style.delete}/>
                 <div
                     onClick={async () => {
                         await dispatch(changeReceptionAC(props.name, props.nameDoc, props.date, props.complaints, props.id))
                         await dispatch(changeReceptionId(props.id))
-                        setEdit(!edit)
+                        dispatch(setEditMode(true))
+                        // setEdit(!edit)
                     }}
                     className={style.edit}
                 />
-                {
-                    edit && <Redirect to={'/reception/editWindow'}/>
-                }
-                {deleteMode &&
-                <Redirect to={'/reception/delete'}>
-                    <div className={style.deleteReceptionWindow}>
-                        <DeleteReception
-                            // deleteReception={props.deleteReception}
-                        />
-                    </div>
-                </Redirect>
-                }
+                {/*{*/}
+                {/*    edit && <Redirect to={'/reception/editWindow'}/>*/}
+                {/*}*/}
+                {/*{deleteMode &&*/}
+                {/*<Redirect to={'/reception/delete'}>*/}
+                {/*    <div className={style.deleteReceptionWindow}>*/}
+                {/*        <DeleteReception*/}
+                {/*            // deleteReception={props.deleteReception}*/}
+                {/*        />*/}
+                {/*    </div>*/}
+                {/*</Redirect>*/}
+                {/*}*/}
             </div>
         </div>
     )

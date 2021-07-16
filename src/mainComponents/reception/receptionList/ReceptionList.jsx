@@ -1,25 +1,31 @@
-import React, {useEffect, useState} from 'react'
+import React, {useMemo} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
-import {getReceptions} from "../../../state/reception";
-import {getDocs} from "../../../state/doc";
+import {getReceptions} from "../../../state/receptionReducer";
+import {getDocs} from "../../../state/docReducer";
 import {useDispatch, useSelector} from "react-redux";
 
 
 const ReceptionList = () => {
-    const {reception } = useSelector(state => state.receptionReducer)
+    const {reception} = useSelector(state => state.receptionReducer)
     const {tokenAuth} = useSelector((state) => state.authReducer)
-    console.log(tokenAuth)
-    console.log(reception)
+
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        if(tokenAuth){
+    // useEffect(() => {
+    //     if(tokenAuth){
+    //         dispatch(getDocs())
+    //         dispatch(getReceptions())
+    //     }
+    // }, [])
+
+    useMemo(() => {
+        if (tokenAuth) {
             dispatch(getDocs())
             dispatch(getReceptions())
         }
-    }, [])
+    }, [tokenAuth]);
 
     return (<div key={'receptionList.main'} className={style.receptionMain}>
             <div className={style.sortContainer}>
@@ -31,7 +37,6 @@ const ReceptionList = () => {
                 <li key={'list.date'}>Дата</li>
                 <li key={'list.complaints'}>Жалобы</li>
             </ul>
-
             <div className={style.elements} key='heapElems'>
                 {
                     reception.map(receptionUser => <Post
@@ -44,12 +49,9 @@ const ReceptionList = () => {
                         />
                     )
                 }
-
             </div>
         </div>
     )
-
-
 }
 
 

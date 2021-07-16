@@ -1,5 +1,5 @@
-import {getDocs} from "./doc";
-import {getReceptions, setReception} from "./reception";
+import {getDocs} from "./docReducer";
+import {getReceptions, setReception} from "./receptionReducer";
 import {receptionAPI} from "../api/api";
 
 const SORT_VALUE = 'SORT/SORT_VALUE';

@@ -1,27 +1,26 @@
-import { useForm } from "react-hook-form";
-import style from "../reception.module.css"
-import {useEffect} from "react";
+import {useForm} from "react-hook-form";
+import style from "./ReceptionForm.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import docReducer from "../../../state/doc";
-import {newReception} from "../../../state/reception";
-
-
-// let elementsDoctors = doctors.map(p => <option>{p}</option>)
+import {newReception} from "../../../state/receptionReducer";
 
 const ReceptionForm = () => {
 
-    // let docs = props.docs.docReducer.docs || [];
     const {docs} = useSelector((state) => state.docReducer)
-    const {reception} = useSelector(state => state.receptionReducer)
+    // const {reception} = useSelector(state => state.receptionReducer)
 
     const dispatch = useDispatch()
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
 
     const onSubmit = (formData) => {
-        dispatch(newReception(formData.name,formData.nameDoc, formData.date, formData.complaints))
+        dispatch(newReception(formData.name, formData.nameDoc, formData.date, formData.complaints))
     };
 
-    const { register, handleSubmit } = useForm();
+    const {
+        register,
+        handleSubmit,
+
+    } = useForm();
+
     return (<div className={style.line}>
 
         <form className={style.main} onSubmit={handleSubmit(onSubmit)}>
@@ -31,14 +30,17 @@ const ReceptionForm = () => {
                 <input
                     className={style.someButton}
                     {...register("name")}
-                    type="text" />
+                    required={true}
+                    defaultValue={null}
+                    type="text"/>
             </div>
             <div>
                 <p>Врач:</p>
                 <select
+                    defaultValue={null}
                     className={style.doctors}
                     {...register("nameDoc")}
-                    type="text" >
+                    type="text">
                     <option> </option>
                     {elementsDoctors}
                 </select>
@@ -46,22 +48,31 @@ const ReceptionForm = () => {
             <div>
                 <p>Дата:</p>
                 <input
+                    defaultValue={null}
                     className={style.someButton}
+                    required={true}
                     {...register("date")}
-                    type="date" />
+                    type="date"/>
             </div>
             <div>
                 <p>Жалобы:</p>
                 <input
+                    defaultValue={null}
                     className={style.someButton}
                     {...register("complaints")}
-                    type="text" />
+                    required={true}
+                    type="text"/>
             </div>
             <div className={style.add}>
                 <input
                     className={style.button}
                     value={'Добавить'}
-                    type="submit" />
+                    type="submit"
+                />
+                <input className={style.clear} type="reset" value={'clear'}/>
+            </div>
+            <div>
+
             </div>
         </form>
     </div>)

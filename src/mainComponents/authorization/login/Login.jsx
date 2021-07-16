@@ -2,7 +2,7 @@ import {useForm} from "react-hook-form";
 import style from "./login.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {Redirect} from "react-router";
-import {loginAuth, setTittle} from "../../../state/auth";
+import {loginAuth, setTittle} from "../../../state/authReducer";
 
 const Login = () => {
     // const {registerMessage} = useSelector((state) => state.authReducer)
@@ -19,16 +19,20 @@ const Login = () => {
                 <div className={style.login}>
                     <p>Login:</p>
                     <input
-
                         {...register("login")}
                         type={"text"}
                         placeholder={'login'}
+                        required={true}
 
                     />
                 </div>
                 <div className={style.password}>
                     <p>Password:</p>
-                    <input {...register("password")} type={'password'} placeholder={'password'}/>
+                    <input
+                        {...register("password")}
+                        type={'password'}
+                        required={true}
+                        placeholder={'password'}/>
                 </div>
                 <div className={style.containerAuth}>
 

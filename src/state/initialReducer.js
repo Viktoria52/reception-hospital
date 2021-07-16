@@ -1,12 +1,12 @@
-import {getDocs} from "./doc";
-import {getReceptions} from "./reception";
+import {getDocs} from "./docReducer";
+import {getReceptions} from "./receptionReducer";
 
 const INITIALIZED = 'INITIALIZED';
 
 let InitialState = {
     initial: false,
 }
-const appReducer = (state = InitialState, action) => {
+const initialReducer = (state = InitialState, action) => {
     switch (action.type) {
         case INITIALIZED:
             return {
@@ -30,6 +30,6 @@ export const Initialize = () => (dispatch) => {
         )
 }
 
-export default appReducer;
+export default initialReducer;
 
 

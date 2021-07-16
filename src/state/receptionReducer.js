@@ -1,6 +1,6 @@
 import {docsAPI, receptionAPI} from "../api/api";
-import {setDocs} from "./doc";
-import {loginAuth} from "./auth";
+import {setDocs} from "./docReducer";
+import {loginAuth} from "./authReducer";
 
 const Moment = require('moment')
 
@@ -15,6 +15,8 @@ const SORT_DATE_RECEPTION = 'REC/SORT/DATE/RECEPTION'
 const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
 const SORT_NAME = 'REC/SORT_NAME'
 const SORT_NAME_DOC = 'REC/SORT_NAME_DOC'
+const EDIT_MODE = 'REC/EDIT_MODE'
+const DELETE_MODE = 'REC/DELETE_MODE'
 // const PRELOADER = 'REC/PRELOADER'
 
 
@@ -32,6 +34,8 @@ let defaultState = {
     idDelete: null,
     messageDeleteApi: null,
     idEditPost: null,
+    flagEdit: false,
+    flagDelete: false
 
 }
 
@@ -52,24 +56,6 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 idEdit: action.payload.id
             }
-        // case CHANGE_RECEPTION:
-        //     console.log(action)
-        //     return {
-        //         ...state,
-        //         reception: [...state.reception.map((item) => {
-        //             if (item.id === action.payload.id) {
-        //                 return {
-        //                     ...item,
-        //                     name: action.payload.name,
-        //                     nameDoc: action.payload.nameDoc,
-        //                     date: action.payload.date,
-        //                     complaints: action.payload.complaints,
-        //                 }
-        //
-        //             }
-        //             return item
-        //         })],
-        //     }
         case CHANGE_RECEPTION: //данные для редактррования
             return {
                 ...state,
@@ -79,7 +65,6 @@ const receptionReducer = (state = defaultState, action) => {
                 complaints: action.payload.complaints,
                 id: action.payload.id
             }
-
         case CHANGE_RECEPTION_ARRAY: // само редактирование, ответ с сервера
             return {
                 ...state,
@@ -91,17 +76,10 @@ const receptionReducer = (state = defaultState, action) => {
                             nameDoc: action.payload.nameDoc,
                             date: action.payload.date,
                             complaints: action.payload.complaints,
-
                         }
-
                     }
                     return item
                 })],
-                // name: action.payload.name,
-                // nameDoc: action.payload.nameDoc,
-                // date: action.payload.date,
-                // complaints: action.payload.complaints,
-                // id: action.payload.id
             }
         case DELETE_RECEPTION_ID:
             return {
@@ -113,7 +91,6 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 reception: [...state.reception.filter((item) => item._id !== action.payload.idRec)]
             }
-
         case SORT_DATE_RECEPTION:
             return {
                 ...state,
@@ -134,12 +111,16 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 idEditPost: action.payload.id
             }
-            // case PRELOADER:
-            // return {
-            //     ...state,
-            //     preloader: action.bool
-            // }
-
+            case EDIT_MODE:
+            return {
+                ...state,
+                flagEdit: action.flag
+            }
+            case DELETE_MODE:
+            return {
+                ...state,
+                flagDelete: action.flag
+            }
         default:
             return state
 
@@ -225,6 +206,18 @@ export const sortToNameDoc = (array) => {
         array
     }
 }
+export const setEditMode = (flag) => {
+    return {
+        type: EDIT_MODE,
+        flag
+    }
+}
+export const setDeleteMode = (flag) => {
+    return {
+        type: DELETE_MODE,
+        flag
+    }
+}
 // export const preloaderAC= (bool) => {
 //     return {
 //         type: PRELOADER,
@@ -237,7 +230,7 @@ export const getReceptions = () => {
     return async dispatch => {
         // await dispatch(preloaderAC( true))
         let response = await receptionAPI.getAll()
-        if(response.status === 200){
+        if (response.status === 200) {
             dispatch(setReception(response.data.data));
         }
     }
@@ -246,9 +239,9 @@ export const getReceptions = () => {
 export const newReception = (name, nameDoc, date, complaints) => {
     return async (dispatch) => {
         // defaultState.preloader = true
-       const response = await receptionAPI.add(name, nameDoc, date, complaints)
+        const response = await receptionAPI.add(name, nameDoc, date, complaints)
         // defaultState.preloader = false
-        if(response.status === 200){
+        if (response.status === 200) {
             dispatch(addReceptionCreator(response.data))
         }
     }
@@ -281,7 +274,7 @@ export const deleteReception = (id) => {
 export const getSortData = (sortFrom, sortTo) => {
     return async (dispatch) => {
         let response = await receptionAPI.sortDate(sortFrom, sortTo)
-        if(response.status === 200){
+        if (response.status === 200) {
             await dispatch(sortToDate(response.data.data));
         }
     }

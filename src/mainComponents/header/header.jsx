@@ -1,18 +1,13 @@
 import React, {useEffect} from 'react'
 import {Link, Route} from "react-router-dom";
-import {Auth, setTittle, setToken} from "../../state/auth";
+import {AuthReducer, setTittle} from "../../state/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import style from './header.module.css'
 
 const Header = () => {
-    const {tokenAuth, isAuth, title} = useSelector((state) => state.authReducer)
+    const {title} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
-    // console.log(title)
-    useEffect(() => {
-        // if(isAuth=== true){
-        //     dispatch(setTittle(null))
-        // }
-    }, [isAuth])
+
     return (
         <div className={style.main}>
             <div className={style.logo}/>
@@ -24,16 +19,13 @@ const Header = () => {
             </div>
             <div className={style.buttonContainer}>
                 <Route path="/reception">
-                    {/*<div className="logo"/>*/}
-                    {/*<p className={style.complaints}>Приемы </p>*/}
                     <Link to='/'>
                         <button
                             className={style.exit}
                             onClick={ () => {
                                  localStorage.removeItem('token');
                                  // dispatch(setToken(null))
-                                dispatch(Auth(false))
-
+                                dispatch(AuthReducer(false))
                             }}
                         > Выход
                         </button>

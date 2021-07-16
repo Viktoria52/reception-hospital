@@ -3,14 +3,14 @@ import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
 import {Redirect} from "react-router";
 import { useDispatch, useSelector} from "react-redux";
-import {changeReception} from "../../../state/reception";
+import {changeReception, setEditMode} from "../../../state/receptionReducer";
 
 const EditWindow = () => {
     const { name, nameDoc, date, complaints, id} = useSelector((state) => state.receptionReducer)
     const {docs} = useSelector((state) => state.docReducer)
 
     const [rec, newRec] = useState([name, nameDoc, date, complaints, id]);
-    const [edit, setEdit] = useState(false)
+    // const [edit, setEdit] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -21,7 +21,8 @@ const EditWindow = () => {
 
     const onSubmit = async (formData) => {
         await dispatch(changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id))
-        setEdit(!edit)
+        dispatch(setEditMode(false))
+        // setEdit(!edit)
     };
 
     let docArray = docs || [];
@@ -29,7 +30,8 @@ const EditWindow = () => {
 
     // console.log(reception)
     const {register, handleSubmit} = useForm();
-    return (<div className={s.main}>
+    return (<div className={s.containerEdit}>
+        <div className={s.main}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <header className={s.title}><h1> Изменить прием</h1></header>
                 <main className={s.mainEdit}>
@@ -75,7 +77,7 @@ const EditWindow = () => {
                 <div className={s.submits}>
                     <input
                         onClick={() => {
-                            setEdit(!edit)
+                            dispatch(setEditMode(false))
                         }}
                         className={s.cancel}
                         defaultValue={'Cancel'}
@@ -86,13 +88,15 @@ const EditWindow = () => {
                         defaultValue={'Save'}
                     />
                 </div>
-                {edit &&
-                    <Redirect to={'/reception'}/>
-                }
+                {/*{edit &&*/}
+                {/*<Redirect to={'/reception'}/>*/}
+                {/*}*/}
             </form>
 
 
         </div>
+    </div>
+
     )
 
 }
