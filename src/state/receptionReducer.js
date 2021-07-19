@@ -5,15 +5,16 @@ const ADD_RECEPTION = 'REC/ADD_RECEPTION'
 const SET_ALL_RECEPTION = 'REC/SET_ALL_RECEPTION'
 const CHANGE_RECEPTION = 'REC/CHANGE_RECEPTION'
 const CHANGE_RECEPTION_ARRAY = 'REC/CHANGE_RECEPTION_ARRAY'
-const ID_EDIT_RECEPTION = 'REC/ID_EDIT_RECEPTION'
+// const ID_EDIT_RECEPTION = 'REC/ID_EDIT_RECEPTION'
 const DELETE_RECEPTION_ID = 'REC/DELETE_RECEPTION_ID'
 const DELETE_FROM_ARRAY = 'REC/DELETE_FROM_ARRAY'
 const SORT_DATE_RECEPTION = 'REC/SORT/DATE/RECEPTION'
-const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
+// const CHANGE_RECEPTION_ID = 'REC/CHANGE_RECEPTION_ID'
 const SORT_NAME = 'REC/SORT_NAME'
 const SORT_NAME_DOC = 'REC/SORT_NAME_DOC'
 const EDIT_MODE = 'REC/EDIT_MODE'
 const DELETE_MODE = 'REC/DELETE_MODE'
+const PRELOADER = 'REC/PRELOADER'
 
 
 let defaultState = {
@@ -23,13 +24,15 @@ let defaultState = {
     date: null,
     complaints: null,
     error: null,
-    idEdit: null,
+    // idEdit: null,
     id: null,
     idDelete: null,
     messageDeleteApi: null,
-    idEditPost: null,
+    // idEditPost: null,
     flagEdit: false,
-    flagDelete: false
+    flagDelete: false,
+    preloader: false,
+
 
 }
 
@@ -43,13 +46,14 @@ const receptionReducer = (state = defaultState, action) => {
         case SET_ALL_RECEPTION:
             return {
                 ...state,
-                reception: action.response
+                reception: action.response,
+                preloader: false
             }
-        case ID_EDIT_RECEPTION:
-            return {
-                ...state,
-                idEdit: action.payload.id
-            }
+        // case ID_EDIT_RECEPTION:
+        //     return {
+        //         ...state,
+        //         idEdit: action.payload.id
+        //     }
         case CHANGE_RECEPTION: //данные для редактрования
             return {
                 ...state,
@@ -100,11 +104,11 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 reception: action.array
             }
-        case CHANGE_RECEPTION_ID:
-            return {
-                ...state,
-                idEditPost: action.payload.id
-            }
+        // case CHANGE_RECEPTION_ID:
+        //     return {
+        //         ...state,
+        //         idEditPost: action.payload.id
+        //     }
         case EDIT_MODE:
             return {
                 ...state,
@@ -115,6 +119,12 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 flagDelete: action.flag
             }
+            case PRELOADER:
+            return {
+                ...state,
+                preloader: action.bool
+            }
+
         default:
             return state
 
@@ -199,66 +209,87 @@ export const setDeleteMode = (flag) => {
         flag
     }
 }
-// export const preloaderAC= (bool) => {
-//     return {
-//         type: PRELOADER,
-//         bool
-//     }
-// }
-
-
-export const getReceptions = () =>
-     async dispatch => {
-        // await dispatch(preloaderAC( true))
-        let response = await receptionAPI.getAll()
-        if (response.status === 200) {
-            dispatch(setReception(response.data.data));
-        }
+export const preloaderAC= (bool) => {
+    return {
+        type: PRELOADER,
+        bool
+    }
 }
+
+
+
+export const getReceptions = () => async dispatch => {
+        dispatch(preloaderAC( true))
+       try{
+           // dispatch(preloaderAC( true))
+           let response = await receptionAPI.getAll()
+           // dispatch(preloaderAC(false))
+           if (response.status === 200) {
+               dispatch(setReception(response.data.data));
+           }
+
+           if (response.status === 403) {
+               localStorage.removeItem('token')
+           }
+       } // await
+       catch (error){
+           localStorage.removeItem('token')
+       }
+    }
 
 export const newReception = (name, nameDoc, date, complaints) =>
     async (dispatch) => {
-        // defaultState.preloader = true
+        dispatch(preloaderAC( true))
         const response = await receptionAPI.add(name, nameDoc, date, complaints)
-        // defaultState.preloader = false
         if (response.status === 200) {
             dispatch(addReceptionCreator(response.data))
         }
-}
+        dispatch(preloaderAC( false))
+    }
 
 export const changeReception = (name, nameDoc, date, complaints, _id) =>
+
     async (dispatch) => {
+        dispatch(preloaderAC( true))
         let response = await receptionAPI.change(name, nameDoc, date, complaints, _id)
         if (response.status === 200) {
             response.data.map((value) => {
                 dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, _id))
                 dispatch(changeReceptionArray(value.name, value.nameDoc, value.date, value.complaints, _id))
             })
+
         }
-}
+        dispatch(preloaderAC(false))
+    }
 
 export const deleteReception = (id) =>
-     async (dispatch) => {
+    async (dispatch) => {
+        dispatch(preloaderAC( true))
         let response = await receptionAPI.delete(id)
         if (response.status === 200) {
             dispatch(deleteFromArray(id))
         }
-}
+        dispatch(preloaderAC( false))
+    }
 
 export const getSortData = (sortFrom, sortTo) =>
-     async (dispatch) => {
+    async (dispatch) => {
+        dispatch(preloaderAC( true))
         let response = await receptionAPI.sortDate(sortFrom, sortTo)
         if (response.status === 200) {
             await dispatch(sortToDate(response.data.data));
+            dispatch(preloaderAC( false))
         }
-}
+    }
 export const getSortName = (valueSort) =>
     async (dispatch) => {
+        dispatch(preloaderAC( true))
         let response = await receptionAPI.sortName(valueSort)
         if (response.status === 200) {
             await dispatch(sortToName(response.data.data));
         }
-}
+        dispatch(preloaderAC( false))
+    }
 
 export const getSortNameDoc = (valueSort) =>
     async (dispatch) => {

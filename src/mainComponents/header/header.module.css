@@ -5,11 +5,12 @@
 .main{
     display: grid;
     grid-template-columns: 5fr 30fr 2fr;
-    /*display: flex;*/
-    padding: 10px;
+    padding: 30px;
     align-items: center;
-    /*flex-direction: row;*/
     grid-column-gap: 81px;
+    margin-bottom: 20px;
+    box-shadow: 4px 6px 6px 7px rgba(0, 0, 0, 0.29);
+
 }
 .exit {
     width: 156px;
@@ -19,7 +20,6 @@
     border: 1px solid #bdbdbd;
     font-size: 24px;
     border-radius: 3px ;
-    /*margin-right: 23px;*/
 }
 
 .title {
@@ -30,8 +30,4 @@
     background-image: url("../../assets/logo.svg");
     width: 89px;
     height: 71px;
-    /*margin-left: 23px;*/
-}
-.buttonContainer{
-
 }

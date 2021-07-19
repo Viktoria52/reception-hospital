@@ -17,7 +17,6 @@ const ContainerAuthorization =() => {
                 changeFlag(true) //переключалка на логин после успешной регистрации
                 dispatch(setRegisterMessage(null))// очистка сообщения "регистрация прошла успешно"
             }, 3000)
-
         }
         if(flag){
            dispatch(setTittle('Войти в систему'))
@@ -29,7 +28,6 @@ const ContainerAuthorization =() => {
     return(<div className={style.containerAuthorization}>
             <div className={style.hospital}> </div>
         <div className={style.mainAuth}>
-            {/*<div className={style.hospital} />*/}
             {flag ?
                 <div className={style.login}>
                     <Login/>

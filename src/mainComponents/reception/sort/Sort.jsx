@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import style from './sort.module.css'
 import {useDispatch, useSelector} from "react-redux";
@@ -9,12 +9,9 @@ import {getReceptions, getSortData, getSortName, getSortNameDoc} from "../../../
 const Sort = () => {
     let dateFromReg = ''
     let dateToReg = ''
-    const {reception} = useSelector(state => state.receptionReducer)
     const {valueOption, valueSorting} = useSelector(state => state.sortReducer)
     const dispatch = useDispatch()
 
-    // const [flag, setFlag] = useState() // sort by name
-    // const [docSort, setFlagDoc] = useState() // sort by doc
 
     const onSubmit = (formData) => {
         dateFromReg = formData.dateFrom
@@ -50,26 +47,6 @@ const Sort = () => {
             }
         }
 
-
-        // if (text === "none") {
-        //     dispatch(triage(''))
-        // }
-        // if (resultName) {
-        //     if (valueSorting === 'ascending') {
-        //         setFlag(true)
-        //     }
-        //     if (valueSorting === 'decreasing') {
-        //         setFlag(false)
-        //     }
-        // }
-        // if (resultDoc) {
-        //     if (valueSorting === 'ascending') {
-        //         setFlagDoc(true)
-        //     }
-        //     if (valueSorting === 'decreasing') {
-        //         setFlagDoc(false)
-        //     }
-        // }
     }
     const {register, handleSubmit} = useForm();
     return (
@@ -86,18 +63,16 @@ const Sort = () => {
                     </select>
                 </div>
 
-
                 {resultName || resultDoc ?
                     <div className={style.direction}>
                         <span className={style.directionSpan}>Направление: </span>
                         <select className={style.directionSelect} onChange={sortNames}>
-                            <option value="no_value"/>
+                            {/*<option value="no_value"/>*/}
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>
                         </select>
                     </div> :
                     null}
-
 
                 {resultDate ?
                     <div className={style.direction}>

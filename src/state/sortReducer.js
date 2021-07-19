@@ -6,8 +6,8 @@ const SORT_VALUE = 'SORT/SORT_VALUE';
 const SORTING_VALUE = 'SORT/SORTING_VALUE';
 
 let InitialState = {
-    valueOption: null,
-    valueSorting: null
+    valueOption: null, // какое поле сортируется
+    valueSorting: null // тип сортировки
 }
 const sortReducer = (state = InitialState, action) => {
     switch (action.type) {

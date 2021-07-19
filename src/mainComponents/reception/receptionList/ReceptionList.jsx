@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react'
+import React, {useEffect} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
@@ -12,12 +12,19 @@ const ReceptionList = () => {
     const {tokenAuth} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
 
-    useMemo(() => {
+    // useMemo(() => {
+    //     if (tokenAuth) {
+    //         dispatch(getDocs())
+    //         dispatch(getReceptions())
+    //     }
+    // }, [tokenAuth]);
+
+    useEffect(()=>{
         if (tokenAuth) {
             dispatch(getDocs())
             dispatch(getReceptions())
         }
-    }, [tokenAuth]);
+    }, [tokenAuth])
 
     return (<div key={'receptionList.main'} className={style.receptionMain}>
             <div className={style.sortContainer}>

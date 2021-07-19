@@ -1,17 +1,14 @@
 import {useForm} from "react-hook-form";
 import style from "./login.module.css"
 import {useDispatch, useSelector} from "react-redux";
-import {Redirect} from "react-router";
-import {loginAuth, setTittle} from "../../../state/authReducer";
+import {loginAuth} from "../../../state/authReducer";
 
 const Login = () => {
-    // const {registerMessage} = useSelector((state) => state.authReducer)
+    const {messageFailedLogin} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
-
-    const onSubmit = async(formData) => {
-        await dispatch(loginAuth(formData.login, formData.password))
+    const onSubmit = (formData) => {
+         dispatch(loginAuth(formData.login, formData.password))
     };
-    // console.log(tokenAuth)
     const {register, handleSubmit} = useForm();
     return (<div className={style.mainLogin}>
             <h1 className={style.logIn}>Войти в систему </h1>
@@ -23,9 +20,12 @@ const Login = () => {
                         type={"text"}
                         placeholder={'login'}
                         required={true}
-
                     />
                 </div>
+
+                {messageFailedLogin &&
+                <p className={style.failedLogin}>{messageFailedLogin}</p>}
+
                 <div className={style.password}>
                     <p>Password:</p>
                     <input
@@ -35,26 +35,12 @@ const Login = () => {
                         placeholder={'password'}/>
                 </div>
                 <div className={style.containerAuth}>
-
-                    {/*<Link to={l => ({tokenAuth, pathname:'/reception' })}>*/}
                         <input
                         value={'Войти'}
                         className={style.button}
                         type="submit"
                         />
-                    {/*{ tokenAuth &&*/}
-                    {/*    <Redirect to={'/reception'} />*/}
-
-                    {/*}*/}
-                    {/*</Link>*/}
-
-
-
-                    {/*<div className={style.link}>*/}
-                    {/*    <NavLink className={s.link} to='/registration'>Зарегестрироваться</NavLink>*/}
-                    {/*</div>*/}
                 </div>
-
             </form>
         </div>
     )

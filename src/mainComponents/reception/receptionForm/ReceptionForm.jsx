@@ -4,51 +4,44 @@ import {useDispatch, useSelector} from "react-redux";
 import {newReception} from "../../../state/receptionReducer";
 
 const ReceptionForm = () => {
-
     const {docs} = useSelector((state) => state.docReducer)
-    // const {reception} = useSelector(state => state.receptionReducer)
-
     const dispatch = useDispatch()
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
 
     const onSubmit = (formData) => {
         dispatch(newReception(formData.name, formData.nameDoc, formData.date, formData.complaints))
+
     };
 
     const {
         register,
         handleSubmit,
-
+        reset
     } = useForm();
 
     return (<div className={style.line}>
-
         <form className={style.main} onSubmit={handleSubmit(onSubmit)}>
-
             <div>
                 <p>Имя:</p>
                 <input
                     className={style.someButton}
                     {...register("name")}
                     required={true}
-                    defaultValue={null}
                     type="text"/>
             </div>
             <div>
                 <p>Врач:</p>
                 <select
-                    defaultValue={null}
                     className={style.doctors}
                     {...register("nameDoc")}
                     type="text">
-                    <option> </option>
+                    <option />
                     {elementsDoctors}
                 </select>
             </div>
             <div>
                 <p>Дата:</p>
                 <input
-                    defaultValue={null}
                     className={style.someButton}
                     required={true}
                     {...register("date")}
@@ -57,7 +50,6 @@ const ReceptionForm = () => {
             <div>
                 <p>Жалобы:</p>
                 <input
-                    defaultValue={null}
                     className={style.someButton}
                     {...register("complaints")}
                     required={true}
@@ -68,11 +60,14 @@ const ReceptionForm = () => {
                     className={style.button}
                     value={'Добавить'}
                     type="submit"
+                    onClick={() =>
+                        setTimeout(() => {
+                            reset({name: null})
+                        }, 1000)
+                    }
                 />
-                <input className={style.clear} type="reset" value={'clear'}/>
             </div>
             <div>
-
             </div>
         </form>
     </div>)

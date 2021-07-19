@@ -1,36 +1,34 @@
 import s from './edit.module.css'
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
-import {Redirect} from "react-router";
 import { useDispatch, useSelector} from "react-redux";
 import {changeReception, setEditMode} from "../../../state/receptionReducer";
+import Preloader from "../../../assets/Preloader";
 
 const EditWindow = () => {
-    const { name, nameDoc, date, complaints, id} = useSelector((state) => state.receptionReducer)
+    const { name, nameDoc, date, complaints, id,preloader} = useSelector((state) => state.receptionReducer)
     const {docs} = useSelector((state) => state.docReducer)
 
     const [rec, newRec] = useState([name, nameDoc, date, complaints, id]);
-    // const [edit, setEdit] = useState(false)
 
     const dispatch = useDispatch()
 
     useEffect(() => {
         newRec(rec)
-        // console.log('rerender')
     }, [name, nameDoc, date, complaints, id])
 
     const onSubmit = async (formData) => {
         await dispatch(changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id))
         dispatch(setEditMode(false))
-        // setEdit(!edit)
     };
 
     let docArray = docs || [];
     let elementsDoctors = docArray.map(p => <option key={p._id}>{p.name}</option>)
 
-    // console.log(reception)
     const {register, handleSubmit} = useForm();
     return (<div className={s.containerEdit}>
+            {preloader &&
+            <Preloader />}
         <div className={s.main}>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <header className={s.title}><h1> Изменить прием</h1></header>
@@ -51,11 +49,6 @@ const EditWindow = () => {
                             type="text">
                             {elementsDoctors}
                         </select>
-                        {/*<input*/}
-                        {/*    {...register("nameDoc")}*/}
-                        {/*    defaultValue={nameDoc}*/}
-                        {/*    className={s.inputs}*/}
-                        {/*    type="text"/>*/}
                     </div>
                     <div>
                         <p>Дата </p>
@@ -88,9 +81,6 @@ const EditWindow = () => {
                         defaultValue={'Save'}
                     />
                 </div>
-                {/*{edit &&*/}
-                {/*<Redirect to={'/reception'}/>*/}
-                {/*}*/}
             </form>
 
 

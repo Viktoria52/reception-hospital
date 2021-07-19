@@ -10,6 +10,7 @@ export const authAPI = {
     login(login, password) {
         return instance.post(`login`, {login, password}, {headers: {"Content-type": "application/json"}})
             .then(response => response)
+
     },
     register(login, password) {
         return instance.post(`register`, {login, password},

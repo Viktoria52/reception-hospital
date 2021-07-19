@@ -1,11 +1,11 @@
 import {authAPI} from "../api/api";
+import {preloaderAC} from "./receptionReducer";
 
-const SET_USER = 'AUTH/SET_USER'
-const SET_TOKEN = 'AUTH/SET_TOKEN'
 const SET_AUTH = 'AUTH/SET_AUTH'
 const SET_REGISTER_MESSAGE = 'AUTH/SET_REGISTER_MESSAGE'
 const SET_TITLE = 'AUTH/SET_TITLE'
 const FAILED_REGISTER_MESSAGE = 'AUTH/FAILED_REGISTER_MESSAGE'
+const LOGIN_FAILED_MESSAGE = 'AUTH/LOGIN_FAILED_MESSAGE'
 
 let defaultState = {
     login: null,
@@ -14,22 +14,13 @@ let defaultState = {
     isAuth: false,
     registerMessage: null,
     title: null,
-    messageFailedRegister: null
+    messageFailedRegister: null,
+    messageFailedLogin: null,
 }
 
 const authReducer = (state = defaultState, action) => {
     switch (action.type) {
-        case SET_USER:
-            return {
-                ...state,
-                login: action.login
-            }
-        case
-        SET_TOKEN:
-            return {
-                ...state,
-                tokenAuth: action.payload.tokenText
-            }
+
         case
         SET_AUTH:
             return {
@@ -55,6 +46,12 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 messageFailedRegister: action.message
             }
+            case
+            LOGIN_FAILED_MESSAGE:
+            return {
+                ...state,
+                messageFailedLogin: action.message
+            }
         default:
             return state
 
@@ -72,19 +69,29 @@ export const setTittle = (tit) => {
 export const registerFailedMessageAC = (message) => {
     return {type: FAILED_REGISTER_MESSAGE, message}
 }
+export const loginFailedMessageAC = (message) => {
+    return {type: LOGIN_FAILED_MESSAGE, message}
+}
+
 export const loginAuth = (login, password) =>
     async (dispatch) => {
+        dispatch(preloaderAC( true))
         try {
             const response = await authAPI.login(login, password)
             localStorage.setItem('token', response.data)
             dispatch(AuthReducer(true))
+            dispatch(loginFailedMessageAC(null))
         } catch (error) {
+            dispatch(loginFailedMessageAC('Неверный логин или пароль'))
             console.log(error)
         }
+        dispatch(preloaderAC( false))
+
     }
 
 export const registerAuth = (login, password) =>
     async (dispatch) => {
+        dispatch(preloaderAC( true))
         try {
             const response = await authAPI.register(login, password)
             if (response.status === 200) {
@@ -94,6 +101,7 @@ export const registerAuth = (login, password) =>
             dispatch(registerFailedMessageAC('Пользователь с таким логином уже есть'))
             console.log(error)
         }
+        dispatch(preloaderAC( false))
     }
 
 export default authReducer;

@@ -1,4 +1,5 @@
 import {docsAPI} from "../api/api";
+import {preloaderAC} from "./receptionReducer";
 
 const GET_DOCS = 'REC/GET_DOCS'
 
@@ -26,6 +27,7 @@ export const setDocs = (docs) => {
 
 export const getDocs = () =>
     async (dispatch) => {
+        dispatch(preloaderAC( true))
         try {
             const response = await docsAPI.getDocs()
             if (response.status === 200) {
@@ -33,6 +35,7 @@ export const getDocs = () =>
             }
         } catch (err) {
             console.log(err)
+            localStorage.removeItem('token')
         }
     }
 

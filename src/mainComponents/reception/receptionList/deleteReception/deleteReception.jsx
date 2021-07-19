@@ -3,14 +3,15 @@ import {useState} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteReception, setDeleteMode} from "../../../../state/receptionReducer";
+import Preloader from "../../../../assets/Preloader";
 
 const DeleteReception = () => {
-    const {idDelete} = useSelector((state) => state.receptionReducer)
+    const {idDelete,preloader} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
 
-    // console.log(props)
     const [flag, setFlag] = useState(false)
     return (<div className={s.containerDelete}>
+
         <div className={s.main}>
             <div className={s.delete}>Удалить прием </div>
             <div className={s.caption}>Вы действительно хотите удалить прием ?</div>
@@ -25,7 +26,6 @@ const DeleteReception = () => {
                     onClick={async()=>{
                         await dispatch(deleteReception(idDelete))
                         dispatch(setDeleteMode(false))
-                        // setFlag(!flag)
                     }}
                     className={s.deleteButton}>Delete</button>
                 {flag ?

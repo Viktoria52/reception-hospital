@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {useForm} from "react-hook-form";
 import style from "./register.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {registerAuth, validLengthLoginAC} from "../../../state/authReducer";
+import {loginFailedMessageAC, registerAuth} from "../../../state/authReducer";
 
 const Register = () => {
     const {register, handleSubmit, watch} = useForm();
@@ -10,7 +10,7 @@ const Register = () => {
     const {registerMessage} = useSelector((state) => state.authReducer)
 
     const watchAllFields = watch()
-
+    useMemo(() => dispatch(loginFailedMessageAC(null)), [])
     const onSubmit = (formData) => {
         dispatch(registerAuth(formData.login, formData.password))
     }
@@ -25,11 +25,9 @@ const Register = () => {
                         type={"text"}
                         required={true}
                         placeholder={'login'}
+                        minLength={4}
                     />
                 </div>
-                {/*{loginLength &&*/}
-                {/*<p className={style.validLogin}>{loginLength}</p>*/}
-                {/*}*/}
                 <div>
                 </div>
                 <div className={style.password}>
@@ -40,8 +38,6 @@ const Register = () => {
                         required={true}
                         minLength={8}
                         placeholder={'password'}
-                        onBlur={() => {
-                        }}
                     />
                 </div>
 
@@ -62,6 +58,7 @@ const Register = () => {
 
                         </div>
                 }
+
                 {registerMessage &&
                 <p className={style.messageReg}>Регистрация прошла успешно</p>}
 

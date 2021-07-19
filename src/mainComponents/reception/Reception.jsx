@@ -3,7 +3,6 @@ import ReceptionList from "./receptionList/ReceptionList";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
 import {setTittle} from "../../state/authReducer";
-import {Route, Switch} from "react-router-dom";
 import EditWindow from "./editReception/EditWindow";
 import Header from "../header/header";
 import DeleteReception from "./receptionList/deleteReception/deleteReception";
@@ -16,8 +15,6 @@ const Reception = () => {
     useEffect(() => {
         dispatch(setTittle('Приемы'))
     }, [reception, title])
-
-    // const state = useSelector((state) => state)
 
     return (<div>
             {flagEdit &&

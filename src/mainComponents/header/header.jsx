@@ -1,13 +1,12 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Link, Route} from "react-router-dom";
-import {AuthReducer, setTittle} from "../../state/authReducer";
+import {AuthReducer} from "../../state/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import style from './header.module.css'
 
 const Header = () => {
     const {title} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
-
     return (
         <div className={style.main}>
             <div className={style.logo}/>
@@ -24,17 +23,13 @@ const Header = () => {
                             className={style.exit}
                             onClick={ () => {
                                  localStorage.removeItem('token');
-                                 // dispatch(setToken(null))
                                 dispatch(AuthReducer(false))
                             }}
                         > Выход
                         </button>
                     </Link>
-
                 </Route>
             </div>
-
-
         </div>
     )
 }
