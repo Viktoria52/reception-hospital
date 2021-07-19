@@ -221,24 +221,24 @@ export const preloaderAC= (bool) => {
 export const getReceptions = () => async dispatch => {
         dispatch(preloaderAC( true))
        try{
-           // dispatch(preloaderAC( true))
            let response = await receptionAPI.getAll()
-           // dispatch(preloaderAC(false))
            if (response.status === 200) {
                dispatch(setReception(response.data.data));
            }
-
+           console.log('response:', response)
            if (response.status === 403) {
                localStorage.removeItem('token')
            }
-       } // await
-       catch (error){
-           localStorage.removeItem('token')
        }
+       catch (error){
+
+           console.log(error.errorDesc)
+           // localStorage.removeItem('token')
+       }
+    dispatch(preloaderAC( false))
     }
 
-export const newReception = (name, nameDoc, date, complaints) =>
-    async (dispatch) => {
+export const newReception = (name, nameDoc, date, complaints) => async (dispatch) => {
         dispatch(preloaderAC( true))
         const response = await receptionAPI.add(name, nameDoc, date, complaints)
         if (response.status === 200) {
@@ -247,9 +247,7 @@ export const newReception = (name, nameDoc, date, complaints) =>
         dispatch(preloaderAC( false))
     }
 
-export const changeReception = (name, nameDoc, date, complaints, _id) =>
-
-    async (dispatch) => {
+export const changeReception = (name, nameDoc, date, complaints, _id) => async (dispatch) => {
         dispatch(preloaderAC( true))
         let response = await receptionAPI.change(name, nameDoc, date, complaints, _id)
         if (response.status === 200) {

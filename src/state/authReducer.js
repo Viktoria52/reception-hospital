@@ -46,8 +46,8 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 messageFailedRegister: action.message
             }
-            case
-            LOGIN_FAILED_MESSAGE:
+        case
+        LOGIN_FAILED_MESSAGE:
             return {
                 ...state,
                 messageFailedLogin: action.message
@@ -75,7 +75,7 @@ export const loginFailedMessageAC = (message) => {
 
 export const loginAuth = (login, password) =>
     async (dispatch) => {
-        dispatch(preloaderAC( true))
+        dispatch(preloaderAC(true))
         try {
             const response = await authAPI.login(login, password)
             localStorage.setItem('token', response.data)
@@ -85,13 +85,13 @@ export const loginAuth = (login, password) =>
             dispatch(loginFailedMessageAC('Неверный логин или пароль'))
             console.log(error)
         }
-        dispatch(preloaderAC( false))
+        dispatch(preloaderAC(false))
 
     }
 
 export const registerAuth = (login, password) =>
     async (dispatch) => {
-        dispatch(preloaderAC( true))
+        dispatch(preloaderAC(true))
         try {
             const response = await authAPI.register(login, password)
             if (response.status === 200) {
@@ -101,7 +101,7 @@ export const registerAuth = (login, password) =>
             dispatch(registerFailedMessageAC('Пользователь с таким логином уже есть'))
             console.log(error)
         }
-        dispatch(preloaderAC( false))
+        dispatch(preloaderAC(false))
     }
 
 export default authReducer;

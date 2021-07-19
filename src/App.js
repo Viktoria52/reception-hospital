@@ -28,7 +28,7 @@ const App = () => {
         }
     }, [tokenAuth])
 
-    console.log(preloader)
+    // console.log(preloader)
     return (
         <div className="App">
             {!isAuth &&
