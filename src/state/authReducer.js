@@ -1,5 +1,5 @@
-import {authAPI} from "../api/api";
 import {preloaderAC} from "./receptionReducer";
+import Service from "../api/ApiService";
 
 const SET_AUTH = 'AUTH/SET_AUTH'
 const SET_REGISTER_MESSAGE = 'AUTH/SET_REGISTER_MESSAGE'
@@ -73,33 +73,33 @@ export const loginFailedMessageAC = (message) => {
     return {type: LOGIN_FAILED_MESSAGE, message}
 }
 
+// const Service = new ApiService()
+
 export const loginAuth = (login, password) =>
     async (dispatch) => {
         dispatch(preloaderAC(true))
         try {
-            const response = await authAPI.login(login, password)
-            localStorage.setItem('token', response.data)
-            dispatch(AuthReducer(true))
-            dispatch(loginFailedMessageAC(null))
+            const response = await Service.login(login, password, 'login', {"Content-type": "application/json"})
+            if (response.status === 200) {
+                dispatch(AuthReducer(true))
+                dispatch(loginFailedMessageAC(null))
+            }
         } catch (error) {
             dispatch(loginFailedMessageAC('Неверный логин или пароль'))
-            console.log(error)
         }
         dispatch(preloaderAC(false))
-
     }
 
 export const registerAuth = (login, password) =>
     async (dispatch) => {
         dispatch(preloaderAC(true))
         try {
-            const response = await authAPI.register(login, password)
-            if (response.status === 200) {
-                dispatch(setRegisterMessage(response.data))
+            const response = await Service.register(login, password, 'register', {"Content-type": "application/json"})
+            if (response.response.status === 200) {
+                dispatch(setRegisterMessage(response.result))
             }
         } catch (error) {
             dispatch(registerFailedMessageAC('Пользователь с таким логином уже есть'))
-            console.log(error)
         }
         dispatch(preloaderAC(false))
     }

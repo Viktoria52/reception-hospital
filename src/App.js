@@ -13,7 +13,7 @@ import Header from "./mainComponents/header/header";
 
 const App = () => {
     const {tokenAuth, isAuth} = useSelector((state) => state.authReducer)
-    const {preloader} = useSelector((state) => state.receptionReducer)
+    const {preloader, preloaderDelete} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
     const history = useHistory()
     useEffect(() => {
@@ -36,10 +36,13 @@ const App = () => {
 
             }
             <main className='main'>
-                {
-                    preloader &&
+
+
+
+                {!preloaderDelete && preloader &&
                     <Preloader />
                 }
+
                 <Switch>
                     <PrivateRoute
                         auth={isAuth}

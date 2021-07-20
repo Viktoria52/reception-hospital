@@ -4,3 +4,9 @@
     padding: 450px;
     color: #1666e2;
 }
+
+.spinDelete{
+    position: absolute;
+    color: #0050c7;
+    padding: 300px 171px 0 500px;
+}

@@ -1,4 +1,5 @@
 import {receptionAPI} from "../api/api";
+import Service from "../api/ApiService";
 
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
@@ -15,6 +16,7 @@ const SORT_NAME_DOC = 'REC/SORT_NAME_DOC'
 const EDIT_MODE = 'REC/EDIT_MODE'
 const DELETE_MODE = 'REC/DELETE_MODE'
 const PRELOADER = 'REC/PRELOADER'
+const PRELOADER_DELETE = 'REC/PRELOADER_DELETE'
 
 
 let defaultState = {
@@ -32,7 +34,7 @@ let defaultState = {
     flagEdit: false,
     flagDelete: false,
     preloader: false,
-
+    preloaderDelete: false
 
 }
 
@@ -119,10 +121,15 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 flagDelete: action.flag
             }
-            case PRELOADER:
+        case PRELOADER:
             return {
                 ...state,
                 preloader: action.bool
+            }
+        case PRELOADER_DELETE:
+            return {
+                ...state,
+                preloaderDelete: action.bool
             }
 
         default:
@@ -209,84 +216,89 @@ export const setDeleteMode = (flag) => {
         flag
     }
 }
-export const preloaderAC= (bool) => {
+export const preloaderAC = (bool) => {
     return {
         type: PRELOADER,
         bool
     }
 }
+export const preloaderDeleteAC = (bool) => {
+    return {
+        type: PRELOADER_DELETE,
+        bool
+    }
+}
 
 
+let token1 = () => localStorage.getItem('token')
 
 export const getReceptions = () => async dispatch => {
-        dispatch(preloaderAC( true))
-       try{
-           let response = await receptionAPI.getAll()
-           if (response.status === 200) {
-               dispatch(setReception(response.data.data));
-           }
-           console.log('response:', response)
-           if (response.status === 403) {
-               localStorage.removeItem('token')
-           }
-       }
-       catch (error){
-
-           console.log(error.errorDesc)
-           // localStorage.removeItem('token')
-       }
-    dispatch(preloaderAC( false))
+    dispatch(preloaderAC(true))
+    try {
+        const response = await Service.getReceptionAPI('getAllReception', {Authorization: token1()})
+        if (response.status === 200) {
+            dispatch(setReception(response.array));
+        }
+        if (response.status === 403) {
+            localStorage.removeItem('token')
+        }
+    } catch (error) {
+        console.log(error.errorDesc)
+        // localStorage.removeItem('token')
     }
+    dispatch(preloaderAC(false))
+}
 
 export const newReception = (name, nameDoc, date, complaints) => async (dispatch) => {
-        dispatch(preloaderAC( true))
-        const response = await receptionAPI.add(name, nameDoc, date, complaints)
-        if (response.status === 200) {
-            dispatch(addReceptionCreator(response.data))
-        }
-        dispatch(preloaderAC( false))
-    }
+    dispatch(preloaderAC(true))
+    const response = await Service.newReceptionAPI(name, nameDoc, date, complaints, 'addReception', {Authorization: token1()})
+    console.log(response)
+    // if (response.status === 200) {
+    //     dispatch(addReceptionCreator(response.array))
+    // }
+    dispatch(preloaderAC(false))
+}
 
 export const changeReception = (name, nameDoc, date, complaints, _id) => async (dispatch) => {
-        dispatch(preloaderAC( true))
-        let response = await receptionAPI.change(name, nameDoc, date, complaints, _id)
-        if (response.status === 200) {
-            response.data.map((value) => {
-                dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, _id))
-                dispatch(changeReceptionArray(value.name, value.nameDoc, value.date, value.complaints, _id))
-            })
+    dispatch(preloaderAC(true))
+    let response = await receptionAPI.change(name, nameDoc, date, complaints, _id)
+    if (response.status === 200) {
+        response.data.map((value) => {
+            dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, _id))
+            dispatch(changeReceptionArray(value.name, value.nameDoc, value.date, value.complaints, _id))
+        })
 
-        }
-        dispatch(preloaderAC(false))
     }
+    dispatch(preloaderAC(false))
+}
 
 export const deleteReception = (id) =>
     async (dispatch) => {
-        dispatch(preloaderAC( true))
+        dispatch(preloaderDeleteAC(true))
         let response = await receptionAPI.delete(id)
         if (response.status === 200) {
             dispatch(deleteFromArray(id))
         }
-        dispatch(preloaderAC( false))
+        dispatch(preloaderDeleteAC(false))
     }
 
 export const getSortData = (sortFrom, sortTo) =>
     async (dispatch) => {
-        dispatch(preloaderAC( true))
+        dispatch(preloaderAC(true))
         let response = await receptionAPI.sortDate(sortFrom, sortTo)
         if (response.status === 200) {
             await dispatch(sortToDate(response.data.data));
-            dispatch(preloaderAC( false))
+            dispatch(preloaderAC(false))
         }
     }
 export const getSortName = (valueSort) =>
     async (dispatch) => {
-        dispatch(preloaderAC( true))
+        dispatch(preloaderAC(true))
         let response = await receptionAPI.sortName(valueSort)
         if (response.status === 200) {
             await dispatch(sortToName(response.data.data));
         }
-        dispatch(preloaderAC( false))
+        dispatch(preloaderAC(false))
     }
 
 export const getSortNameDoc = (valueSort) =>

@@ -1,16 +1,22 @@
 import s from './deleteReception.module.css'
-import {useState} from "react";
+import React, {useState} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteReception, setDeleteMode} from "../../../../state/receptionReducer";
-import Preloader from "../../../../assets/Preloader";
+import {deleteReception, setDeleteMode} from "../../../state/receptionReducer";
+import Preloader from "../../../assets/Preloader";
+import PreloaderForDelete from "../../../assets/PreloaderForDelete";
 
 const DeleteReception = () => {
-    const {idDelete,preloader} = useSelector((state) => state.receptionReducer)
+    const {idDelete,preloaderDelete} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
 
     const [flag, setFlag] = useState(false)
     return (<div className={s.containerDelete}>
+
+            {
+                preloaderDelete &&
+                <PreloaderForDelete />
+            }
 
         <div className={s.main}>
             <div className={s.delete}>Удалить прием </div>

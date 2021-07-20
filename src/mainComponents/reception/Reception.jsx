@@ -5,7 +5,7 @@ import React, {useEffect} from "react";
 import {setTittle} from "../../state/authReducer";
 import EditWindow from "./editReception/EditWindow";
 import Header from "../header/header";
-import DeleteReception from "./receptionList/deleteReception/deleteReception";
+import DeleteReception from "./deleteReception/deleteReception";
 
 
 const Reception = () => {
