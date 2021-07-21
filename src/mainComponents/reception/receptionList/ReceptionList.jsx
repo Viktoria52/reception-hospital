@@ -24,7 +24,7 @@ const ReceptionList = () => {
             dispatch(getDocs())
             dispatch(getReceptions())
         }
-    }, [tokenAuth])
+    }, [tokenAuth, dispatch])
 
     return (<div key={'receptionList.main'} className={style.receptionMain}>
             <div className={style.sortContainer}>

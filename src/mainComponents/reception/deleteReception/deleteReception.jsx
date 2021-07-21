@@ -3,7 +3,6 @@ import React, {useState} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import {deleteReception, setDeleteMode} from "../../../state/receptionReducer";
-import Preloader from "../../../assets/Preloader";
 import PreloaderForDelete from "../../../assets/PreloaderForDelete";
 
 const DeleteReception = () => {
@@ -12,12 +11,10 @@ const DeleteReception = () => {
 
     const [flag, setFlag] = useState(false)
     return (<div className={s.containerDelete}>
-
             {
                 preloaderDelete &&
                 <PreloaderForDelete />
             }
-
         <div className={s.main}>
             <div className={s.delete}>Удалить прием </div>
             <div className={s.caption}>Вы действительно хотите удалить прием ?</div>

@@ -23,7 +23,7 @@ const ContainerAuthorization =() => {
         } else {
             dispatch(setTittle('Зарегестрироваться в системе'))
         }
-    },[registerMessage, flag])
+    },[registerMessage, flag, dispatch])
 
     return(<div className={style.containerAuthorization}>
             <div className={style.hospital}> </div>

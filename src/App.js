@@ -9,6 +9,7 @@ import {AuthReducer} from "./state/authReducer";
 import PrivateRoute from "./ReactRoute";
 import Preloader from "./assets/Preloader";
 import Header from "./mainComponents/header/header";
+import tokenServise from "./api/tokenServise";
 
 
 const App = () => {
@@ -16,8 +17,11 @@ const App = () => {
     const {preloader, preloaderDelete} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
     const history = useHistory()
+
+    let token = tokenServise.getToken()
+
     useEffect(() => {
-        if (tokenAuth) {
+        if (token) {
             dispatch(AuthReducer(true))
         }
         if (!isAuth) {
@@ -26,23 +30,17 @@ const App = () => {
         if (isAuth) {
             history.push('/reception')
         }
-    }, [tokenAuth])
+    }, [tokenAuth,  history, dispatch])
 
-    // console.log(preloader)
     return (
         <div className="App">
             {!isAuth &&
             <Header/>
-
             }
             <main className='main'>
-
-
-
                 {!preloaderDelete && preloader &&
                     <Preloader />
                 }
-
                 <Switch>
                     <PrivateRoute
                         auth={isAuth}

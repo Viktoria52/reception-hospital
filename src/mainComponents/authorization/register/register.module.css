@@ -20,7 +20,10 @@
     box-sizing: border-box;
     margin-top: 3px;
 }
-
+.errorsPassword{
+    color: red;
+    font-size: 12px;
+}
 .password{
     margin-top: 10px;
 }

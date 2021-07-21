@@ -1,5 +1,6 @@
-import {docsAPI} from "../api/api";
 import {preloaderAC} from "./receptionReducer";
+import Service from "../api/ApiService";
+import jwtServise from "../api/tokenServise";
 
 const GET_DOCS = 'REC/GET_DOCS'
 
@@ -27,15 +28,14 @@ export const setDocs = (docs) => {
 
 export const getDocs = () =>
     async (dispatch) => {
-        dispatch(preloaderAC( true))
+        dispatch(preloaderAC(true))
         try {
-            const response = await docsAPI.getDocs()
+            const response = await Service.getDocsAPI('getDocs', {Authorization: jwtServise.getToken()})
             if (response.status === 200) {
-                dispatch(setDocs(response.data.data));
+                dispatch(setDocs(response.array));
             }
         } catch (err) {
             console.log(err)
-            // localStorage.removeItem('token')
         }
     }
 

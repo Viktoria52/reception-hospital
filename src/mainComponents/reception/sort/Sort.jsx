@@ -28,7 +28,7 @@ const Sort = () => {
         if (valueOption === 'none') { // сброс фильтрации даты
             dispatch(getReceptions())
         }
-    }, [valueOption]);
+    }, [valueOption, dispatch]);
 
 
     let resultName = valueOption === "name"

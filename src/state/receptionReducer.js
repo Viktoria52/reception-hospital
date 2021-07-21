@@ -1,5 +1,5 @@
-import {receptionAPI} from "../api/api";
 import Service from "../api/ApiService";
+import jwtServise from "../api/tokenServise";
 
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
@@ -26,11 +26,9 @@ let defaultState = {
     date: null,
     complaints: null,
     error: null,
-    // idEdit: null,
     id: null,
     idDelete: null,
     messageDeleteApi: null,
-    // idEditPost: null,
     flagEdit: false,
     flagDelete: false,
     preloader: false,
@@ -51,11 +49,6 @@ const receptionReducer = (state = defaultState, action) => {
                 reception: action.response,
                 preloader: false
             }
-        // case ID_EDIT_RECEPTION:
-        //     return {
-        //         ...state,
-        //         idEdit: action.payload.id
-        //     }
         case CHANGE_RECEPTION: //данные для редактрования
             return {
                 ...state,
@@ -106,11 +99,6 @@ const receptionReducer = (state = defaultState, action) => {
                 ...state,
                 reception: action.array
             }
-        // case CHANGE_RECEPTION_ID:
-        //     return {
-        //         ...state,
-        //         idEditPost: action.payload.id
-        //     }
         case EDIT_MODE:
             return {
                 ...state,
@@ -165,13 +153,6 @@ export const changeReceptionArray = (name, nameDoc, date, complaints, id) => {
     }
 }
 
-// export const changeReceptionId = (id) => { // id for window!
-//     // console.log(id)
-//     return {
-//         type: CHANGE_RECEPTION_ID,
-//         payload: {id}
-//     }
-// }
 
 export const deleteReceptionAC = (text) => {
     return {
@@ -229,13 +210,10 @@ export const preloaderDeleteAC = (bool) => {
     }
 }
 
-
-let token1 = () => localStorage.getItem('token')
-
 export const getReceptions = () => async dispatch => {
     dispatch(preloaderAC(true))
     try {
-        const response = await Service.getReceptionAPI('getAllReception', {Authorization: token1()})
+        const response = await Service.getReceptionAPI('getAllReception', {Authorization:  jwtServise.getToken()})
         if (response.status === 200) {
             dispatch(setReception(response.array));
         }
@@ -244,38 +222,47 @@ export const getReceptions = () => async dispatch => {
         }
     } catch (error) {
         console.log(error.errorDesc)
-        // localStorage.removeItem('token')
     }
     dispatch(preloaderAC(false))
 }
 
 export const newReception = (name, nameDoc, date, complaints) => async (dispatch) => {
     dispatch(preloaderAC(true))
-    const response = await Service.newReceptionAPI(name, nameDoc, date, complaints, 'addReception', {Authorization: token1()})
-    console.log(response)
-    // if (response.status === 200) {
-    //     dispatch(addReceptionCreator(response.array))
-    // }
+    const response = await Service.newReceptionAPI(name, nameDoc, date, complaints, 'addReception', {
+        Authorization:  jwtServise.getToken(),
+        "Content-type": "application/json"
+    })
+    if (response.status === 200) {
+        dispatch(addReceptionCreator(response.array))
+    }
     dispatch(preloaderAC(false))
 }
 
 export const changeReception = (name, nameDoc, date, complaints, _id) => async (dispatch) => {
     dispatch(preloaderAC(true))
-    let response = await receptionAPI.change(name, nameDoc, date, complaints, _id)
+
+    const response = await Service.ChangeReceptionAPI(name, nameDoc, date, complaints, _id,
+        'changeReception', {
+            Authorization:  jwtServise.getToken(),
+            "Content-type": "application/json"
+        })
     if (response.status === 200) {
-        response.data.map((value) => {
+        response.array.map((value) => {
             dispatch(changeReceptionAC(value.name, value.nameDoc, value.date, value.complaints, _id))
             dispatch(changeReceptionArray(value.name, value.nameDoc, value.date, value.complaints, _id))
-        })
-
+            return value
+        }
+    )
+        dispatch(preloaderAC(false))
     }
-    dispatch(preloaderAC(false))
 }
 
 export const deleteReception = (id) =>
     async (dispatch) => {
         dispatch(preloaderDeleteAC(true))
-        let response = await receptionAPI.delete(id)
+        const response = await Service.DeleteReceptionAPI(
+            `deleteReception?id=${id}`,
+            {Authorization: jwtServise.getToken()})
         if (response.status === 200) {
             dispatch(deleteFromArray(id))
         }
@@ -285,27 +272,27 @@ export const deleteReception = (id) =>
 export const getSortData = (sortFrom, sortTo) =>
     async (dispatch) => {
         dispatch(preloaderAC(true))
-        let response = await receptionAPI.sortDate(sortFrom, sortTo)
+        const response = await Service.getSortDataAPI(`getSortRecDate?sortFrom=${sortFrom}&sortTo=${sortTo}`,{Authorization:  jwtServise.getToken()})
         if (response.status === 200) {
-            await dispatch(sortToDate(response.data.data));
+            await dispatch(sortToDate(response.array));
             dispatch(preloaderAC(false))
         }
     }
 export const getSortName = (valueSort) =>
     async (dispatch) => {
         dispatch(preloaderAC(true))
-        let response = await receptionAPI.sortName(valueSort)
+        const response = await Service.getSortNameAPI(`getSortName?valueSort=${valueSort}`, {Authorization:  jwtServise.getToken()})
         if (response.status === 200) {
-            await dispatch(sortToName(response.data.data));
+            await dispatch(sortToName(response.array));
         }
         dispatch(preloaderAC(false))
     }
 
 export const getSortNameDoc = (valueSort) =>
     async (dispatch) => {
-        let response = await receptionAPI.sortNameDoc(valueSort)
+    const response = await Service.getSortNameDocAPI(`getSortNameDoctors?valueSort=${valueSort}`,  {Authorization:  jwtServise.getToken()})
         if (response.status === 200) {
-            await dispatch(sortToNameDoc(response.data.data));
+            await dispatch(sortToNameDoc(response.array));
         }
     }
 

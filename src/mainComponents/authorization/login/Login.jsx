@@ -6,6 +6,7 @@ import {loginAuth} from "../../../state/authReducer";
 const Login = () => {
     const {messageFailedLogin} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
+    console.log(messageFailedLogin)
     const onSubmit = (formData) => {
          dispatch(loginAuth(formData.login, formData.password))
     };
@@ -23,8 +24,7 @@ const Login = () => {
                     />
                 </div>
 
-                {messageFailedLogin &&
-                <p className={style.failedLogin}>{messageFailedLogin}</p>}
+
 
                 <div className={style.password}>
                     <p>Password:</p>
@@ -34,6 +34,8 @@ const Login = () => {
                         required={true}
                         placeholder={'password'}/>
                 </div>
+                {messageFailedLogin &&
+                <p className={style.failedLogin}>{messageFailedLogin}</p>}
                 <div className={style.containerAuth}>
                         <input
                         value={'Войти'}

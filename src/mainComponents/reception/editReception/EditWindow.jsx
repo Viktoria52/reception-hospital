@@ -15,7 +15,7 @@ const EditWindow = () => {
 
     useEffect(() => {
         newRec(rec)
-    }, [name, nameDoc, date, complaints, id])
+    }, [name, nameDoc, date, complaints, id, rec])
 
     const onSubmit = async (formData) => {
         await dispatch(changeReception(formData.name, formData.nameDoc, formData.date, formData.complaints, id))

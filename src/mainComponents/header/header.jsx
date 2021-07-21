@@ -3,6 +3,7 @@ import {Link, Route} from "react-router-dom";
 import {AuthReducer} from "../../state/authReducer";
 import {useDispatch, useSelector} from "react-redux";
 import style from './header.module.css'
+import jwtServise from "../../api/tokenServise";
 
 const Header = () => {
     const {title} = useSelector((state) => state.authReducer)
@@ -22,7 +23,7 @@ const Header = () => {
                         <button
                             className={style.exit}
                             onClick={ () => {
-                                 localStorage.removeItem('token');
+                                jwtServise.removeToken()
                                 dispatch(AuthReducer(false))
                             }}
                         > Выход
