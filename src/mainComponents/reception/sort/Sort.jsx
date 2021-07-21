@@ -35,19 +35,23 @@ const Sort = () => {
     let resultDoc = valueOption === "doc"
     let resultDate = valueOption === "date"
 
-    async function sortNames(e) { //сортировка имен и врачей
-        let text = await e.target.value
-        await dispatch(triage(text))
-        if (valueSorting) {
-            if (valueOption === 'name') {
-                dispatch(getSortName(valueSorting)) //name
-            }
-            if (valueOption === 'doc') {
-                dispatch(getSortNameDoc(valueSorting)) //doctors
-            }
-        }
+    function sortNames(e) { //сортировка имен и врачей
+        let text = e.target.value
+        dispatch(triage(text))
+
+        sorting(text)
 
     }
+function sorting(text){
+    if (text) {
+        if (valueOption === 'name') {
+            dispatch(getSortName(text)) //name
+        }
+        if (valueOption === 'doc') {
+            dispatch(getSortNameDoc(text)) //doctors
+        }
+    }
+}
     const {register, handleSubmit} = useForm();
     return (
         <div className={style.sorting}>
@@ -55,7 +59,7 @@ const Sort = () => {
                 <div className={style.containerSortingBy}>
                     <p className={style.sortBy}>Сортировать по:</p>
                     <select className={style.select} onChange={handleChange}>
-                        <option value="no_value"/>
+                        <option />
                         <option value="name">Имя</option>
                         <option value="doc">Врач</option>
                         <option value="date">Дата</option>
@@ -68,6 +72,7 @@ const Sort = () => {
                         <span className={style.directionSpan}>Направление: </span>
                         <select className={style.directionSelect} onChange={sortNames}>
                             {/*<option value="no_value"/>*/}
+                            <option/>
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>
                         </select>
