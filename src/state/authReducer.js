@@ -9,6 +9,7 @@ const FAILED_REGISTER_MESSAGE = 'AUTH/FAILED_REGISTER_MESSAGE'
 const LOGIN_FAILED_MESSAGE = 'AUTH/LOGIN_FAILED_MESSAGE'
 const REGISTER_PASSWORD_ERRORS = 'AUTH/REGISTER_PASSWORD_ERRORS'
 const CLEAN_ERRORS = 'AUTH/CLEAN_ERRORS'
+const PASSWORD_FAILED_MESSAGE = 'AUTH/PASSWORD_FAILED_MESSAGE'
 
 let defaultState = {
     login: null,
@@ -19,7 +20,8 @@ let defaultState = {
     title: null,
     messageFailedRegister: null,
     messageFailedLogin: null,
-    errors: []
+    errors: [],
+    passwordFailMessage: null
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -61,11 +63,17 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 errors: [...state.errors, ...action.errors]
             }
-            case
-            CLEAN_ERRORS:
+        case
+        CLEAN_ERRORS:
             return {
                 ...state,
                 errors: action.cleaner
+            }
+        case
+        PASSWORD_FAILED_MESSAGE:
+            return {
+                ...state,
+                passwordFailMessage: action.message
             }
         default:
             return state
@@ -87,6 +95,9 @@ export const registerFailedMessageAC = (message) => {
 export const loginFailedMessageAC = (message) => {
     return {type: LOGIN_FAILED_MESSAGE, message}
 }
+export const passwordFailedMessageAC = (message) => {
+    return {type: PASSWORD_FAILED_MESSAGE, message}
+}
 export const registerPasswordErrors = (errors) => {
     return {type: REGISTER_PASSWORD_ERRORS, errors}
 }
@@ -94,7 +105,6 @@ export const cleanErrors = (cleaner) => {
     return {type: CLEAN_ERRORS, cleaner}
 }
 
-// const Service = new ApiService()
 
 export const loginAuth = (login, password) =>
     async (dispatch) => {
@@ -104,14 +114,16 @@ export const loginAuth = (login, password) =>
             if (response.response.status === 200) {
                 dispatch(AuthReducer(true))
                 dispatch(loginFailedMessageAC(null))
+                dispatch(loginFailedMessageAC(null))
                 dispatch(preloaderAC(false))
             }
-            if(response.response.status === 403){
+            if (response.response.status === 400) {
                 dispatch(loginFailedMessageAC(response.result.message))
             }
-            // if(response.response.status === 400){
-            //     dispatch(registerFailedMessageAC(response.result.message))
-            // }
+            if (response.response.status === 403) {
+                dispatch(loginFailedMessageAC(null))
+                dispatch(passwordFailedMessageAC(response.result.message))
+            }
             dispatch(preloaderAC(false))
         } catch (error) {
 
@@ -124,7 +136,6 @@ export const registerAuth = (login, password) =>
         dispatch(preloaderAC(true))
         try {
             const response = await Service.register(login, password, 'register', {"Content-type": "application/json"})
-
             dispatch(cleanErrors([]))
             dispatch(registerFailedMessageAC(null))
             if (response.response.status === 200) {
@@ -134,7 +145,7 @@ export const registerAuth = (login, password) =>
             if (response.response.status === 400) {
                 dispatch(registerPasswordErrors(response.result.errors.errors))
             }
-            if(response.response.status === 409){
+            if (response.response.status === 409) {
                 dispatch(registerFailedMessageAC('Пользователь с таким логином уже есть'))
             }
         } catch (error) {

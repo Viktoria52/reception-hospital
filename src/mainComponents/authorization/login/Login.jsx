@@ -4,12 +4,12 @@ import {useDispatch, useSelector} from "react-redux";
 import {loginAuth} from "../../../state/authReducer";
 
 const Login = () => {
-    const {messageFailedLogin} = useSelector((state) => state.authReducer)
+    const {messageFailedLogin, passwordFailMessage} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
-    console.log(messageFailedLogin)
     const onSubmit = (formData) => {
          dispatch(loginAuth(formData.login, formData.password))
     };
+    console.log(passwordFailMessage, messageFailedLogin)
     const {register, handleSubmit} = useForm();
     return (<div className={style.mainLogin}>
             <h1 className={style.logIn}>Войти в систему </h1>
@@ -23,9 +23,8 @@ const Login = () => {
                         required={true}
                     />
                 </div>
-
-
-
+                {messageFailedLogin &&
+                <p className={style.failedLogin}>{messageFailedLogin}</p>}
                 <div className={style.password}>
                     <p>Password:</p>
                     <input
@@ -34,8 +33,7 @@ const Login = () => {
                         required={true}
                         placeholder={'password'}/>
                 </div>
-                {messageFailedLogin &&
-                <p className={style.failedLogin}>{messageFailedLogin}</p>}
+                {passwordFailMessage && <p className={style.failedLogin}>{passwordFailMessage}</p>}
                 <div className={style.containerAuth}>
                         <input
                         value={'Войти'}

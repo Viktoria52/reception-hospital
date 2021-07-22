@@ -2,14 +2,14 @@ import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import style from './sort.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {sortValueAC, triage} from "../../../state/sortReducer";
+import {sortValueAC} from "../../../state/sortReducer";
 import {getReceptions, getSortData, getSortName, getSortNameDoc} from "../../../state/receptionReducer";
 
 
 const Sort = () => {
     let dateFromReg = ''
     let dateToReg = ''
-    const {valueOption, valueSorting} = useSelector(state => state.sortReducer)
+    const {valueOption} = useSelector(state => state.sortReducer)
     const dispatch = useDispatch()
 
 
@@ -30,15 +30,12 @@ const Sort = () => {
         }
     }, [valueOption, dispatch]);
 
-
     let resultName = valueOption === "name"
     let resultDoc = valueOption === "doc"
     let resultDate = valueOption === "date"
 
     function sortNames(e) { //сортировка имен и врачей
         let text = e.target.value
-        dispatch(triage(text))
-
         sorting(text)
 
     }
@@ -71,7 +68,6 @@ function sorting(text){
                     <div className={style.direction}>
                         <span className={style.directionSpan}>Направление: </span>
                         <select className={style.directionSelect} onChange={sortNames}>
-                            {/*<option value="no_value"/>*/}
                             <option/>
                             <option value="ascending">По возрастанию</option>
                             <option value="decreasing">По убыванию</option>

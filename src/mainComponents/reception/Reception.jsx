@@ -7,14 +7,13 @@ import EditWindow from "./editReception/EditWindow";
 import DeleteReception from "./deleteReception/deleteReception";
 import Header from "../header/header";
 
-
 const Reception = () => {
     const {reception, flagEdit, flagDelete} = useSelector(state => state.receptionReducer);
-    const {title, isAuth} = useSelector((state) => state.authReducer)
+    const {title, isAuth, } = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
     useEffect(() => {
         dispatch(setTittle('Приемы'))
-    }, [reception, title, dispatch])
+    }, [reception, title])
 
     return (<div>
             {flagEdit &&

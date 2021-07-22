@@ -17,6 +17,7 @@ class ApiService {
             jwtServise.setToken(result)
         }
         const obj = {response, result}
+        console.log(obj)
         return obj
     }
 
@@ -26,7 +27,6 @@ class ApiService {
             body: JSON.stringify({login, password}),
             headers: headers
         });
-        console.log(response)
         const result = await response.json()
         const obj = {response, result}
         return obj
@@ -37,6 +37,9 @@ class ApiService {
             method: 'GET',
             headers: headers
         });
+        if (response.status === 401 ) {
+            jwtServise.removeToken()
+        }
         const result = await response.json()
         const obj = {status: response.status, array: result.data}
         return obj
@@ -115,6 +118,9 @@ class ApiService {
             method: 'GET',
             headers: headers
         });
+        if (response.status === 401) {
+            jwtServise.removeToken()
+        }
         const result = await response.json()
         const obj = {status: response.status, array: result.data}
         return obj

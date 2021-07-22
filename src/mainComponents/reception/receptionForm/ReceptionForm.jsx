@@ -63,7 +63,7 @@ const ReceptionForm = () => {
                     onClick={() =>
                         setTimeout(() => {
                             reset({name: null})
-                        }, 1000)
+                        }, 1)
                     }
                 />
             </div>
