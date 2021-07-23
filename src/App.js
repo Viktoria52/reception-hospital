@@ -25,7 +25,7 @@ const App = () => {
             dispatch(AuthReducer(true))
         }
         if (!isAuth) {
-            history.push('/')
+            history.push('/auth')
         }
         if (isAuth) {
             history.push('/reception')
@@ -45,11 +45,11 @@ const App = () => {
                     <PrivateRoute
                         auth={isAuth}
                         exact path={'/reception'}
-                        to={'/'}
+                        to={'/auth'}
                         Component={Reception}/>
                     <PrivateRoute
                         auth={!isAuth}
-                        exact path={'/'}
+                        exact path={'/auth'}
                         to={'/reception'}
                         Component={ContainerAuthorization}/>
                 </Switch>

@@ -6,6 +6,7 @@ import {setTittle} from "../../state/authReducer";
 import EditWindow from "./editReception/EditWindow";
 import DeleteReception from "./deleteReception/deleteReception";
 import Header from "../header/header";
+import './Reception.css'
 
 const Reception = () => {
     const {reception, flagEdit, flagDelete} = useSelector(state => state.receptionReducer);
@@ -15,7 +16,8 @@ const Reception = () => {
         dispatch(setTittle('Приемы'))
     }, [reception, title])
 
-    return (<div>
+    return (<div className={flagDelete&&'StyleDelete'}>
+
             {flagEdit &&
             <EditWindow/>
             }
@@ -27,8 +29,8 @@ const Reception = () => {
                 </header>
             }
 
-            <header><ReceptionForm/></header>
-            <main><ReceptionList/></main>
+            <header className={'receptionForm'}><ReceptionForm/></header>
+            <main className={'mainListPad'}><ReceptionList/></main>
         </div>
     )
 

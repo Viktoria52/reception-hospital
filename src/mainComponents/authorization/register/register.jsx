@@ -1,4 +1,4 @@
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import {useForm} from "react-hook-form";
 import style from "./register.module.css";
 import {useDispatch, useSelector} from "react-redux";
@@ -11,7 +11,10 @@ const Register = () => {
     const dispatch = useDispatch()
     const {registerMessage, errors, messageFailedRegister} = useSelector((state) => state.authReducer)
     const watchAllFields = watch()
-    useMemo(() => dispatch(loginFailedMessageAC(null)), [dispatch])
+    // useMemo(() => dispatch(loginFailedMessageAC(null)), [dispatch])
+    useEffect(()=>{
+        dispatch(loginFailedMessageAC(null))
+    },[dispatch])
     const onSubmit = (formData) => {
         dispatch(registerAuth(formData.login, formData.password))
     }
@@ -30,7 +33,7 @@ const Register = () => {
                         {...register("login", {
                             pattern: {
                                 value: /\S\S+/,
-                                message: 'cannot be with whiteSpace'
+                                message: 'недопустимы пробелы'
                             }
                         })
                         }

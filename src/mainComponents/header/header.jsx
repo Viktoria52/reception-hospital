@@ -19,7 +19,7 @@ const Header = () => {
             </div>
             <div className={style.buttonContainer}>
                 <Route path="/reception">
-                    <Link to='/'>
+                    <Link to='/auth'>
                         <button
                             className={style.exit}
                             onClick={ () => {

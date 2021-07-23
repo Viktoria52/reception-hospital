@@ -17,7 +17,6 @@ class ApiService {
             jwtServise.setToken(result)
         }
         const obj = {response, result}
-        console.log(obj)
         return obj
     }
 
@@ -27,6 +26,18 @@ class ApiService {
             body: JSON.stringify({login, password}),
             headers: headers
         });
+        const result = await response.json()
+        const obj = {response, result}
+        return obj
+    }
+    async authGoogle( url, headers) {
+        const response = await fetch(this.baseUrl + url, {
+            method: 'GET',
+            // body: JSON.stringify({login, password}),
+            headers: headers
+        });
+        console.log('response in service:',response)
+
         const result = await response.json()
         const obj = {response, result}
         return obj

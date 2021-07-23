@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useMemo} from 'react'
 import Post from "./Post"
 import style from "./receptionList.module.css"
 import Sort from "../sort/Sort";
@@ -9,15 +9,14 @@ import {useDispatch, useSelector} from "react-redux";
 
 const ReceptionList = () => {
     const {reception} = useSelector(state => state.receptionReducer)
-    const {tokenAuth} = useSelector((state) => state.authReducer)
+    const {isAuth,tokenAuth} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
-
     // useMemo(() => {
-    //     if (tokenAuth) {
+    //     if (isAuth) {
     //         dispatch(getDocs())
     //         dispatch(getReceptions())
     //     }
-    // }, [tokenAuth]);
+    // }, [isAuth, dispatch]);
 
     useEffect(()=>{
         if (tokenAuth) {

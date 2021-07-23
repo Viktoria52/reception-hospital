@@ -114,7 +114,7 @@ export const loginAuth = (login, password) =>
             if (response.response.status === 200) {
                 dispatch(AuthReducer(true))
                 dispatch(loginFailedMessageAC(null))
-                dispatch(loginFailedMessageAC(null))
+                dispatch(passwordFailedMessageAC(null))
                 dispatch(preloaderAC(false))
             }
             if (response.response.status === 400) {
@@ -153,5 +153,16 @@ export const registerAuth = (login, password) =>
         }
         dispatch(preloaderAC(false))
     }
+
+export const registerWithGoogle = () =>
+    async (dispatch) => {
+        try {
+            const response = Service.authGoogle('/auth/google', {"Content-type": "application/json"})
+            console.log(response)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
 
 export default authReducer;

@@ -1,5 +1,6 @@
 import Service from "../api/ApiService";
 import jwtServise from "../api/tokenServise";
+import {message} from "antd";
 
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
@@ -15,6 +16,7 @@ const EDIT_MODE = 'REC/EDIT_MODE'
 const DELETE_MODE = 'REC/DELETE_MODE'
 const PRELOADER = 'REC/PRELOADER'
 const PRELOADER_DELETE = 'REC/PRELOADER_DELETE'
+const MESSAGE_TASK_CREATED = 'REC/MESSAGE_TASK_CREATED'
 
 
 let defaultState = {
@@ -30,7 +32,8 @@ let defaultState = {
     flagEdit: false,
     flagDelete: false,
     preloader: false,
-    preloaderDelete: false
+    preloaderDelete: false,
+    messageTaskCreated: false
 
 }
 
@@ -116,6 +119,11 @@ const receptionReducer = (state = defaultState, action) => {
             return {
                 ...state,
                 preloaderDelete: action.bool
+            }
+            case MESSAGE_TASK_CREATED:
+            return {
+                ...state,
+                messageTaskCreated: action.message
             }
 
         default:
@@ -207,6 +215,12 @@ export const preloaderDeleteAC = (bool) => {
         bool
     }
 }
+export const messageTaskCreated = (message) => {
+    return {
+        type: MESSAGE_TASK_CREATED,
+        message
+    }
+}
 
 export const getReceptions = () => async dispatch => {
     dispatch(preloaderAC(true))
@@ -231,6 +245,7 @@ export const newReception = (name, nameDoc, date, complaints) => async (dispatch
         "Content-type": "application/json"
     })
     if (response.status === 200) {
+        dispatch(messageTaskCreated(true))
         dispatch(addReceptionCreator(response.array))
     }
     dispatch(preloaderAC(false))

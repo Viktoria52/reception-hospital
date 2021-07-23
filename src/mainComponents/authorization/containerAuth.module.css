@@ -1,19 +1,21 @@
-.containerAuthorization{
+.containerAuthorization {
     padding: 41px 56px 41px 56px;
     display: flex;
     justify-content: space-around;
 }
-.hospital{
+
+.hospital {
     background-image: url("../../assets/hospital.svg");
     width: 375px;
     height: 375px;
 }
-.mainAuth{
+
+.mainAuth {
     background-color: white;
     width: 400px;
 }
 
-.registration{
+.registration {
     font-weight: 300;
     font-size: 18px;
     border: none;
@@ -22,7 +24,14 @@
     margin-left: 192px;
 }
 
-.authorization{
+.googleImage {
+    padding: 20px;
+    width:90px;
+    height:90px;
+    box-sizing: border-box;
+}
+
+.authorization {
     font-weight: 300;
     font-size: 18px;
     position: absolute;

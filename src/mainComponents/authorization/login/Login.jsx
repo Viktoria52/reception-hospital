@@ -9,7 +9,6 @@ const Login = () => {
     const onSubmit = (formData) => {
          dispatch(loginAuth(formData.login, formData.password))
     };
-    console.log(passwordFailMessage, messageFailedLogin)
     const {register, handleSubmit} = useForm();
     return (<div className={style.mainLogin}>
             <h1 className={style.logIn}>Войти в систему </h1>

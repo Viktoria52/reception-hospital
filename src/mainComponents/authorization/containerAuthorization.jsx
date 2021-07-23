@@ -3,7 +3,9 @@ import {useEffect, useState} from "react";
 import Register from "./register/register";
 import style from "./containerAuth.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {setRegisterMessage, setTittle} from "../../state/authReducer";
+import {registerWithGoogle, setRegisterMessage, setTittle} from "../../state/authReducer";
+import google from '../../assets/google.jpg'
+import {Link} from "react-router-dom";
 
 
 const ContainerAuthorization =() => {
@@ -35,6 +37,10 @@ const ContainerAuthorization =() => {
                 :
                 <div className={style.register}>
                     <Register/>
+                    {/*<p>Войти с помощью Google</p>*/}
+                    <Link to="/auth/google" >
+                        <img src={google} onClick={dispatch(registerWithGoogle())} className={style.googleImage} alt=""/>
+                    </Link>
                     <p  className={style.authorization} onClick={()=>changeFlag(!flag)}> Авторизоваться</p>
                 </div>
             }
