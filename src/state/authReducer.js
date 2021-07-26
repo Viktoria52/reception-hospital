@@ -157,7 +157,8 @@ export const registerAuth = (login, password) =>
 export const registerWithGoogle = () =>
     async (dispatch) => {
         try {
-            const response = Service.authGoogle('/auth/google', {"Content-type": "application/json"})
+            const response = Service.authGoogle('auth/google', {"Content-type": "application/json",
+           'Access-Control-Allow-Origin': "*"})
             console.log(response)
         } catch (error) {
             console.log(error)

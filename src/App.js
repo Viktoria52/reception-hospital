@@ -18,8 +18,6 @@ const App = () => {
     const dispatch = useDispatch()
     const history = useHistory()
 
-    console.log('add some changed!');
-
     let token = tokenServise.getToken()
 
     useEffect(() => {

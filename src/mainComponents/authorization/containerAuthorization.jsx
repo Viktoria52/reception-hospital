@@ -38,9 +38,9 @@ const ContainerAuthorization =() => {
                 <div className={style.register}>
                     <Register/>
                     {/*<p>Войти с помощью Google</p>*/}
-                    <Link to="/auth/google" >
-                        <img src={google} onClick={dispatch(registerWithGoogle())} className={style.googleImage} alt=""/>
-                    </Link>
+                  
+                        <img src={google} onClick={()=>dispatch(registerWithGoogle())} className={style.googleImage} alt=""/>
+                   
                     <p  className={style.authorization} onClick={()=>changeFlag(!flag)}> Авторизоваться</p>
                 </div>
             }
