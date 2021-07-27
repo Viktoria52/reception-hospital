@@ -33,6 +33,7 @@ const ContainerAuthorization =() => {
             {flag ?
                 <div className={style.login}>
                     <Login/>
+                    <img src={google} onClick={()=>dispatch(registerWithGoogle())} className={style.googleImage} alt=""/>
                     <p className={style.registration} onClick={()=>changeFlag(!flag)}> Зарегестрироваться </p>  </div>
                 :
                 <div className={style.register}>

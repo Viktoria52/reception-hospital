@@ -1,7 +1,5 @@
 import Service from "../api/ApiService";
 import jwtServise from "../api/tokenServise";
-import {message} from "antd";
-
 
 const ADD_RECEPTION = 'REC/ADD_RECEPTION'
 const SET_ALL_RECEPTION = 'REC/SET_ALL_RECEPTION'

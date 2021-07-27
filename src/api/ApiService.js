@@ -30,17 +30,25 @@ class ApiService {
         const obj = {response, result}
         return obj
     }
-    async authGoogle( url, headers) {
+
+    async authGoogle(url, headers) {
         const response = await fetch(this.baseUrl + url, {
             method: 'GET',
             // body: JSON.stringify({login, password}),
-            headers: headers
-        });
-        console.log('response in service:',response)
+            headers: {
+                // "Content-type": "application/json; charset=UTF-8",
+                // "Content-type": "text/plain",
 
-        const result = await response.json()
-        const obj = {response, result}
-        return obj
+                Origin: "https://localhost:3001"
+                // " Access-Control-Request-Method": "GET"
+            }
+        });
+        console.log('response in service:', response.json())
+
+        // const result = await response.json()
+        // const obj = {response, result}
+        // return obj
+        return response.json()
     }
 
     async getReceptionAPI(url, headers) {
@@ -48,7 +56,7 @@ class ApiService {
             method: 'GET',
             headers: headers
         });
-        if (response.status === 401 ) {
+        if (response.status === 401) {
             jwtServise.removeToken()
         }
         const result = await response.json()
