@@ -21,34 +21,44 @@ class ApiService {
     }
 
     async register(login, password, url, headers) {
-        const response = await fetch(this.baseUrl + url, {
-            method: 'POST',
-            body: JSON.stringify({login, password}),
-            headers: headers
-        });
-        const result = await response.json()
-        const obj = {response, result}
-        return obj
+        try{
+            const response = await fetch(this.baseUrl + url, {
+                method: 'POST',
+                body: JSON.stringify({login, password}),
+                headers: headers
+            });
+            const result = await response.json()
+            const obj = {response, result}
+            return obj
+        } catch (error){
+            console.log(error)
+        }
+
     }
 
     async authGoogle(url, headers) {
-        const response = await fetch(this.baseUrl + url, {
-            method: 'GET',
-            // body: JSON.stringify({login, password}),
-            headers: {
-                // "Content-type": "application/json; charset=UTF-8",
-                // "Content-type": "text/plain",
+        try{
+            const response = await fetch(this.baseUrl + url, {
+                method: 'GET',
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    // "Content-type": "text/plain",
+                    "Access-Control-Allow-Origin": "*",
+                    Origin: "https://localhost:3001/auth",
+                }
+            });
+             const result = await response.json()
+            // console.log('response in service:', response.json())
 
-                Origin: "https://localhost:3001"
-                // " Access-Control-Request-Method": "GET"
-            }
-        });
-        console.log('response in service:', response.json())
+            // const result = await response.json()
+            // const obj = {response, result}
+            // return obj
+            console.log('resp:', response)
+            return result
+        } catch (error){
+            console.log(error)
+        }
 
-        // const result = await response.json()
-        // const obj = {response, result}
-        // return obj
-        return response.json()
     }
 
     async getReceptionAPI(url, headers) {

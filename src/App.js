@@ -5,11 +5,11 @@ import Reception from "./mainComponents/reception/Reception";
 import ContainerAuthorization from "./mainComponents/authorization/containerAuthorization";
 import {useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {AuthReducer} from "./state/authReducer";
 import PrivateRoute from "./ReactRoute";
 import Preloader from "./assets/Preloader";
 import Header from "./mainComponents/header/header";
 import tokenServise from "./api/tokenServise";
+import {AuthReducer} from "./state/actions/authActions";
 
 
 const App = () => {

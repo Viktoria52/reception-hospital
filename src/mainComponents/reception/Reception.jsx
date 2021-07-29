@@ -2,11 +2,11 @@ import ReceptionForm from "./receptionForm/ReceptionForm";
 import ReceptionList from "./receptionList/ReceptionList";
 import {useDispatch, useSelector} from "react-redux";
 import React, {useEffect} from "react";
-import {setTittle} from "../../state/authReducer";
 import EditWindow from "./editReception/EditWindow";
 import DeleteReception from "./deleteReception/deleteReception";
 import Header from "../header/header";
 import './Reception.css'
+import {setTittle} from "../../state/actions/authActions";
 
 const Reception = () => {
     const {reception, flagEdit, flagDelete} = useSelector(state => state.receptionReducer);

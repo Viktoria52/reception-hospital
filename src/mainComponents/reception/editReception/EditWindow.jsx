@@ -2,8 +2,9 @@ import s from './edit.module.css'
 import {useForm} from "react-hook-form";
 import {useEffect, useState} from "react";
 import { useDispatch, useSelector} from "react-redux";
-import {changeReception, setEditMode} from "../../../state/receptionReducer";
+import {changeReception} from "../../../state/receptionReducer";
 import Preloader from "../../../assets/Preloader";
+import {setEditMode} from "../../../state/actions/receptionAC";
 
 const EditWindow = () => {
     const { name, nameDoc, date, complaints, id,preloader} = useSelector((state) => state.receptionReducer)

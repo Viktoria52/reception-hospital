@@ -1,15 +1,19 @@
-import {preloaderAC} from "./receptionReducer";
 import Service from "../api/ApiService";
 import tokenServise from "../api/tokenServise";
-
-const SET_AUTH = 'AUTH/SET_AUTH'
-const SET_REGISTER_MESSAGE = 'AUTH/SET_REGISTER_MESSAGE'
-const SET_TITLE = 'AUTH/SET_TITLE'
-const FAILED_REGISTER_MESSAGE = 'AUTH/FAILED_REGISTER_MESSAGE'
-const LOGIN_FAILED_MESSAGE = 'AUTH/LOGIN_FAILED_MESSAGE'
-const REGISTER_PASSWORD_ERRORS = 'AUTH/REGISTER_PASSWORD_ERRORS'
-const CLEAN_ERRORS = 'AUTH/CLEAN_ERRORS'
-const PASSWORD_FAILED_MESSAGE = 'AUTH/PASSWORD_FAILED_MESSAGE'
+import {
+    AuthReducer,
+    CLEAN_ERRORS, cleanErrors,
+    FAILED_REGISTER_MESSAGE,
+    LOGIN_FAILED_MESSAGE,
+    loginFailedMessageAC,
+    PASSWORD_FAILED_MESSAGE,
+    passwordFailedMessageAC,
+    REGISTER_PASSWORD_ERRORS, registerFailedMessageAC, registerPasswordErrors,
+    SET_AUTH,
+    SET_REGISTER_MESSAGE,
+    SET_TITLE, setRegisterMessage
+} from "./actions/authActions";
+import {preloaderAC} from "./actions/receptionAC";
 
 let defaultState = {
     login: null,
@@ -80,31 +84,6 @@ const authReducer = (state = defaultState, action) => {
 
     }
 }
-export const AuthReducer = (bool) => {
-    return {type: SET_AUTH, bool}
-}
-export const setRegisterMessage = (message) => {
-    return {type: SET_REGISTER_MESSAGE, payload: {message}}
-}
-export const setTittle = (tit) => {
-    return {type: SET_TITLE, payload: {tit}}
-}
-export const registerFailedMessageAC = (message) => {
-    return {type: FAILED_REGISTER_MESSAGE, message}
-}
-export const loginFailedMessageAC = (message) => {
-    return {type: LOGIN_FAILED_MESSAGE, message}
-}
-export const passwordFailedMessageAC = (message) => {
-    return {type: PASSWORD_FAILED_MESSAGE, message}
-}
-export const registerPasswordErrors = (errors) => {
-    return {type: REGISTER_PASSWORD_ERRORS, errors}
-}
-export const cleanErrors = (cleaner) => {
-    return {type: CLEAN_ERRORS, cleaner}
-}
-
 
 export const loginAuth = (login, password) =>
     async (dispatch) => {
@@ -158,7 +137,7 @@ export const registerWithGoogle = () =>
     async (dispatch) => {
         try {
             const response = Service.authGoogle('auth/google', )
-            console.log(response)
+            console.log('in reducer', response)
         } catch (error) {
             console.log(error)
         }

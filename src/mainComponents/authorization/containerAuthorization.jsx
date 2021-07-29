@@ -3,9 +3,9 @@ import {useEffect, useState} from "react";
 import Register from "./register/register";
 import style from "./containerAuth.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {registerWithGoogle, setRegisterMessage, setTittle} from "../../state/authReducer";
 import google from '../../assets/google.jpg'
-import {Link} from "react-router-dom";
+import {setRegisterMessage, setTittle} from "../../state/actions/authActions";
+import {registerWithGoogle} from "../../state/authReducer";
 
 
 const ContainerAuthorization =() => {

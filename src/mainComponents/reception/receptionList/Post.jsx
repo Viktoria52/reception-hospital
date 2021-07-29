@@ -1,12 +1,7 @@
 import React from "react";
 import style from "./receptionList.module.css"
 import {useDispatch} from "react-redux";
-import {
-    changeReceptionAC,
-    deleteReceptionAC,
-    setDeleteMode,
-    setEditMode
-} from "../../../state/receptionReducer";
+import {changeReceptionAC, deleteReceptionAC, setDeleteMode, setEditMode} from "../../../state/actions/receptionAC";
 
 
 const Post = (props) => {

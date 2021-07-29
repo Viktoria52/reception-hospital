@@ -1,6 +1,6 @@
-import {preloaderAC} from "./receptionReducer";
 import Service from "../api/ApiService";
 import jwtServise from "../api/tokenServise";
+import {preloaderAC} from "./actions/receptionAC";
 
 const GET_DOCS = 'REC/GET_DOCS'
 

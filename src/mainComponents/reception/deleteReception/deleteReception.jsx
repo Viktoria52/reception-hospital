@@ -2,8 +2,9 @@ import s from './deleteReception.module.css'
 import React, {useState} from "react";
 import {Redirect} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
-import {deleteReception, setDeleteMode} from "../../../state/receptionReducer";
+import {deleteReception} from "../../../state/receptionReducer";
 import PreloaderForDelete from "../../../assets/PreloaderForDelete";
+import {setDeleteMode} from "../../../state/actions/receptionAC";
 
 const DeleteReception = () => {
     const {idDelete,preloaderDelete} = useSelector((state) => state.receptionReducer)

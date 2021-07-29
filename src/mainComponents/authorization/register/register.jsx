@@ -1,10 +1,11 @@
-import React, {useEffect, useMemo} from "react";
+import React, {useEffect} from "react";
 import {useForm} from "react-hook-form";
 import style from "./register.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {cleanErrors, loginFailedMessageAC, registerAuth} from "../../../state/authReducer";
+import {registerAuth} from "../../../state/authReducer";
 import {v4 as uuidv4} from 'uuid'
 import ErrorsPassword from "../../reception/errorsPassword/errorsPassword";
+import {cleanErrors, loginFailedMessageAC} from "../../../state/actions/authActions";
 
 const Register = () => {
     const {register, handleSubmit, watch, formState: e} = useForm();
@@ -34,9 +35,7 @@ const Register = () => {
                             pattern: {
                                 value: /\S\S+/,
                                 message: 'недопустимы пробелы'
-                            }
-                        })
-                        }
+                            }})}
                         type={"text"}
                         required={true}
                         placeholder={'login'}
