@@ -1,7 +1,7 @@
 import jwtServise from "./tokenServise";
 
 class ApiService {
-    constructor(baseUrl = "http://localhost:3000/", baseOptions = {Authorization: localStorage.getItem('token')}) {
+    constructor(baseUrl = "http://127.0.0.1:3000/", baseOptions = {Authorization: localStorage.getItem('token')}) {
         this.baseUrl = baseUrl
         this.baseOptions = baseOptions
     }
@@ -21,7 +21,7 @@ class ApiService {
     }
 
     async register(login, password, url, headers) {
-        try{
+        try {
             const response = await fetch(this.baseUrl + url, {
                 method: 'POST',
                 body: JSON.stringify({login, password}),
@@ -30,32 +30,30 @@ class ApiService {
             const result = await response.json()
             const obj = {response, result}
             return obj
-        } catch (error){
+        } catch (error) {
             console.log(error)
         }
 
     }
 
     async authGoogle(url, headers) {
-        try{
-            const response = await fetch(this.baseUrl + url, {
+        try {
+            const response = await fetch('http://localhost:3000/auth/google', {
                 method: 'GET',
                 headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                    // "Content-type": "text/plain",
                     "Access-Control-Allow-Origin": "*",
-                    Origin: "https://localhost:3001/auth",
+                    "Content-type": "application/json; charset=UTF-8",
+                    "Accept": "*/*"
+                    //     // "Origin": "https://localhost:3001/auth",
                 }
             });
-             const result = await response.json()
-            // console.log('response in service:', response.json())
-
+            const result = await response.json()
             // const result = await response.json()
             // const obj = {response, result}
             // return obj
             console.log('resp:', response)
             return result
-        } catch (error){
+        } catch (error) {
             console.log(error)
         }
 

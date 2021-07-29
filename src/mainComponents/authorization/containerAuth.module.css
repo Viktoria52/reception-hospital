@@ -25,9 +25,9 @@
 }
 
 .googleImage {
-    padding: 20px;
-    width:90px;
-    height:90px;
+    padding: 15px;
+    /*width: 207px;*/
+    height: 86px;
     box-sizing: border-box;
 }
 

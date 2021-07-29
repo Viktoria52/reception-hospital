@@ -17,7 +17,6 @@ const Reception = () => {
     }, [reception, title])
 
     return (<div className={flagDelete&&'StyleDelete'}>
-
             {flagEdit &&
             <EditWindow/>
             }
@@ -28,7 +27,6 @@ const Reception = () => {
                     <Header/>
                 </header>
             }
-
             <header className={'receptionForm'}><ReceptionForm/></header>
             <main className={'mainListPad'}><ReceptionList/></main>
         </div>

@@ -133,10 +133,11 @@ export const registerAuth = (login, password) =>
         dispatch(preloaderAC(false))
     }
 
-export const registerWithGoogle = () =>
+export const registerWithGoogle = (url) =>
     async (dispatch) => {
+        console.log(url)
         try {
-            const response = Service.authGoogle('auth/google', )
+            const response = Service.authGoogle(url)
             console.log('in reducer', response)
         } catch (error) {
             console.log(error)
