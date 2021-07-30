@@ -3,13 +3,14 @@ import './App.css';
 import {Switch} from 'react-router-dom'
 import Reception from "./mainComponents/reception/Reception";
 import ContainerAuthorization from "./mainComponents/authorization/containerAuthorization";
-import {useHistory} from "react-router";
+import {Route, useHistory} from "react-router";
 import {useDispatch, useSelector} from "react-redux";
 import PrivateRoute from "./ReactRoute";
 import Preloader from "./assets/Preloader";
 import Header from "./mainComponents/header/header";
 import tokenServise from "./api/tokenServise";
 import {AuthReducer} from "./state/actions/authActions";
+import RedirectGoogle from "./api/redurectGoogle";
 
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
                 {!preloaderDelete && preloader &&
                     <Preloader />
                 }
+                <Route path='/todo/callback' render={() => <RedirectGoogle />} />
                 <Switch>
                     <PrivateRoute
                         auth={isAuth}
@@ -52,6 +54,7 @@ const App = () => {
                         exact path={'/auth'}
                         to={'/reception'}
                         Component={ContainerAuthorization}/>
+
                 </Switch>
             </main>
         </div>

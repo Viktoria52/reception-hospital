@@ -1,7 +1,7 @@
 import jwtServise from "./tokenServise";
 
 class ApiService {
-    constructor(baseUrl = "http://127.0.0.1:3000/", baseOptions = {Authorization: localStorage.getItem('token')}) {
+    constructor(baseUrl = "http://localhost:3000/", baseOptions = {Authorization: localStorage.getItem('token')}) {
         this.baseUrl = baseUrl
         this.baseOptions = baseOptions
     }
@@ -40,17 +40,22 @@ class ApiService {
         try {
             const response = await fetch('http://localhost:3000/auth/google', {
                 method: 'GET',
+                mode: "cors",
+                redirect: 'follow',
                 headers: {
                     "Access-Control-Allow-Origin": "*",
-                    "Content-type": "application/json; charset=UTF-8",
-                    "Accept": "*/*"
-                    //     // "Origin": "https://localhost:3001/auth",
+                    // "Content-type": "application/json; charset=UTF-8",
+                    "Accept": "*/*",
+                    // Origin: 'https://www.googleapis.com'
+                    //     "Origin": "https://localhost:3001",
+                    // referrer:'no-referrer'
                 }
             });
+            // const {token} = useQuery("token", response);
             // const result = await response.json()
             // const obj = {response, result}
             // return obj
-            return await response.json()
+            // return await response.json()
         } catch (error) {
             console.log(error)
         }
