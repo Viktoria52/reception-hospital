@@ -47,12 +47,10 @@ class ApiService {
                     //     // "Origin": "https://localhost:3001/auth",
                 }
             });
-            const result = await response.json()
             // const result = await response.json()
             // const obj = {response, result}
             // return obj
-            console.log('resp:', response)
-            return result
+            return await response.json()
         } catch (error) {
             console.log(error)
         }
