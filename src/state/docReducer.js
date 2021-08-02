@@ -1,6 +1,7 @@
 import Service from "../api/ApiService";
 import jwtServise from "../api/tokenServise";
 import {preloaderAC} from "./actions/receptionAC";
+import {useSelector} from "react-redux";
 
 const GET_DOCS = 'REC/GET_DOCS'
 
@@ -26,11 +27,16 @@ export const setDocs = (docs) => {
     }
 }
 
+
+
 export const getDocs = () =>
-    async (dispatch) => {
+async (dispatch) => {
         dispatch(preloaderAC(true))
         try {
-            const response = await Service.getDocsAPI('getDocs', {Authorization: jwtServise.getToken()})
+            const response = await Service.getDocsAPI('getDocs', {
+                "Content-type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*",
+                Authorization: jwtServise.getToken()})
             if (response.status === 200) {
                 dispatch(setDocs(response.array));
             }

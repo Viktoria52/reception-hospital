@@ -11,7 +11,7 @@ import {
     REGISTER_PASSWORD_ERRORS, registerFailedMessageAC, registerPasswordErrors,
     SET_AUTH,
     SET_REGISTER_MESSAGE,
-    SET_TITLE, setRegisterMessage
+    SET_TITLE, setRegisterMessage,
 } from "./actions/authActions";
 import {preloaderAC} from "./actions/receptionAC";
 
@@ -25,7 +25,9 @@ let defaultState = {
     messageFailedRegister: null,
     messageFailedLogin: null,
     errors: [],
-    passwordFailMessage: null
+    passwordFailMessage: null,
+    // googleIdentificator: null,
+    // typeAuth: String
 }
 
 const authReducer = (state = defaultState, action) => {
@@ -48,7 +50,6 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 title: action.payload.tit
             }
-
         case
         FAILED_REGISTER_MESSAGE:
             return {
@@ -79,6 +80,18 @@ const authReducer = (state = defaultState, action) => {
                 ...state,
                 passwordFailMessage: action.message
             }
+        // case
+        // GOOGLE_ID:
+        //     return {
+        //         ...state,
+        //         googleIdentificator: action.id
+        //     }
+        //     case
+        // TYPE_AUTH:
+        //     return {
+        //         ...state,
+        //         typeAuth: action.auth
+        //     }
         default:
             return state
 
@@ -133,15 +146,22 @@ export const registerAuth = (login, password) =>
         dispatch(preloaderAC(false))
     }
 
-export const registerWithGoogle = (url) =>
+export const registerWithGoogle = (login, googleId) => // NEW!
     async (dispatch) => {
-        console.log(url)
+        dispatch(preloaderAC(true))
         try {
-            const response = Service.authGoogle(url)
-            console.log('in reducer', response)
+            const response = await Service.registerGoogle(`GoogleData`, login, googleId, {
+                "Content-type": "application/json; charset=utf-8",
+                "Access-Control-Allow-Origin": "*"
+            })
+            if (response === 200) {
+                dispatch(AuthReducer(true))
+            }
+            // dispatch(setGoogleId(googleId))
         } catch (error) {
             console.log(error)
         }
+        dispatch(preloaderAC(false))
     }
 
 

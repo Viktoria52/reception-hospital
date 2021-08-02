@@ -6,6 +6,8 @@ export const LOGIN_FAILED_MESSAGE = 'AUTH/LOGIN_FAILED_MESSAGE'
 export const REGISTER_PASSWORD_ERRORS = 'AUTH/REGISTER_PASSWORD_ERRORS'
 export const CLEAN_ERRORS = 'AUTH/CLEAN_ERRORS'
 export const PASSWORD_FAILED_MESSAGE = 'AUTH/PASSWORD_FAILED_MESSAGE'
+// export const GOOGLE_ID = 'AUTH/GOOGLE_ID'
+// export const TYPE_AUTH = 'AUTH/TYPE_AUTH'
 
 export const AuthReducer = (bool) => {
     return {type: SET_AUTH, bool}
@@ -31,3 +33,9 @@ export const registerPasswordErrors = (errors) => {
 export const cleanErrors = (cleaner) => {
     return {type: CLEAN_ERRORS, cleaner}
 }
+// export const setGoogleId = (id) => {
+//     return {type: GOOGLE_ID, id}
+// }
+// export const setTypeAuth = (auth) => {
+//     return {type: TYPE_AUTH, auth}
+// }

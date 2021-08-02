@@ -14,6 +14,7 @@ import {
     preloaderAC, preloaderDeleteAC,
     setReception, sortToDate, sortToName, sortToNameDoc
 } from "./actions/receptionAC";
+import {useSelector} from "react-redux";
 
 let defaultState = {
     reception: [],

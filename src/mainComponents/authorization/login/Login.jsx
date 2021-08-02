@@ -2,12 +2,14 @@ import {useForm} from "react-hook-form";
 import style from "./login.module.css"
 import {useDispatch, useSelector} from "react-redux";
 import {loginAuth} from "../../../state/authReducer";
+import buttonServ from "../../../api/typeButtonService";
 
 const Login = () => {
     const {messageFailedLogin, passwordFailMessage} = useSelector((state) => state.authReducer)
     const dispatch = useDispatch()
     const onSubmit = (formData) => {
-         dispatch(loginAuth(formData.login, formData.password))
+        dispatch(loginAuth(formData.login, formData.password))
+        buttonServ.setType('basic')
     };
     const {register, handleSubmit} = useForm();
     return (<div className={style.mainLogin}>
@@ -34,11 +36,11 @@ const Login = () => {
                 </div>
                 {passwordFailMessage && <p className={style.failedLogin}>{passwordFailMessage}</p>}
                 <div className={style.containerAuth}>
-                        <input
+                    <input
                         value={'Войти'}
                         className={style.button}
                         type="submit"
-                        />
+                    />
                 </div>
             </form>
         </div>

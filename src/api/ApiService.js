@@ -1,11 +1,12 @@
 import jwtServise from "./tokenServise";
+import {useSelector} from "react-redux";
+
 
 class ApiService {
     constructor(baseUrl = "http://localhost:3000/", baseOptions = {Authorization: localStorage.getItem('token')}) {
         this.baseUrl = baseUrl
         this.baseOptions = baseOptions
     }
-
     async login(login, password, url, headers) {
         const response = await fetch(this.baseUrl + url, {
             method: 'POST',
@@ -36,31 +37,49 @@ class ApiService {
 
     }
 
-    async authGoogle(url, headers) {
+    async registerGoogle(url,login, googleId, headers) {
         try {
-            const response = await fetch('http://localhost:3000/auth/google', {
-                method: 'GET',
-                mode: "cors",
-                redirect: 'follow',
-                headers: {
-                    "Access-Control-Allow-Origin": "*",
-                    // "Content-type": "application/json; charset=UTF-8",
-                    "Accept": "*/*",
-                    // Origin: 'https://www.googleapis.com'
-                    //     "Origin": "https://localhost:3001",
-                    // referrer:'no-referrer'
-                }
-            });
-            // const {token} = useQuery("token", response);
-            // const result = await response.json()
-            // const obj = {response, result}
-            // return obj
-            // return await response.json()
+            const response = await fetch(this.baseUrl + url, {
+                method: "POST",
+                body:JSON.stringify({login, googleId}),
+                headers: headers
+            })
+            let result = await response.json()
+            if (response.status === 200) {
+                jwtServise.setToken(result)
+            }
+            let status = response.status
+           return status
         } catch (error) {
             console.log(error)
         }
-
     }
+
+    // async authGoogle(url, headers) {
+    //     try {
+    //         const response = await fetch('http://localhost:3000/auth/google', {
+    //             method: 'GET',
+    //             mode: "cors",
+    //             redirect: 'follow',
+    //             headers: {
+    //                 "Access-Control-Allow-Origin": "*",
+    //                 // "Content-type": "application/json; charset=UTF-8",
+    //                 "Accept": "*/*",
+    //                 // Origin: 'https://www.googleapis.com'
+    //                 //     "Origin": "https://localhost:3001",
+    //                 // referrer:'no-referrer'
+    //             }
+    //         });
+    //         // const {token} = useQuery("token", response);
+    //         // const result = await response.json()
+    //         // const obj = {response, result}
+    //         // return obj
+    //         // return await response.json()
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    //
+    // }
 
     async getReceptionAPI(url, headers) {
         const response = await fetch(this.baseUrl + url, {
@@ -146,7 +165,7 @@ class ApiService {
     async getDocsAPI(url, headers) {
         const response = await fetch(this.baseUrl + url, {
             method: 'GET',
-            headers: headers
+            headers: {Authorization: jwtServise.getToken()}
         });
         if (response.status === 401) {
             jwtServise.removeToken()

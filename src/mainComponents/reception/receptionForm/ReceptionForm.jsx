@@ -5,7 +5,6 @@ import {newReception} from "../../../state/receptionReducer";
 
 const ReceptionForm = () => {
     const {docs} = useSelector((state) => state.docReducer)
-    const {messageTaskCreated} = useSelector((state) => state.receptionReducer)
     const dispatch = useDispatch()
     let elementsDoctors = docs.map(p => <option key={p._id}>{p.name}</option>)
 
@@ -13,7 +12,6 @@ const ReceptionForm = () => {
         dispatch(newReception(formData.name, formData.nameDoc, formData.date, formData.complaints))
 
     };
-    console.log(messageTaskCreated)
     const {
         register,
         handleSubmit,
