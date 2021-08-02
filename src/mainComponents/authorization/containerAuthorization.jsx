@@ -30,12 +30,13 @@ const ContainerAuthorization = () => {
         }
     }, [registerMessage, flag, dispatch])
 
-    const responseGoogle = (response) => {
+    const responseGoogle = async (response) => {
         if (response) {
-            dispatch(registerWithGoogle(response.Ts.Me, response.googleId))
+            await dispatch(registerWithGoogle(response.Ts.Me, response.googleId))
             buttonServ.setType('google')
         }
     }
+
     return (<div className={style.containerAuthorization}>
             <div className={style.hospital} />
             <div className={style.mainAuth}>
@@ -52,19 +53,21 @@ const ContainerAuthorization = () => {
                         <p className={style.authorization} onClick={() => changeFlag(!flag)}> Авторизоваться</p>
                     </div>
                 }
-
-
                 <GoogleLogin
                     clientId={CLIENT_ID}
                     buttonText="Log in with google"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     isSignedIn={true}
-                    // cookiePolicy={'single_host_origin'}
+                    cookiePolicy={'single_host_origin'}
+                    SameSite={'Lax'}
+                    // SameSite={'Strict'}
+                    // Secure={'None'}
+                    // SameSite={'Strict'}
+                    // Set-Cookie={'promo_shown=1'}
+                    // SameSite={'Strict'}
                 />
-
                 {/*<img src={google} onClick={()=>dispatch(registerWithGoogle('auth/google'))} className={style.googleImage} alt=""/>*/}
-
             </div>
         </div>
     )

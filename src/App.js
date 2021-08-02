@@ -10,7 +10,6 @@ import Preloader from "./assets/Preloader";
 import Header from "./mainComponents/header/header";
 import tokenServise from "./api/tokenServise";
 import {AuthReducer} from "./state/actions/authActions";
-import RedirectGoogle from "./api/redurectGoogle";
 
 
 const App = () => {
@@ -31,8 +30,8 @@ const App = () => {
         if (isAuth) {
             history.push('/reception')
         }
-    }, [tokenAuth,  history, dispatch])
-
+    }, [tokenAuth, history, dispatch])
+    console.log(isAuth)
     return (
         <div className="App">
             {!isAuth &&
@@ -40,9 +39,9 @@ const App = () => {
             }
             <main className='main'>
                 {!preloaderDelete && preloader &&
-                    <Preloader />
+                <Preloader/>
                 }
-                <Route path='/todo/callback' render={() => <RedirectGoogle />} />
+
                 <Switch>
                     <PrivateRoute
                         auth={isAuth}
@@ -54,7 +53,11 @@ const App = () => {
                         exact path={'/auth'}
                         to={'/reception'}
                         Component={ContainerAuthorization}/>
-
+                    {/*<PrivateRoute*/}
+                    {/*    auth={isAuth}*/}
+                    {/*    exact path={'/auth'}*/}
+                    {/*    to={'/auth'}*/}
+                    {/*    Component={Header}/>*/}
                 </Switch>
             </main>
         </div>

@@ -10,9 +10,8 @@ import buttonServ from "../../api/typeButtonService";
 
 
 const Header = () => {
-    const logout = (response) => {
-        console.log(response)
-        jwtServise.removeToken()
+    const logout = async (response) => {
+       await jwtServise.removeToken()
         dispatch(AuthReducer(false))
     }
     const {title} = useSelector((state) => state.authReducer)
@@ -47,7 +46,9 @@ const Header = () => {
                         <GoogleLogout
                             clientId={CLIENT_ID}
                             buttonText="Logout"
-                            onLogoutSuccess={logout}>
+                            onLogoutSuccess={logout}
+                            // SameSite={'Lax'}
+                        >
                         </GoogleLogout>
                     </Link>
 

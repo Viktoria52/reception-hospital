@@ -16,7 +16,7 @@ const Reception = () => {
         dispatch(setTittle('Приемы'))
     }, [reception, title])
 
-    return (<div className={flagDelete&&'StyleDelete'}>
+    return (<div className={'StyleDelete'}>
             {flagEdit &&
             <EditWindow/>
             }
